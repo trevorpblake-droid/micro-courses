@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en" style="--bg: #0f2f6b; --accent: #2563eb; --accent-2: #2563eb;"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The 5-Minute Morning Mindset Reset</title>
+  <style>
+    :root {
+      --bg: #0f2f6b;
+      --panel: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --border: #e2e8f0;
+      --accent: #2563eb;
+      --accent-2: #2563eb;
+      --ok: #166534;
+      --ok-bg: #dcfce7;
+      --bad: #991b1b;
+      --bad-bg: #fee2e2;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #0a2352 0%, #0f2f6b 100%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+    .wrap { width: min(900px, calc(100% - 28px)); margin: 28px auto 0; padding-bottom: 80px; }
+    .hero { background: var(--panel); border: 1px solid #dbe7ff; border-radius: 24px; padding: 28px; box-shadow: 0 10px 30px rgba(0,0,0,.18); }
+    .eyebrow { font-size: .85rem; color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+    .squeeze-page { display: block; }
+    .squeeze-card {
+      max-width: 760px;
+      margin: 150px auto 28px;
+      background: var(--panel);
+      border: 1px solid #dbe7ff;
+      border-radius: 24px;
+      padding: 34px 28px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.16);
+      text-align: center;
+    }
+    .squeeze-card h1,
+    .squeeze-card h2,
+    .squeeze-card p,
+    .squeeze-card div {
+      text-align: center;
+    }
+    .squeeze-card h2 {
+      font-size: clamp(1.2rem, 2.6vw, 1.55rem);
+      line-height: 1.45;
+      color: var(--muted);
+      font-weight: 600;
+      margin-bottom: 0;
+    }
+    .squeeze-embed-box {
+      margin-top: 24px;
+      min-height: 160px;
+      border: 2px dashed #bfdbfe;
+      border-radius: 18px;
+      background: #f8fbff;
+      padding: 18px;
+      text-align: center;
+      font: 500 15px/1.7 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      color: #64748b;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+    }
+    .squeeze-embed-box.is-empty::before {
+      content: attr(data-placeholder);
+      display: block;
+      color: #64748b;
+      white-space: pre-wrap;
+    }
+    .intro-page { display: block; margin-top: 18px; }
+    .intro-card { background: var(--panel); border: 1px solid #dbe7ff; border-radius: 24px; padding: 28px; box-shadow: 0 10px 30px rgba(0,0,0,.16); transition: transform .2s ease; }
+    .intro-card:hover { transform: translateY(-2px); }
+    .hero + .intro-card { margin-top: 40px; }
+    .intro-message { font-size:17px; line-height:1.7; max-width:680px; margin:0 auto; text-align:center; }
+    .intro-divider { width:60px; height:2px; background:rgba(0,0,0,.08); margin:12px auto 18px; border-radius:2px; }
+    .course-time { display:flex; align-items:center; justify-content:center; gap:6px; margin:20px 0 10px; color:#111827; }
+    .course-time-icon { font-size:18px; opacity:.8; }
+    .course-time-value { font-weight:600; font-size:14px; line-height:1; color:inherit; }
+    .course-time-label { font-weight:600; font-size:14px; opacity:.7; }
+    .intro-start-wrap { text-align:center; margin-top:22px; }
+    .hero .muted { opacity:.82; }
+    .nav-btn.primary { transition: all .2s ease; }
+    .nav-btn.primary:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(0,0,0,.15); }
+    h1, h2, h3, h4 { margin: 0 0 10px; line-height: 1.2; }
+    h1 { font-size: clamp(2rem, 4vw, 2.8rem); }
+    p, li { line-height: 1.6; }
+    .muted { color: var(--muted); }
+    .progress-wrap { margin-top: 16px; position: static; background: rgba(255,255,255,.92); backdrop-filter: blur(8px); border: 1px solid #dbe7ff; border-radius: 18px; padding: 14px; box-shadow: 0 10px 24px rgba(0,0,0,.12); }
+    .progress-bar { width: 100%; height: 12px; background: #dbeafe; border-radius: 999px; overflow: hidden; }
+    .progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--accent), #38bdf8); transition: width .25s ease; }
+    .progress-text { margin-top: 8px; font-size: .92rem; color: var(--muted); font-weight: 600; }
+    .lesson { display: none; margin-top: 18px; background: var(--panel); border: 1px solid #dbe7ff; border-radius: 24px; padding: 24px; box-shadow: 0 10px 30px rgba(0,0,0,.16); min-height: 420px; }
+    .lesson.active { display: block; }
+    .step { display: inline-block; padding: 6px 10px; border-radius: 999px; background: #dbeafe; color: #1d4ed8; font-weight: 700; font-size: .85rem; margin-bottom: 10px; }
+    .lesson-counter { float:right; color: var(--muted); font-size: .9rem; font-weight: 700; }
+    .summary { color: var(--muted); }
+    .module-image-wrap { margin-top: 18px; text-align: center; }
+    .module-image { width: 100%; max-width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 18px; display: block; margin: 0 auto; border: 1px solid var(--border); }
+    .box, .quiz { margin-top: 16px; border: 1px solid var(--border); border-radius: 18px; padding: 18px; background: #fff; }
+    .quiz .options { display: grid; gap: 10px; margin-top: 12px; }
+    .option-btn, .nav-btn, .cta-btn {
+      appearance: none; border: 0; border-radius: 12px; padding: 12px 16px; font: inherit; font-weight: 700; cursor: pointer; transition: transform .15s ease, opacity .15s ease, box-shadow .15s ease;
+    }
+    .option-btn { background: #eff6ff; color: #1e3a8a; text-align: left; border: 1px solid #bfdbfe; }
+    .nav-row { display: flex; justify-content: space-between; gap: 12px; margin-top: 22px; }
+    .nav-btn { background: transparent; color: #0f172a; border: 2px solid #0f2f6b; }
+    .nav-btn.primary, .cta-btn { background: linear-gradient(180deg, var(--accent), var(--accent-2)); color: white; border: 0; box-shadow: 0 10px 20px rgba(37,99,235,.22); }
+    .nav-btn:hover, .cta-btn:hover, .option-btn:hover { transform: translateY(-1px); }
+    .nav-btn:disabled { opacity: .5; cursor: not-allowed; }
+    .feedback { margin-top: 12px; border-radius: 12px; padding: 10px 12px; background: #f8fafc; border: 1px solid var(--border); }
+    .feedback.good { background: var(--ok-bg); color: var(--ok); border-color: #86efac; }
+    .feedback.bad { background: var(--bad-bg); color: var(--bad); border-color: #fca5a5; }
+    .complete { display: none; margin-top: 18px; background: var(--panel); border: 1px solid #dbe7ff; border-radius: 24px; padding: 28px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,.16); }
+    .small { font-size: .92rem; }
+    @media (max-width: 640px) {
+      .nav-row { flex-direction: column; }
+      .nav-btn { width: 100%; }
+    }
+  
+.cta-button a, .cta-button button { text-decoration:none !important; }
+</style>
+
+</head>
+<body data-course-file="2k1d393v4v.html" data-has-squeeze="0" spellcheck="true" style="background: linear-gradient(rgb(10, 35, 82) 0%, rgb(15, 47, 107) 100%);">
+  <div class="wrap">
+    
+    
+
+    <section class="intro-page" id="introPage" style="display: none;">
+      <section class="hero">
+        <div class="eyebrow">Interactive mini-course</div>
+        <h1>The 5-Minute Morning Mindset Reset</h1>
+        <p class="muted">Start Every Day with Clarity, Calm, and Intention</p>
+      </section>
+
+      <section class="intro-card" id="introCard">
+        <div class="intro-divider"></div>
+        <p class="intro-message">Welcome! In this course, you'll build a clear understanding of The 5-Minute Morning Mindset Reset, and by the end you'll be in a strong position to apply what you learn with confidence.</p>
+        <div class="course-time">
+          <span class="course-time-icon">◷</span>
+          <span class="course-time-value">20</span>
+          <span class="course-time-label">minutes</span>
+        </div>
+        <div class="intro-start-wrap">
+          <button class="nav-btn primary" onclick="beginCourse()">Let's Get Started - Click Here To Begin</button>
+        </div>
+      </section>
+    </section>
+
+    
+    <div class="progress-wrap" id="progressWrap" style="display: block;">
+      <div class="progress-bar"><div class="progress-fill" id="progressFill" style="background: rgb(37, 99, 235); width: 100%;"></div></div>
+      <div class="progress-text" id="progressText">Complete</div>
+    </div>
+
+    
+        <section class="lesson" data-index="0">
+          <div class="lesson-top">
+            <span class="step">Module 1</span>
+            <span class="lesson-counter">1 / 5</span>
+            <h2>Why Your Morning Mindset Shapes Your Entire Day</h2>
+            <p class="summary">Discover how your first thoughts and reactions in the morning affect your mood, decisions, and energy for the whole day.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/why-your-morning-mindset-shapes-your-entire-day.webp" data-export-src="images/why-your-morning-mindset-shapes-your-entire-day.webp" alt="Why Your Morning Mindset Shapes Your Entire Day" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Morning mindset sets your tone for the day</li><li>Reactiveness keeps you in stress mode</li><li>A proactive start helps you lead your day</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 1</h3>
+            <p>How you greet the morning often determines whether you move through your day with ease or with tension. The moment you wake up, your mind switches from sleep mode and starts forming expectations about the day ahead. Many people immediately grab their phones, check notifications, or dive into worries, which sets up a reactive cycle—you spend your whole day responding to things around you instead of creating your own path.</p><p>A proactive morning mindset is about shifting from reaction to intention. Instead of letting outside events decide your state of mind, you start by deciding whom you want to be and how you want to approach challenges. For example, rather than dreading your to-do list as soon as you open your eyes, you might choose to pause, breathe, and decide on a feeling or value you want to lead with (like calm or focus).</p><p>A common mistake is believing that mornings are always busy or stressful, and there’s simply no choice in the matter. In reality, even two minutes of intentional thinking when you wake up can completely change your day.</p><p>To get the most from this course, remember: tomorrow morning is your next chance to try a new approach.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>Why is it important to focus on your mindset first thing in the morning?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">It determines how your whole day unfolds.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">It makes you look forward to breakfast.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">It guarantees you'll finish all your tasks.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">It helps you fall back asleep faster.</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Your morning mood influences your whole day.</li><li>Reacting first thing puts you on the defensive.</li><li>You can change your day by choosing your mindset right when you wake.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()" disabled="">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Next Module</button>
+          </div>
+        </section>
+        <section class="lesson" data-index="1">
+          <div class="lesson-top">
+            <span class="step">Module 2</span>
+            <span class="lesson-counter">2 / 5</span>
+            <h2>Recognizing &amp; Breaking the Morning Reactivity Cycle</h2>
+            <p class="summary">Learn to spot your automatic morning habits and interrupt the cycle of instant stress and distraction.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/recognizing-breaking-the-morning-reactivity-cycle.webp" data-export-src="images/recognizing-breaking-the-morning-reactivity-cycle.webp" alt="Recognizing &amp; Breaking the Morning Reactivity Cycle" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Common reactive habits: phone, email, worry</li><li>Noticing automatic reactions builds awareness</li><li>Small interruptions can create space for change</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 2</h3>
+            <p>Most of us move through the first moments of our morning on autopilot. Before we’re even fully awake, we might reach for our phones, check messages, or start replaying yesterday’s problems in our minds. This is how the reactivity cycle begins.</p><p>To break this cycle, the first step is simple awareness. Notice tomorrow: what is the first thing you do without thinking? Do you open your inbox before even getting out of bed? Does your mind race to your worries? Recognizing this pattern gives you a moment of choice.</p><p>A practical way to interrupt the cycle is to pause for just a single breath before you do anything else. For example, if you usually reach for your phone, notice the urge, and instead take one slow breath and simply become aware of your surroundings. This puts you back in control.</p><p>A common misconception is that breaking habits must be difficult or time-consuming. In reality, just one mindful pause can disrupt a well-worn pattern and allow you to make a new choice.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>What is the most effective first step in changing a reactive morning habit?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Forcing yourself to skip breakfast</button>
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">Becoming aware of what you do automatically</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Writing your to-do list while still in bed</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Switching your alarm to a louder tone</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Most mornings begin with reactive habits.</li><li>Awareness is the first step to changing your start.</li><li>A single pause gives you space for new choices.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Next Module</button>
+          </div>
+        </section>
+        <section class="lesson" data-index="2">
+          <div class="lesson-top">
+            <span class="step">Module 3</span>
+            <span class="lesson-counter">3 / 5</span>
+            <h2>The 5-Minute Mindset Reset: Your Step-by-Step Routine</h2>
+            <p class="summary">Master a simple five-minute process that guides you from scattered thoughts to calm, proactive focus each morning.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/the-5-minute-mindset-reset-your-step-by-step-routine.webp" data-export-src="images/the-5-minute-mindset-reset-your-step-by-step-routine.webp" alt="The 5-Minute Mindset Reset: Your Step-by-Step Routine" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Start with one deep, grounding breath</li><li>Visualize your ideal emotional state</li><li>Set a single intention for the day</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 3</h3>
+            <p>The 5-Minute Mindset Reset is all about simplicity and effectiveness. Here’s how you shape your mindset, even before your feet hit the floor:</p><p>1. Take a deep breath with your eyes still closed. Feel the air fill your lungs and help you arrive in the present moment.</p><p>2. Visualize, just for 30 seconds, how you’d like to feel today. Calm, confident, open, focused—choose just one emotion. Picture yourself moving through your morning and afternoon with this feeling in mind.</p><p>3. Set one clear intention. It might be as simple as “I will respond thoughtfully to challenges” or “I will find moments of calm.” Speak it to yourself.</p><p>4. Move into your day gently, carrying that feeling and intention forward.</p><p>Many people worry they need a complicated routine to see results, but this short sequence is enough to create a real shift. Don’t overthink it—the key is consistency and sincerity, not perfection.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>Which step is NOT part of the 5-Minute Mindset Reset routine?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Taking a grounding breath</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Visualizing a chosen emotional state</button>
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">Listing every task for your day</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Setting a clear intention</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>A grounding breath sets your starting point.</li><li>Visualizing feelings creates positive momentum.</li><li>A single intention guides your actions all day.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Next Module</button>
+          </div>
+        </section>
+        <section class="lesson" data-index="3">
+          <div class="lesson-top">
+            <span class="step">Module 4</span>
+            <span class="lesson-counter">4 / 5</span>
+            <h2>Sticking With the Reset: Overcoming Common Obstacles</h2>
+            <p class="summary">Find practical solutions for sticking with your new morning routine, even on busy, tired, or unpredictable days.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/sticking-with-the-reset-overcoming-common-obstacles.webp" data-export-src="images/sticking-with-the-reset-overcoming-common-obstacles.webp" alt="Sticking With the Reset: Overcoming Common Obstacles" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Identify triggers that threaten your new habit</li><li>Have a simple backup version for rushed days</li><li>Celebrate small wins to reinforce consistency</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 4</h3>
+            <p>No habit sticks perfectly from day one. The most common roadblocks to a morning reset are feeling too busy, waking up late, or simply forgetting. Instead of aiming for perfection, expect and plan for setbacks.</p><p>Notice what tends to knock you off track. Maybe it’s a loud alarm, a crying child, or anxiety over your to-do list. Anticipate these and build in a quick backup: if you can’t do the full five-minute reset, close your eyes and repeat your intention word for just ten seconds. Even this micro-version keeps the habit alive.</p><p>Another obstacle is self-judgment after you miss a day. This is normal. Celebrate each time you remember the reset—even if it’s only for a moment. These small wins build lasting change.</p><p>People often think they need perfect conditions to form new habits. In reality, the key is coming back to the routine as often as you can. Flexibility and self-compassion matter more than rigid discipline.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>If you miss your full reset some mornings, what's the best approach?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Give up the routine until you have more time</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Blame yourself and try to be stricter</button>
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">Do a quick ten-second version and celebrate the effort</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Skip mornings entirely and practice the reset at night</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Anticipate obstacles and have a backup plan.</li><li>Even a tiny reset counts towards consistency.</li><li>Celebrating effort keeps you motivated.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Next Module</button>
+          </div>
+        </section>
+        <section class="lesson" data-index="4">
+          <div class="lesson-top">
+            <span class="step">Module 5</span>
+            <span class="lesson-counter">5 / 5</span>
+            <h2>From Routine to Ritual: Making Your Reset Last</h2>
+            <p class="summary">Learn how to make your new morning mindset reset a meaningful and long-lasting part of your life.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/from-routine-to-ritual-making-your-reset-last.webp" data-export-src="images/from-routine-to-ritual-making-your-reset-last.webp" alt="From Routine to Ritual: Making Your Reset Last" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Link your reset to something you do every morning</li><li>Notice and feel the benefits as your motivation</li><li>Reflect weekly on how your days are changing</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 5</h3>
+            <p>Turning a simple morning routine into a lasting ritual comes down to tying it into your life in meaningful ways. One highly effective strategy is to link your mindset reset to something you already do every morning, like turning off your alarm or sitting up in bed. This makes the habit automatic and harder to overlook.</p><p>As you practice, consciously notice the small but real changes in your days: maybe you remain calmer in the face of stress, or find it easier to focus. Let these positive outcomes motivate you to continue.</p><p>Set aside a minute each week to check in with yourself on how you’re feeling and handling challenges. Use a journal or voice note to reflect on any differences you’ve noticed since starting your reset. These reflections reinforce the benefits and deepen your commitment.</p><p>A common misconception is that rituals just “stick” without attention. In truth, regular reflection and linking habits to existing patterns is what turns your reset into a reliable, uplifting part of your morning.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>What is one effective way to make your morning mindset reset stick long-term?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Change the routine daily</button>
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">Link it to an already established morning habit</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Only do it on weekends</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Sign up for a complicated coaching program first</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Linking resets to regular actions makes them stick.</li><li>Noticing positive changes boosts motivation.</li><li>Weekly reflection helps deepen the ritual.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Now Click Here To Complete This Course</button>
+          </div>
+        </section>
+
+    <section class="complete" id="completeCard" style="display: block;">
+      <h2>Course Complete</h2>
+      <p>Congratulations! You now have a simple, effective morning routine to shift from reactivity to clarity in just five minutes each day.</p>
+      <p class="muted small">Use the button below to take the next step, or start over and run through the course again.</p>
+      <a class="cta-btn" style="text-decoration:none; margin-top: 18px; display:inline-block;" href="https://totalmindshift.com/free-trial/" target="_blank" rel="noopener noreferrer">Access Daily Audios Trial - no credit card required</a>
+      <div class="nav-row" style="justify-content:center; margin-top: 18px;">
+        <button class="nav-btn" onclick="restartCourse()">Start Over</button>
+      </div>
+      
+      <hr style="margin: 24px 0; border:0; border-top:1px solid #d1d5db;">
+      <p class="muted small" style="text-align:center; margin-bottom: 12px;">Download the information in this course to keep and refer back to</p>
+      <div style="text-align:center;">
+        <a class="cta-btn pdf-download-btn" style="text-decoration:none; display:inline-block;" href="course.pdf" target="_blank" rel="noopener noreferrer">Download a PDF of This Course Here</a>
+      </div>
+    </section>
+  </div>
+
+  <script id="courseRuntimeScript">
+    let currentLesson = 0;
+    const lessons = [...document.querySelectorAll('.lesson')];
+    const progressFill = document.getElementById('progressFill');
+    const progressText = document.getElementById('progressText');
+    const progressWrap = document.getElementById('progressWrap');
+    const completeCard = document.getElementById('completeCard');
+    const introPage = document.getElementById('introPage');
+    const squeezePage = document.getElementById('squeezePage');
+
+    function beginCourse() {
+      if (introPage) introPage.style.display = 'none';
+      if (squeezePage) squeezePage.style.display = 'none';
+      if (progressWrap) progressWrap.style.display = 'block';
+      completeCard.style.display = 'none';
+      renderLesson();
+    }
+
+    function renderLesson() {
+      lessons.forEach((lesson, index) => lesson.classList.toggle('active', index === currentLesson));
+      if (progressFill && progressText) {
+        const pct = ((currentLesson + 1) / lessons.length) * 100;
+        progressFill.style.width = pct + '%';
+        progressText.textContent = 'Module ' + (currentLesson + 1) + ' of ' + lessons.length;
+      }
+      completeCard.style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function nextLesson() {
+      if (currentLesson < lessons.length - 1) {
+        currentLesson += 1;
+        renderLesson();
+      } else {
+        lessons.forEach(l => l.classList.remove('active'));
+        if (progressFill && progressText) {
+          progressFill.style.width = '100%';
+          progressText.textContent = 'Complete';
+        }
+        completeCard.style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function prevLesson() {
+      if (currentLesson > 0) {
+        currentLesson -= 1;
+        renderLesson();
+      }
+    }
+
+    function resetQuiz(btn) {
+      const wrap = btn.closest('.quiz');
+      const feedback = wrap.querySelector('.feedback');
+      wrap.querySelectorAll('.option-btn').forEach(b => b.disabled = false);
+      feedback.textContent = 'Choose an answer.';
+      feedback.className = 'feedback small';
+      const retryBtn = wrap.querySelector('.retry-btn');
+      if (retryBtn) retryBtn.remove();
+    }
+
+    function checkAnswer(btn) {
+      const wrap = btn.closest('.quiz');
+      const feedback = wrap.querySelector('.feedback');
+      wrap.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+      const oldRetry = wrap.querySelector('.retry-btn');
+      if (oldRetry) oldRetry.remove();
+      if (btn.dataset.correct === '1') {
+        feedback.textContent = 'Correct.';
+        feedback.className = 'feedback good';
+      } else {
+        feedback.textContent = 'Not quite. Review the lesson and try again.';
+        feedback.className = 'feedback bad';
+        const retryBtn = document.createElement('button');
+        retryBtn.className = 'nav-btn retry-btn';
+        retryBtn.style.marginTop = '12px';
+        retryBtn.textContent = 'Start quiz again';
+        retryBtn.onclick = function() { resetQuiz(retryBtn); };
+        feedback.insertAdjacentElement('afterend', retryBtn);
+      }
+    }
+
+    function restartCourse() {
+      currentLesson = 0;
+      document.querySelectorAll('.quiz').forEach(wrap => {
+        const feedback = wrap.querySelector('.feedback');
+        wrap.querySelectorAll('.option-btn').forEach(b => b.disabled = false);
+        if (feedback) {
+          feedback.textContent = 'Choose an answer.';
+          feedback.className = 'feedback small';
+        }
+        const retryBtn = wrap.querySelector('.retry-btn');
+        if (retryBtn) retryBtn.remove();
+      });
+      lessons.forEach(l => l.classList.remove('active'));
+      if (introPage) introPage.style.display = 'block';
+      if (squeezePage) squeezePage.style.display = 'block';
+      if (progressWrap) progressWrap.style.display = 'none';
+      completeCard.style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    restartCourse();
+  </script>
+
+</body></html>

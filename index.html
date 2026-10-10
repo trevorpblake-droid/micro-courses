@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" style="--bg: #0f2f6b; --accent: #2563eb; --accent-2: #2563eb;"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The 5-Minute Morning Mindset Reset</title>
+  <style>
+    :root {
+      --bg: #0f2f6b;
+      --panel: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --border: #e2e8f0;
+      --accent: #2563eb;
+      --accent-2: #2563eb;
+      --ok: #166534;
+      --ok-bg: #dcfce7;
+      --bad: #991b1b;
+      --bad-bg: #fee2e2;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #0a2352 0%, #0f2f6b 100%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+    .wrap { width: min(900px, calc(100% - 28px)); margin: 28px auto 0; padding-bottom: 80px; }
+    .hero { background: var(--panel); border: 1px solid #dbe7ff; border-radius: 24px; padding: 28px; box-shadow: 0 10px 30px rgba(0,0,0,.18); }
+    .eyebrow { font-size: .85rem; color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+    .squeeze-page { display: block; }
+    .squeeze-card {
+      max-width: 760px;
+      margin: 150px auto 28px;
+      background: var(--panel);
+      border: 1px solid #dbe7ff;
+      border-radius: 24px;
+      padding: 34px 28px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.16);
+      text-align: center;
+    }
+    .squeeze-card h1,
+    .squeeze-card h2,
+    .squeeze-card p,
+    .squeeze-card div {
+      text-align: center;
+    }
+    .squeeze-card h2 {
+      font-size: clamp(1.2rem, 2.6vw, 1.55rem);
+      line-height: 1.45;
+      color: var(--muted);
+      font-weight: 600;
+      margin-bottom: 0;
+    }
+    .squeeze-embed-box {
+      margin-top: 24px;
+      min-height: 160px;
+      border: 2px dashed #bfdbfe;
+      border-radius: 18px;
+      background: #f8fbff;
+      padding: 18px;
+      text-align: center;
+      font: 500 15px/1.7 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      color: #64748b;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+    }
+    .squeeze-embed-box.is-empty::before {
+      content: attr(data-placeholder);
+      display: block;
+      color: #64748b;
+      white-space: pre-wrap;
+    }
+    .intro-page { display: block; margin-top: 18px; }
+    .intro-card { background: var(--panel); border: 1px solid #dbe7ff; border-radius: 24px; padding: 28px; box-shadow: 0 10px 30px rgba(0,0,0,.16); transition: transform .2s ease; }
+    .intro-card:hover { transform: translateY(-2px); }
+    .hero + .intro-card { margin-top: 40px; }
+    .intro-message { font-size:17px; line-height:1.7; max-width:680px; margin:0 auto; text-align:center; }
+    .intro-divider { width:60px; height:2px; background:rgba(0,0,0,.08); margin:12px auto 18px; border-radius:2px; }
+    .course-time { display:flex; align-items:center; justify-content:center; gap:6px; margin:20px 0 10px; color:#111827; }
+    .course-time-icon { font-size:18px; opacity:.8; }
+    .course-time-value { font-weight:600; font-size:14px; line-height:1; color:inherit; }
+    .course-time-label { font-weight:600; font-size:14px; opacity:.7; }
+    .intro-start-wrap { text-align:center; margin-top:22px; }
+    .hero .muted { opacity:.82; }
+    .nav-btn.primary { transition: all .2s ease; }
+    .nav-btn.primary:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(0,0,0,.15); }
+    h1, h2, h3, h4 { margin: 0 0 10px; line-height: 1.2; }
+    h1 { font-size: clamp(2rem, 4vw, 2.8rem); }
+    p, li { line-height: 1.6; }
+    .muted { color: var(--muted); }
+    .progress-wrap { margin-top: 16px; position: static; background: rgba(255,255,255,.92); backdrop-filter: blur(8px); border: 1px solid #dbe7ff; border-radius: 18px; padding: 14px; box-shadow: 0 10px 24px rgba(0,0,0,.12); }
+    .progress-bar { width: 100%; height: 12px; background: #dbeafe; border-radius: 999px; overflow: hidden; }
+    .progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--accent), #38bdf8); transition: width .25s ease; }
+    .progress-text { margin-top: 8px; font-size: .92rem; color: var(--muted); font-weight: 600; }
+    .lesson { display: none; margin-top: 18px; background: var(--panel); border: 1px solid #dbe7ff; border-radius: 24px; padding: 24px; box-shadow: 0 10px 30px rgba(0,0,0,.16); min-height: 420px; }
+    .lesson.active { display: block; }
+    .step { display: inline-block; padding: 6px 10px; border-radius: 999px; background: #dbeafe; color: #1d4ed8; font-weight: 700; font-size: .85rem; margin-bottom: 10px; }
+    .lesson-counter { float:right; color: var(--muted); font-size: .9rem; font-weight: 700; }
+    .summary { color: var(--muted); }
+    .module-image-wrap { margin-top: 18px; text-align: center; }
+    .module-image { width: 100%; max-width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 18px; display: block; margin: 0 auto; border: 1px solid var(--border); }
+    .box, .quiz { margin-top: 16px; border: 1px solid var(--border); border-radius: 18px; padding: 18px; background: #fff; }
+    .quiz .options { display: grid; gap: 10px; margin-top: 12px; }
+    .option-btn, .nav-btn, .cta-btn {
+      appearance: none; border: 0; border-radius: 12px; padding: 12px 16px; font: inherit; font-weight: 700; cursor: pointer; transition: transform .15s ease, opacity .15s ease, box-shadow .15s ease;
+    }
+    .option-btn { background: #eff6ff; color: #1e3a8a; text-align: left; border: 1px solid #bfdbfe; }
+    .nav-row { display: flex; justify-content: space-between; gap: 12px; margin-top: 22px; }
+    .nav-btn { background: transparent; color: #0f172a; border: 2px solid #0f2f6b; }
+    .nav-btn.primary, .cta-btn { background: linear-gradient(180deg, var(--accent), var(--accent-2)); color: white; border: 0; box-shadow: 0 10px 20px rgba(37,99,235,.22); }
+    .nav-btn:hover, .cta-btn:hover, .option-btn:hover { transform: translateY(-1px); }
+    .nav-btn:disabled { opacity: .5; cursor: not-allowed; }
+    .feedback { margin-top: 12px; border-radius: 12px; padding: 10px 12px; background: #f8fafc; border: 1px solid var(--border); }
+    .feedback.good { background: var(--ok-bg); color: var(--ok); border-color: #86efac; }
+    .feedback.bad { background: var(--bad-bg); color: var(--bad); border-color: #fca5a5; }
+    .complete { display: none; margin-top: 18px; background: var(--panel); border: 1px solid #dbe7ff; border-radius: 24px; padding: 28px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,.16); }
+    .small { font-size: .92rem; }
+    @media (max-width: 640px) {
+      .nav-row { flex-direction: column; }
+      .nav-btn { width: 100%; }
+    }
+  
+.cta-button a, .cta-button button { text-decoration:none !important; }
+</style>
+
+</head>
+<body data-course-file="2k1d393v4v.html" data-has-squeeze="1" spellcheck="true" style="background: linear-gradient(rgb(10, 35, 82) 0%, rgb(15, 47, 107) 100%);">
+  <div class="wrap">
+    
+    <section class="squeeze-page" id="squeezePage" style="display: block;">
+      <section class="squeeze-card">
+        <h1>Transform Your Day Before Your Feet Hit the Floor</h1>
+        <h2>Learn a simple five-minute morning mindset routine to move from chaos to clarity, set your intention, and feel confident—every single day. Get this free course to start your mornings with purpose, not panic.</h2>
+        <div class="squeeze-embed-box is-empty" data-placeholder="Click your cursor in this box then click the Embed Code button above, then paste your opt-in form code in the field provided. Your form will be visible when you have uploaded the course"></div>
+        <div style="margin-top:18px;text-align:center;font-size:12px;opacity:.75;">
+          <a href="privacy.html" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none;">Privacy &amp; Disclaimer</a>
+        </div>
+      </section>
+    </section>
+
+    
+
+    
+    
+
+    
+        
+        
+        
+        
+        
+
+    
+  </div>
+
+  
+
+</body></html>
