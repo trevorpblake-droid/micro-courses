@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en" style="--bg: #c12e72; --accent: #8f1a4d; --accent-2: #8f1a4d;"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Releasing Resistance: Letting Go to Let In</title>
+  <style>
+    :root {
+      --bg: #c12e72;
+      --panel: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --border: #e2e8f0;
+      --accent: #8f1a4d;
+      --accent-2: #8f1a4d;
+      --ok: #166534;
+      --ok-bg: #dcfce7;
+      --bad: #991b1b;
+      --bad-bg: #fee2e2;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #0a2352 0%, #c12e72 100%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+    .wrap { width: min(900px, calc(100% - 28px)); margin: 28px auto 0; padding-bottom: 80px; }
+    .hero { background: var(--panel); border: 1px solid #dbe7ff; border-radius: 24px; padding: 28px; box-shadow: 0 10px 30px rgba(0,0,0,.18); }
+    .eyebrow { font-size: .85rem; color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+    .squeeze-page { display: block; }
+    .squeeze-card {
+      max-width: 760px;
+      margin: 150px auto 28px;
+      background: var(--panel);
+      border: 1px solid #dbe7ff;
+      border-radius: 24px;
+      padding: 34px 28px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.16);
+      text-align: center;
+    }
+    .squeeze-card h1,
+    .squeeze-card h2,
+    .squeeze-card p,
+    .squeeze-card div {
+      text-align: center;
+    }
+    .squeeze-card h2 {
+      font-size: clamp(1.2rem, 2.6vw, 1.55rem);
+      line-height: 1.45;
+      color: var(--muted);
+      font-weight: 600;
+      margin-bottom: 0;
+    }
+    .squeeze-embed-box {
+      margin-top: 24px;
+      min-height: 160px;
+      border: 2px dashed #bfdbfe;
+      border-radius: 18px;
+      background: #f8fbff;
+      padding: 18px;
+      text-align: center;
+      font: 500 15px/1.7 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      color: #64748b;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+    }
+    .squeeze-embed-box.is-empty::before {
+      content: attr(data-placeholder);
+      display: block;
+      color: #64748b;
+      white-space: pre-wrap;
+    }
+    .intro-page { display: block; margin-top: 18px; }
+    .intro-card { background: var(--panel); border: 1px solid #dbe7ff; border-radius: 24px; padding: 28px; box-shadow: 0 10px 30px rgba(0,0,0,.16); transition: transform .2s ease; }
+    .intro-card:hover { transform: translateY(-2px); }
+    .hero + .intro-card { margin-top: 40px; }
+    .intro-message { font-size:17px; line-height:1.7; max-width:680px; margin:0 auto; text-align:center; }
+    .intro-divider { width:60px; height:2px; background:rgba(0,0,0,.08); margin:12px auto 18px; border-radius:2px; }
+    .course-time { display:flex; align-items:center; justify-content:center; gap:6px; margin:20px 0 10px; color:#111827; }
+    .course-time-icon { font-size:18px; opacity:.8; }
+    .course-time-value { font-weight:600; font-size:14px; line-height:1; color:inherit; }
+    .course-time-label { font-weight:600; font-size:14px; opacity:.7; }
+    .intro-start-wrap { text-align:center; margin-top:22px; }
+    .hero .muted { opacity:.82; }
+    .nav-btn.primary { transition: all .2s ease; }
+    .nav-btn.primary:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(0,0,0,.15); }
+    h1, h2, h3, h4 { margin: 0 0 10px; line-height: 1.2; }
+    h1 { font-size: clamp(2rem, 4vw, 2.8rem); }
+    p, li { line-height: 1.6; }
+    .muted { color: var(--muted); }
+    .progress-wrap { margin-top: 16px; position: static; background: rgba(255,255,255,.92); backdrop-filter: blur(8px); border: 1px solid #dbe7ff; border-radius: 18px; padding: 14px; box-shadow: 0 10px 24px rgba(0,0,0,.12); }
+    .progress-bar { width: 100%; height: 12px; background: #dbeafe; border-radius: 999px; overflow: hidden; }
+    .progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--accent), #38bdf8); transition: width .25s ease; }
+    .progress-text { margin-top: 8px; font-size: .92rem; color: var(--muted); font-weight: 600; }
+    .lesson { display: none; margin-top: 18px; background: var(--panel); border: 1px solid #dbe7ff; border-radius: 24px; padding: 24px; box-shadow: 0 10px 30px rgba(0,0,0,.16); min-height: 420px; }
+    .lesson.active { display: block; }
+    .step { display: inline-block; padding: 6px 10px; border-radius: 999px; background: #dbeafe; color: #1d4ed8; font-weight: 700; font-size: .85rem; margin-bottom: 10px; }
+    .lesson-counter { float:right; color: var(--muted); font-size: .9rem; font-weight: 700; }
+    .summary { color: var(--muted); }
+    .module-image-wrap { margin-top: 18px; text-align: center; }
+    .module-image { width: 100%; max-width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 18px; display: block; margin: 0 auto; border: 1px solid var(--border); }
+    .box, .quiz { margin-top: 16px; border: 1px solid var(--border); border-radius: 18px; padding: 18px; background: #fff; }
+    .quiz .options { display: grid; gap: 10px; margin-top: 12px; }
+    .option-btn, .nav-btn, .cta-btn {
+      appearance: none; border: 0; border-radius: 12px; padding: 12px 16px; font: inherit; font-weight: 700; cursor: pointer; transition: transform .15s ease, opacity .15s ease, box-shadow .15s ease;
+    }
+    .option-btn { background: #eff6ff; color: #1e3a8a; text-align: left; border: 1px solid #bfdbfe; }
+    .nav-row { display: flex; justify-content: space-between; gap: 12px; margin-top: 22px; }
+    .nav-btn { background: transparent; color: #0f172a; border: 2px solid #0f2f6b; }
+    .nav-btn.primary, .cta-btn { background: linear-gradient(180deg, var(--accent), var(--accent-2)); color: white; border: 0; box-shadow: 0 10px 20px rgba(37,99,235,.22); }
+    .nav-btn:hover, .cta-btn:hover, .option-btn:hover { transform: translateY(-1px); }
+    .nav-btn:disabled { opacity: .5; cursor: not-allowed; }
+    .feedback { margin-top: 12px; border-radius: 12px; padding: 10px 12px; background: #f8fafc; border: 1px solid var(--border); }
+    .feedback.good { background: var(--ok-bg); color: var(--ok); border-color: #86efac; }
+    .feedback.bad { background: var(--bad-bg); color: var(--bad); border-color: #fca5a5; }
+    .complete { display: none; margin-top: 18px; background: var(--panel); border: 1px solid #dbe7ff; border-radius: 24px; padding: 28px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,.16); }
+    .small { font-size: .92rem; }
+    @media (max-width: 640px) {
+      .nav-row { flex-direction: column; }
+      .nav-btn { width: 100%; }
+    }
+  
+.cta-button a, .cta-button button { text-decoration:none !important; }
+</style>
+
+</head>
+<body data-course-file="0s6e4q2y3a.html" data-has-squeeze="0" spellcheck="true" style="background: linear-gradient(rgb(10, 35, 82) 0%, rgb(193, 46, 114) 100%);">
+  <div class="wrap">
+    
+    
+
+    <section class="intro-page" id="introPage" style="display: block;">
+      <section class="hero">
+        <div class="eyebrow">Interactive mini-course</div>
+        <h1>Releasing Resistance: Letting Go to Let In</h1>
+        <p class="muted">How to Overcome Internal Blocks and Manifest With Ease</p>
+      </section>
+
+      <section class="intro-card" id="introCard">
+        <div class="intro-divider"></div>
+        <p class="intro-message">Welcome! In this course, you'll build a clear understanding of Releasing Resistance: Letting Go to Let In, and by the end you'll be in a strong position to apply what you learn with confidence.</p>
+        <div class="course-time">
+          <span class="course-time-icon">◷</span>
+          <span class="course-time-value">20</span>
+          <span class="course-time-label">minutes</span>
+        </div>
+        <div class="intro-start-wrap">
+          <button class="nav-btn primary" onclick="beginCourse()">Let's Get Started - Click Here To Begin</button>
+        </div>
+      </section>
+    </section>
+
+    
+    <div class="progress-wrap" id="progressWrap" style="display:none;">
+      <div class="progress-bar"><div class="progress-fill" id="progressFill" style="background: rgb(143, 26, 77);"></div></div>
+      <div class="progress-text" id="progressText">Module 1 of 5</div>
+    </div>
+
+    
+        <section class="lesson" data-index="0">
+          <div class="lesson-top">
+            <span class="step">Module 1</span>
+            <span class="lesson-counter">1 / 5</span>
+            <h2>Recognizing Your Hidden Barriers to Manifestation</h2>
+            <p class="summary">Learn how to spot the subtle internal blocks—like fear, control, and skepticism—that keep you stuck.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/recognizing-your-hidden-barriers-to-manifestation.webp" data-export-src="images/recognizing-your-hidden-barriers-to-manifestation.webp" alt="Recognizing Your Hidden Barriers to Manifestation" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Internal resistance often operates below conscious awareness</li><li>Common blocks include fear of disappointment, need for control, and deep-seated skepticism</li><li>Identifying your own pattern is the first step to letting go</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 1</h3>
+            <p>Letting the universe work in your favor starts with a clear-eyed look at where you might actually be blocking it. Many of us unconsciously put up barriers like fear (of failing or succeeding), an excessive need to control outcomes, or deep skepticism that good things can happen for us. These barriers are rarely obvious—they disguise themselves as 'being practical,' ‘thinking things through,’ or needing to know every step in advance.</p><p>For example, you might find yourself unable to commit to a new project unless you’ve mapped every detail, or you doubt whether anyone ever really gets what they want from life. These are signals of underlying resistance, not realism. A common mistake is believing you’re simply being responsible or diligent, but in truth, resistance can masquerade as these traits.</p><p>Next, bring awareness to your patterns—observe your thoughts and reactions when you consider a deeply desired outcome. Do you brace for disappointment? Do you obsessively refresh your inbox after applying for a dream job? Notice where your energy tightens: that’s likely resistance at work. Awareness is the foundation for every change that follows.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>Which is an example of hidden resistance when trying to manifest a goal?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Setting a clear intention and patiently moving forward</button>
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">Obsessively planning every tiny step and fearing any mistakes</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Celebrating small bits of progress along the way</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Trusting that some details will unfold on their own</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Resistance can be hidden under 'practical' behaviors.</li><li>Fear, control, and skepticism keep you from manifesting fully.</li><li>Awareness of these patterns is the first step to change.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()" disabled="">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Next Module</button>
+          </div>
+        </section>
+        <section class="lesson" data-index="1">
+          <div class="lesson-top">
+            <span class="step">Module 2</span>
+            <span class="lesson-counter">2 / 5</span>
+            <h2>Understanding Why Gripping Tighter Holds You Back</h2>
+            <p class="summary">Discover how over-control and striving actually create more distance between you and your dreams.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/understanding-why-gripping-tighter-holds-you-back.webp" data-export-src="images/understanding-why-gripping-tighter-holds-you-back.webp" alt="Understanding Why Gripping Tighter Holds You Back" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Trying to force results often signals lack of trust in the process</li><li>The tighter you grip, the more you reinforce fear and scarcity</li><li>Letting go creates openness and allows unexpected support to arrive</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 2</h3>
+            <p>A huge misconception is that effort alone always brings results. While action matters, gripping tightly—constantly worrying, micro-managing, or refusing to let things happen organically—usually pushes what you want further away. This controlling stance actually blocks the very flow you’re hoping for, because your focus is on what could go wrong or what hasn’t shown up yet.</p><p>Think of someone who plants a seed, then keeps digging it up to check if it’s growing. The more they interfere, the less the seed can develop. Similarly, when manifesting, over-planning or constant anxiety signals to your subconscious (and to life itself) that you don’t truly trust things to unfold.</p><p>A common mistake is thinking that planning ‘just a little more’ or tracking every outcome will help. In reality, this raises stress and closes off opportunities. Instead, practice setting intentions, taking inspired actions, and then consciously relaxing your grip. For best results, regularly pause to check if you’re crossing into anxious control, and practice letting things breathe.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>What is an early sign that you might be gripping too tightly in your manifestation process?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">You feel calm and open to possibilities.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">You forget about your goal while enjoying other activities.</button>
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">You worry constantly about when or how your goal will appear.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">You take small steps and feel willing to adjust if needed.</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Over-control signals mistrust and creates resistance.</li><li>Gripping tightly reinforces fear rather than possibility.</li><li>Letting go invites support and better outcomes.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Next Module</button>
+          </div>
+        </section>
+        <section class="lesson" data-index="2">
+          <div class="lesson-top">
+            <span class="step">Module 3</span>
+            <span class="lesson-counter">3 / 5</span>
+            <h2>How to Release Resistance Using Simple Practices</h2>
+            <p class="summary">Get hands-on with proven ways to loosen your internal grip and trust the unfolding process.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/how-to-release-resistance-using-simple-practices.webp" data-export-src="images/how-to-release-resistance-using-simple-practices.webp" alt="How to Release Resistance Using Simple Practices" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Breathwork and mindfulness relax anxiety and attachment</li><li>Writing down fears makes them less powerful and easier to release</li><li>Small acts of trust build your letting-go muscle</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 3</h3>
+            <p>Once you recognize resistance, the next step is to actively release it. Techniques like breathwork can help you calm the nervous system and break the cycle of obsessive thinking. Try deep, slow breaths whenever you notice yourself tensing up about a desired outcome. Each exhale is a chance to let go.</p><p>Mindfulness helps you notice when you’ve wandered into fear or control without judgment. Instead of criticizing yourself, gently redirect your focus to the present. Another powerful method is journaling—write out the worst-case scenarios you’re worried about, and then challenge their reality or likelihood. This process often shrinks fears down to size.</p><p>A common hang-up is thinking 'letting go' means giving up or becoming passive. In truth, it means doing your part and then stepping back with trust. Start with small experiments: allow a day or two without checking for results, or choose not to plan every detail for a low-stakes goal. Over time, your trust in the process will grow stronger.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>What does 'letting go' really mean in the context of manifestation?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Doing nothing and hoping for the best</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Giving up on your goals entirely</button>
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">Taking action, then trusting the next steps to unfold</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Micromanaging every detail to guarantee success</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Calming practices interrupt anxiety and over-thinking.</li><li>Naming your fears helps reduce their power.</li><li>Experimenting with trust makes letting go easier over time.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Next Module</button>
+          </div>
+        </section>
+        <section class="lesson" data-index="3">
+          <div class="lesson-top">
+            <span class="step">Module 4</span>
+            <span class="lesson-counter">4 / 5</span>
+            <h2>Building a Balanced Mindset for Manifestation</h2>
+            <p class="summary">Learn how to blend supportive action with genuine openness so you stay productive without pushing away your goals.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/building-a-balanced-mindset-for-manifestation.webp" data-export-src="images/building-a-balanced-mindset-for-manifestation.webp" alt="Building a Balanced Mindset for Manifestation" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Balanced manifestation uses both intention and surrender</li><li>Supportive self-talk nurtures trust in the process</li><li>Regular check-ins help you adjust without over-correcting</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 4</h3>
+            <p>Successful manifestors are neither all-action nor all-surrender; they combine the two. It's important to set intentions, visualize your goals, and take steps forward—but it’s equally necessary to step back and trust, allowing opportunities and ideas to present themselves in ways you can’t fully predict.</p><p>Supportive self-talk is key here. Instead of berating yourself for feeling anxious, remind yourself gently that things are always evolving, and that not every detail needs to be under your control. Affirmations like, 'I trust things will unfold for my highest good,' can reinforce this mindset.</p><p>A common mistake is swinging from total control to total passivity. Instead, schedule regular moments to check in: Is your energy more tense (over-controlling)? Or have you disconnected and stopped taking opportunities seriously? Make gentle adjustments as needed, aiming for a balance between effort and surrender.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>What is a balanced approach to manifestation?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Taking constant action without rest or reflection</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Letting go of all effort and waiting passively</button>
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">Combining forward steps with periods of trustful waiting</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Ignoring your goal to avoid disappointment</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Success comes from mixing purposeful action with openness.</li><li>Self-compassion helps reinforce trust and patience.</li><li>Balanced check-ins prevent over-correction in either direction.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Next Module</button>
+          </div>
+        </section>
+        <section class="lesson" data-index="4">
+          <div class="lesson-top">
+            <span class="step">Module 5</span>
+            <span class="lesson-counter">5 / 5</span>
+            <h2>Integrating Letting Go Into Daily Life</h2>
+            <p class="summary">Discover ways to make releasing resistance a habit so it becomes second nature in both big and small goals.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/integrating-letting-go-into-daily-life.webp" data-export-src="images/integrating-letting-go-into-daily-life.webp" alt="Integrating Letting Go Into Daily Life" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Daily practices keep resistance at bay and maintain openness</li><li>Celebrating small acts of letting go rewires your mindset</li><li>Tracking progress over time builds confidence in the process</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 5</h3>
+            <p>Letting go isn't a one-time act; it's a practice you can weave into daily life for lasting impact. Start each day with a simple ritual, like setting an intention and following it with a few deep breaths. When you notice yourself tightening up, return to these techniques to reset your mindset.</p><p>Celebrate even minor successes: maybe you resisted the urge to double-check an email for the third time, or you let someone else take a lead when you’d usually take charge. These acts might feel small, but each one teaches your mind that not everything needs to be controlled for positive results to flow.</p><p>It's common to slip back into old habits, especially under stress. Instead of criticizing yourself, acknowledge the slip, and gently return to your letting-go practices. Track your progress—note moments when trusting paid off, and review these notes on tough days. Over time, releasing resistance will become an automatic part of your approach to goals both big and small.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>What helps the most in making 'letting go' a consistent habit?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Waiting for big breakthroughs before celebrating</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Criticizing yourself every time you resist</button>
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">Practicing daily rituals and noticing small successes</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Avoiding all responsibility in goal setting</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Letting go is an ongoing habit, not a one-time fix.</li><li>Small wins reinforce your new, open mindset.</li><li>Tracking your growth helps build lasting trust in the process.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Now Click Here To Complete This Course</button>
+          </div>
+        </section>
+
+    <section class="complete" id="completeCard" style="display: none;">
+      <h2>Course Complete</h2>
+      <p>Congratulations! You’ve learned the steps to truly let go and let your deepest goals come closer. Remember to revisit these lessons whenever you feel resistance sneaking in.</p>
+      <p class="muted small">Use the button below to take the next step, or start over and run through the course again.</p>
+      <a class="cta-btn" style="text-decoration:none; margin-top: 18px; display:inline-block;" href="https://totalmindshift.com/free-trial/" target="_blank" rel="noopener noreferrer">Access Lifelong Daily Audios - no credit card required</a>
+      <div class="nav-row" style="justify-content:center; margin-top: 18px;">
+        <button class="nav-btn" onclick="restartCourse()">Start Over</button>
+      </div>
+      
+      <hr style="margin: 24px 0; border:0; border-top:1px solid #d1d5db;">
+      <p class="muted small" style="text-align:center; margin-bottom: 12px;">Download the information in this course to keep and refer back to</p>
+      <div style="text-align:center;">
+        <a class="cta-btn pdf-download-btn" style="text-decoration:none; display:inline-block;" href="course.pdf" target="_blank" rel="noopener noreferrer">Download a PDF of This Course Here</a>
+      </div>
+    </section>
+  </div>
+
+  <script id="courseRuntimeScript">
+    let currentLesson = 0;
+    const lessons = [...document.querySelectorAll('.lesson')];
+    const progressFill = document.getElementById('progressFill');
+    const progressText = document.getElementById('progressText');
+    const progressWrap = document.getElementById('progressWrap');
+    const completeCard = document.getElementById('completeCard');
+    const introPage = document.getElementById('introPage');
+    const squeezePage = document.getElementById('squeezePage');
+
+    function beginCourse() {
+      if (introPage) introPage.style.display = 'none';
+      if (squeezePage) squeezePage.style.display = 'none';
+      if (progressWrap) progressWrap.style.display = 'block';
+      completeCard.style.display = 'none';
+      renderLesson();
+    }
+
+    function renderLesson() {
+      lessons.forEach((lesson, index) => lesson.classList.toggle('active', index === currentLesson));
+      if (progressFill && progressText) {
+        const pct = ((currentLesson + 1) / lessons.length) * 100;
+        progressFill.style.width = pct + '%';
+        progressText.textContent = 'Module ' + (currentLesson + 1) + ' of ' + lessons.length;
+      }
+      completeCard.style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function nextLesson() {
+      if (currentLesson < lessons.length - 1) {
+        currentLesson += 1;
+        renderLesson();
+      } else {
+        lessons.forEach(l => l.classList.remove('active'));
+        if (progressFill && progressText) {
+          progressFill.style.width = '100%';
+          progressText.textContent = 'Complete';
+        }
+        completeCard.style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function prevLesson() {
+      if (currentLesson > 0) {
+        currentLesson -= 1;
+        renderLesson();
+      }
+    }
+
+    function resetQuiz(btn) {
+      const wrap = btn.closest('.quiz');
+      const feedback = wrap.querySelector('.feedback');
+      wrap.querySelectorAll('.option-btn').forEach(b => b.disabled = false);
+      feedback.textContent = 'Choose an answer.';
+      feedback.className = 'feedback small';
+      const retryBtn = wrap.querySelector('.retry-btn');
+      if (retryBtn) retryBtn.remove();
+    }
+
+    function checkAnswer(btn) {
+      const wrap = btn.closest('.quiz');
+      const feedback = wrap.querySelector('.feedback');
+      wrap.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+      const oldRetry = wrap.querySelector('.retry-btn');
+      if (oldRetry) oldRetry.remove();
+      if (btn.dataset.correct === '1') {
+        feedback.textContent = 'Correct.';
+        feedback.className = 'feedback good';
+      } else {
+        feedback.textContent = 'Not quite. Review the lesson and try again.';
+        feedback.className = 'feedback bad';
+        const retryBtn = document.createElement('button');
+        retryBtn.className = 'nav-btn retry-btn';
+        retryBtn.style.marginTop = '12px';
+        retryBtn.textContent = 'Start quiz again';
+        retryBtn.onclick = function() { resetQuiz(retryBtn); };
+        feedback.insertAdjacentElement('afterend', retryBtn);
+      }
+    }
+
+    function restartCourse() {
+      currentLesson = 0;
+      document.querySelectorAll('.quiz').forEach(wrap => {
+        const feedback = wrap.querySelector('.feedback');
+        wrap.querySelectorAll('.option-btn').forEach(b => b.disabled = false);
+        if (feedback) {
+          feedback.textContent = 'Choose an answer.';
+          feedback.className = 'feedback small';
+        }
+        const retryBtn = wrap.querySelector('.retry-btn');
+        if (retryBtn) retryBtn.remove();
+      });
+      lessons.forEach(l => l.classList.remove('active'));
+      if (introPage) introPage.style.display = 'block';
+      if (squeezePage) squeezePage.style.display = 'block';
+      if (progressWrap) progressWrap.style.display = 'none';
+      completeCard.style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    restartCourse();
+  </script>
+
+</body></html>
