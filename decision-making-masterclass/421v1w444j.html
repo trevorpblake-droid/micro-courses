@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en" style="--bg: #88194a; --accent: #5d0e30; --accent-2: #5d0e30;"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Decision-Making Masterclass</title>
+  <style>
+    :root {
+      --bg: #88194a;
+      --panel: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --border: #e2e8f0;
+      --accent: #5d0e30;
+      --accent-2: #5d0e30;
+      --ok: #166534;
+      --ok-bg: #dcfce7;
+      --bad: #991b1b;
+      --bad-bg: #fee2e2;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #0a2352 0%, #88194a 100%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+    .wrap { width: min(900px, calc(100% - 28px)); margin: 28px auto 0; padding-bottom: 80px; }
+    .hero { background: var(--panel); border: 1px solid #dbe7ff; border-radius: 24px; padding: 28px; box-shadow: 0 10px 30px rgba(0,0,0,.18); }
+    .eyebrow { font-size: .85rem; color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+    .squeeze-page { display: block; }
+    .squeeze-card {
+      max-width: 760px;
+      margin: 150px auto 28px;
+      background: var(--panel);
+      border: 1px solid #dbe7ff;
+      border-radius: 24px;
+      padding: 34px 28px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.16);
+      text-align: center;
+    }
+    .squeeze-card h1,
+    .squeeze-card h2,
+    .squeeze-card p,
+    .squeeze-card div {
+      text-align: center;
+    }
+    .squeeze-card h2 {
+      font-size: clamp(1.2rem, 2.6vw, 1.55rem);
+      line-height: 1.45;
+      color: var(--muted);
+      font-weight: 600;
+      margin-bottom: 0;
+    }
+    .squeeze-embed-box {
+      margin-top: 24px;
+      min-height: 160px;
+      border: 2px dashed #bfdbfe;
+      border-radius: 18px;
+      background: #f8fbff;
+      padding: 18px;
+      text-align: center;
+      font: 500 15px/1.7 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      color: #64748b;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+    }
+    .squeeze-embed-box.is-empty::before {
+      content: attr(data-placeholder);
+      display: block;
+      color: #64748b;
+      white-space: pre-wrap;
+    }
+    .intro-page { display: block; margin-top: 18px; }
+    .intro-card { background: var(--panel); border: 1px solid #dbe7ff; border-radius: 24px; padding: 28px; box-shadow: 0 10px 30px rgba(0,0,0,.16); transition: transform .2s ease; }
+    .intro-card:hover { transform: translateY(-2px); }
+    .hero + .intro-card { margin-top: 40px; }
+    .intro-message { font-size:17px; line-height:1.7; max-width:680px; margin:0 auto; text-align:center; }
+    .intro-divider { width:60px; height:2px; background:rgba(0,0,0,.08); margin:12px auto 18px; border-radius:2px; }
+    .course-time { display:flex; align-items:center; justify-content:center; gap:6px; margin:20px 0 10px; color:#111827; }
+    .course-time-icon { font-size:18px; opacity:.8; }
+    .course-time-value { font-weight:600; font-size:14px; line-height:1; color:inherit; }
+    .course-time-label { font-weight:600; font-size:14px; opacity:.7; }
+    .intro-start-wrap { text-align:center; margin-top:22px; }
+    .hero .muted { opacity:.82; }
+    .nav-btn.primary { transition: all .2s ease; }
+    .nav-btn.primary:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(0,0,0,.15); }
+    h1, h2, h3, h4 { margin: 0 0 10px; line-height: 1.2; }
+    h1 { font-size: clamp(2rem, 4vw, 2.8rem); }
+    p, li { line-height: 1.6; }
+    .muted { color: var(--muted); }
+    .progress-wrap { margin-top: 16px; position: static; background: rgba(255,255,255,.92); backdrop-filter: blur(8px); border: 1px solid #dbe7ff; border-radius: 18px; padding: 14px; box-shadow: 0 10px 24px rgba(0,0,0,.12); }
+    .progress-bar { width: 100%; height: 12px; background: #dbeafe; border-radius: 999px; overflow: hidden; }
+    .progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--accent), #38bdf8); transition: width .25s ease; }
+    .progress-text { margin-top: 8px; font-size: .92rem; color: var(--muted); font-weight: 600; }
+    .lesson { display: none; margin-top: 18px; background: var(--panel); border: 1px solid #dbe7ff; border-radius: 24px; padding: 24px; box-shadow: 0 10px 30px rgba(0,0,0,.16); min-height: 420px; }
+    .lesson.active { display: block; }
+    .step { display: inline-block; padding: 6px 10px; border-radius: 999px; background: #dbeafe; color: #1d4ed8; font-weight: 700; font-size: .85rem; margin-bottom: 10px; }
+    .lesson-counter { float:right; color: var(--muted); font-size: .9rem; font-weight: 700; }
+    .summary { color: var(--muted); }
+    .module-image-wrap { margin-top: 18px; text-align: center; }
+    .module-image { width: 100%; max-width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 18px; display: block; margin: 0 auto; border: 1px solid var(--border); }
+    .box, .quiz { margin-top: 16px; border: 1px solid var(--border); border-radius: 18px; padding: 18px; background: #fff; }
+    .quiz .options { display: grid; gap: 10px; margin-top: 12px; }
+    .option-btn, .nav-btn, .cta-btn {
+      appearance: none; border: 0; border-radius: 12px; padding: 12px 16px; font: inherit; font-weight: 700; cursor: pointer; transition: transform .15s ease, opacity .15s ease, box-shadow .15s ease;
+    }
+    .option-btn { background: #eff6ff; color: #1e3a8a; text-align: left; border: 1px solid #bfdbfe; }
+    .nav-row { display: flex; justify-content: space-between; gap: 12px; margin-top: 22px; }
+    .nav-btn { background: transparent; color: #0f172a; border: 2px solid #0f2f6b; }
+    .nav-btn.primary, .cta-btn { background: linear-gradient(180deg, var(--accent), var(--accent-2)); color: white; border: 0; box-shadow: 0 10px 20px rgba(37,99,235,.22); }
+    .nav-btn:hover, .cta-btn:hover, .option-btn:hover { transform: translateY(-1px); }
+    .nav-btn:disabled { opacity: .5; cursor: not-allowed; }
+    .feedback { margin-top: 12px; border-radius: 12px; padding: 10px 12px; background: #f8fafc; border: 1px solid var(--border); }
+    .feedback.good { background: var(--ok-bg); color: var(--ok); border-color: #86efac; }
+    .feedback.bad { background: var(--bad-bg); color: var(--bad); border-color: #fca5a5; }
+    .complete { display: none; margin-top: 18px; background: var(--panel); border: 1px solid #dbe7ff; border-radius: 24px; padding: 28px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,.16); }
+    .small { font-size: .92rem; }
+    @media (max-width: 640px) {
+      .nav-row { flex-direction: column; }
+      .nav-btn { width: 100%; }
+    }
+  
+.cta-button a, .cta-button button { text-decoration:none !important; }
+</style>
+
+</head>
+<body data-course-file="421v1w444j.html" data-has-squeeze="0" spellcheck="true" style="background: linear-gradient(rgb(10, 35, 82) 0%, rgb(136, 25, 74) 100%);">
+  <div class="wrap">
+    
+    
+
+    <section class="intro-page" id="introPage" style="display: none;">
+      <section class="hero">
+        <div class="eyebrow">Interactive mini-course</div>
+        <h1>The Decision-Making Masterclass</h1>
+        <p class="muted">Build Confidence and Clarity in Every Choice</p>
+      </section>
+
+      <section class="intro-card" id="introCard">
+        <div class="intro-divider"></div>
+        <p class="intro-message">Welcome! In this course, you'll build a clear understanding of The Decision-Making Masterclass, and by the end you'll be in a strong position to put a clear plan into action with confidence.</p>
+        <div class="course-time">
+          <span class="course-time-icon">◷</span>
+          <span class="course-time-value">24</span>
+          <span class="course-time-label">minutes</span>
+        </div>
+        <div class="intro-start-wrap">
+          <button class="nav-btn primary" onclick="beginCourse()">Let's Get Started - Click Here To Begin</button>
+        </div>
+      </section>
+    </section>
+
+    
+    <div class="progress-wrap" id="progressWrap" style="display: block;">
+      <div class="progress-bar"><div class="progress-fill" id="progressFill" style="background: rgb(93, 14, 48); width: 100%;"></div></div>
+      <div class="progress-text" id="progressText">Complete</div>
+    </div>
+
+    
+        <section class="lesson" data-index="0">
+          <div class="lesson-top">
+            <span class="step">Module 1</span>
+            <span class="lesson-counter">1 / 6</span>
+            <h2>Why Decisions Shape Your Life (And How to Get Unstuck)</h2>
+            <p class="summary">This lesson reveals how every choice you make drives your life’s direction and shows the cost of staying in indecision.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/why-decisions-shape-your-life-and-how-to-get-unstuck.webp" data-export-src="images/why-decisions-shape-your-life-and-how-to-get-unstuck.webp" alt="Why Decisions Shape Your Life (And How to Get Unstuck)" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Decisions create momentum and direction in life</li><li>Indecision breeds anxiety and wasted energy</li><li>Getting unstuck is a learnable process</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 1</h3>
+            <p>Decisions are moments of power—they determine the course of your day, your career, and even your happiness. When you avoid making a choice, you stall momentum and let opportunities pass you by. Many people believe that not deciding is safer, but in reality, it just gives anxiety more time and space to grow.</p><p>For example, consider someone hesitating over a career change. By not making a decision, they may end up stressed for months, take no action, and watch life pass by. The cost of indecision is exhaustion and regret, not just the loss of opportunity.</p><p>A common misconception is that big life choices matter more than small ones. In truth, your daily decisions—what to say yes or no to—shape your overall direction just as much. Repeatedly choosing to avoid decisions may leave you feeling powerless.</p><p>To move forward, recognize that all decisions, big or small, shape your destiny. Start by noticing when you hesitate often and question the cost of standing still.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>What is a major cost of indecision, according to this lesson?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">Wasted energy and missed opportunities</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Improved confidence</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">More time to analyze</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Guaranteed safety from mistakes</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Every decision, big or small, shapes your life.</li><li>Indecision leads to anxiety and lost opportunities.</li><li>Recognizing hesitation is the first step to making stronger choices.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()" disabled="">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Next Module</button>
+          </div>
+        </section>
+        <section class="lesson" data-index="1">
+          <div class="lesson-top">
+            <span class="step">Module 2</span>
+            <span class="lesson-counter">2 / 6</span>
+            <h2>Spotting Decision Anxiety and Its Triggers</h2>
+            <p class="summary">This lesson helps you recognize the telltale signs of decision anxiety and identify your most common triggers.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/spotting-decision-anxiety-and-its-triggers.webp" data-export-src="images/spotting-decision-anxiety-and-its-triggers.webp" alt="Spotting Decision Anxiety and Its Triggers" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Decision anxiety can show up as overthinking or avoidance</li><li>Triggers often include fear of regret or letting others down</li><li>Awareness is the first step to breaking the pattern</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 2</h3>
+            <p>Many people get stuck not because decisions are hard but because anxiety clouds their thinking. Decision anxiety often looks like endless pros and cons lists, seeking reassurance from others, or putting off choices 'until tomorrow.'</p><p>Imagine you have to choose between two apartments. You keep revisiting the same lists, double-checking with friends, and nervously searching online. Underneath, you might be afraid of making the 'wrong' choice, seeing it as irreversible or imagining disappointing others involved.</p><p>A common mistake is not realizing what’s really holding you back. People often blame the decision itself instead of recognizing an internal trigger, like fear of regret or conflict. This keeps you feeling stuck.</p><p>To improve, start by noticing your own anxiety signs. Do you procrastinate more when others are watching? Do certain types of choices (like money or relationships) make you especially anxious? Make a quick list of your typical behaviors and triggers. Awareness opens the door to change.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>Which of these is a common sign of decision anxiety?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">Seeking constant reassurance before choosing</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Confidence after every decision</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Making decisions instantly</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Ignoring everyone’s opinions</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Decision anxiety often shows up as overthinking and procrastination.</li><li>Most people have specific triggers that make them hesitate.</li><li>Recognizing your own patterns is key to overcoming anxiety.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Next Module</button>
+          </div>
+        </section>
+        <section class="lesson" data-index="2">
+          <div class="lesson-top">
+            <span class="step">Module 3</span>
+            <span class="lesson-counter">3 / 6</span>
+            <h2>A Simple Framework: The 4-Step Fast Decision Process</h2>
+            <p class="summary">This lesson teaches you a clear 4-step decision-making system to use anytime you feel stuck.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/a-simple-framework-the-4-step-fast-decision-process.webp" data-export-src="images/a-simple-framework-the-4-step-fast-decision-process.webp" alt="A Simple Framework: The 4-Step Fast Decision Process" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Clarify the real choice you face</li><li>Limit your options to essentials</li><li>Commit to a time limit</li><li>Review and act—then move forward</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 3</h3>
+            <p>Having a reliable structure short-circuits overthinking. Try the 4-Step Fast Decision Process:</p><p>Step 1: Clarify what you’re really deciding. Write the exact question: 'Do I accept this job offer?' instead of 'What should I do with my life?'</p><p>Step 2: Limit your options. Less is more; if you have ten choices, narrow it to two or three that best meet your needs.</p><p>Step 3: Choose a time limit. Give yourself a reasonable but clear deadline, even for small choices. For example, 'I’ll decide by tomorrow evening.'</p><p>Step 4: Review your options, make the decision, and act. Once you act, avoid reopening the decision.</p><p>A common mistake is skipping the time limit, which feeds indecision. Or, endlessly adding new information, which only adds to confusion and stress. Trust the process: clarity, narrow choices, set a deadline, decide, and keep moving.</p><p>Try using this framework on your next everyday decision and see how much faster and clearer you feel.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>What is a key part of the Fast Decision Process?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">Setting a clear time limit for your choice</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Listing every possible outcome</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Making the decision as slowly as possible</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Relying solely on other people’s opinions</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>A 4-step process increases clarity and speed in decision-making.</li><li>Limiting your options prevents overwhelm.</li><li>Time limits stop endless hesitation.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Next Module</button>
+          </div>
+        </section>
+        <section class="lesson" data-index="3">
+          <div class="lesson-top">
+            <span class="step">Module 4</span>
+            <span class="lesson-counter">4 / 6</span>
+            <h2>How to Use Your Values to Guide Every Choice</h2>
+            <p class="summary">This lesson explains how clarifying your values helps you make decisions that truly fit you, not just what others want.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/how-to-use-your-values-to-guide-every-choice.webp" data-export-src="images/how-to-use-your-values-to-guide-every-choice.webp" alt="How to Use Your Values to Guide Every Choice" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Values are your personal compass in decision-making</li><li>Aligning decisions with values reduces regret</li><li>Don't substitute others' values for your own</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 4</h3>
+            <p>When you anchor decisions in your values, you create choices that feel right—not just logical. Values act as a compass, narrowing the gap between what you think you 'should' do and what actually fulfills you.</p><p>If friendship and learning are your top values, choosing a new hobby becomes easier: pick something social and educational. But if you’re not clear on your values, you may default to decisions that fit others’ expectations, leaving you resentful or apathetic later.</p><p>A common mistake is trying to use someone else’s 'rulebook.' For example, picking a job just because it’s prestigious, rather than because it fits your desire for creativity and autonomy. This leads to regret and second-guessing.</p><p>To clarify your values, list your top three. Next time you face a choice, ask: 'Does this line up with what matters to me most?' Refer to your list and let your values act as the ultimate filter. Over time, your choices will feel easier and more authentic.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>According to this lesson, what is the risk of making choices based on other people’s values?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">You may feel regret or resentment</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">You will always succeed</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">It guarantees happiness</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">It makes decision-making irrelevant</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Values serve as a practical compass for life decisions.</li><li>Choosing based on values increases satisfaction and clarity.</li><li>Borrowing others' values leads to regret.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Next Module</button>
+          </div>
+        </section>
+        <section class="lesson" data-index="4">
+          <div class="lesson-top">
+            <span class="step">Module 5</span>
+            <span class="lesson-counter">5 / 6</span>
+            <h2>Get Good at Imperfect Decisions (and Learn from Outcomes)</h2>
+            <p class="summary">This lesson shows you how to embrace decisions even when you don’t have all the answers, and how to turn outcomes into growth.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/get-good-at-imperfect-decisions-and-learn-from-outcomes.webp" data-export-src="images/get-good-at-imperfect-decisions-and-learn-from-outcomes.webp" alt="Get Good at Imperfect Decisions (and Learn from Outcomes)" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>No decision is ever perfect—accepting 'good enough' unlocks progress</li><li>Reflection after decisions boosts learning and confidence</li><li>Fear of mistakes often sabotages growth</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 5</h3>
+            <p>Perfectionism can freeze decision-making. Searching for flawless certainty is a trap. In reality, most successful people make decisions with incomplete information, knowing that waiting for 100% certainty means never acting.</p><p>Consider someone accepting a new job even with a few unknowns. By moving ahead, they learn and adjust, rather than analyzing endlessly and losing the opportunity. Every decision, even if the outcome isn’t perfect, teaches you about what works—and what doesn’t.</p><p>A common misconception is that a wrong decision ruins everything. In fact, reviewing your choices after the fact (without harsh self-criticism) is powerful. Ask: 'What worked? What would I tweak next time?' This builds confidence and adaptability.</p><p>To improve, look at a recent choice—even a small one. Identify what you learned. Challenge the need for perfection—aim for a 'good enough' decision, followed by a quick review to boost learning for the future.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>What is the main benefit of reflecting on decisions after you make them?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">You learn and improve your decision-making skills</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">You erase the original choice</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">You ensure every decision is perfect</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">You avoid all risk in the future</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Perfectionism prevents action and learning.</li><li>Reflecting on decisions, win or lose, builds better skills.</li><li>No decision has to be permanent—growth comes from taking action.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Next Module</button>
+          </div>
+        </section>
+        <section class="lesson" data-index="5">
+          <div class="lesson-top">
+            <span class="step">Module 6</span>
+            <span class="lesson-counter">6 / 6</span>
+            <h2>Build Your Confident Decision-Making Habit</h2>
+            <p class="summary">This lesson gives you a practical daily routine to keep decision-making anxiety low and confidence high—so you apply what you’ve learned for life.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/build-your-confident-decision-making-habit.webp" data-export-src="images/build-your-confident-decision-making-habit.webp" alt="Build Your Confident Decision-Making Habit" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Daily practice cements quick, confident choices</li><li>Habitual decision-making reduces overall stress</li><li>Tracking progress motivates ongoing improvement</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 6</h3>
+            <p>Mastery in decision-making doesn’t happen overnight—it comes from regular practice. Start today by making one small, low-stakes decision quickly using the 4-step process, and gradually move to bigger ones. The more often you decide, the less space anxiety has to grow.</p><p>For instance, decide what you’ll eat for dinner in under two minutes, or choose your next leisure activity using your values. Write down your decision, act, and stick with it. Soon, this becomes a habit rather than a struggle.</p><p>A common pitfall is expecting to never feel doubt; in fact, even highly confident people feel uncertainty, but they move forward anyway. What matters is sticking with the routine—notice doubt, decide anyway, and learn from the result.</p><p>Set a reminder: each day, make and record one fast decision. At the week’s end, review your progress. Notice how much lighter and more decisive you feel. This is how your destiny is shaped: choice by choice, day by day.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>According to the lesson, what is NOT required to build decision-making confidence?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">Waiting until you feel zero doubt</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Practicing quick decisions daily</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Tracking and reviewing your choices</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Starting with small decisions</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Regular practice builds the muscle of confident decision-making.</li><li>Start with small decisions and celebrate progress.</li><li>Habit turns ease and clarity into your new normal.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Now Click Here To Complete This Course</button>
+          </div>
+        </section>
+
+    <section class="complete" id="completeCard" style="display: block;">
+      <h2>Course Complete</h2>
+      <p>Congratulations! You’ve completed The Decision-Making Masterclass. You are now equipped to make clear, confident decisions and shape your destiny.</p>
+      <p class="muted small">Use the button below to take the next step, or start over and run through the course again.</p>
+      <a class="cta-btn" style="text-decoration:none; margin-top: 18px; display:inline-block;" href="https://totalmindshift.com/free-trial/" target="_blank" rel="noopener noreferrer">Access lifelong daily audios. Free 7 day trial, no credit card required</a>
+      <div class="nav-row" style="justify-content:center; margin-top: 18px;">
+        <button class="nav-btn" onclick="restartCourse()">Start Over</button>
+      </div>
+      
+      <hr style="margin: 24px 0; border:0; border-top:1px solid #d1d5db;">
+      <p class="muted small" style="text-align:center; margin-bottom: 12px;">Download the information in this course to keep and refer back to</p>
+      <div style="text-align:center;">
+        <a class="cta-btn pdf-download-btn" style="text-decoration:none; display:inline-block;" href="course.pdf" target="_blank" rel="noopener noreferrer">Download a PDF of This Course Here</a>
+      </div>
+    </section>
+  </div>
+
+  <script id="courseRuntimeScript">
+    let currentLesson = 0;
+    const lessons = [...document.querySelectorAll('.lesson')];
+    const progressFill = document.getElementById('progressFill');
+    const progressText = document.getElementById('progressText');
+    const progressWrap = document.getElementById('progressWrap');
+    const completeCard = document.getElementById('completeCard');
+    const introPage = document.getElementById('introPage');
+    const squeezePage = document.getElementById('squeezePage');
+
+    function beginCourse() {
+      if (introPage) introPage.style.display = 'none';
+      if (squeezePage) squeezePage.style.display = 'none';
+      if (progressWrap) progressWrap.style.display = 'block';
+      completeCard.style.display = 'none';
+      renderLesson();
+    }
+
+    function renderLesson() {
+      lessons.forEach((lesson, index) => lesson.classList.toggle('active', index === currentLesson));
+      if (progressFill && progressText) {
+        const pct = ((currentLesson + 1) / lessons.length) * 100;
+        progressFill.style.width = pct + '%';
+        progressText.textContent = 'Module ' + (currentLesson + 1) + ' of ' + lessons.length;
+      }
+      completeCard.style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function nextLesson() {
+      if (currentLesson < lessons.length - 1) {
+        currentLesson += 1;
+        renderLesson();
+      } else {
+        lessons.forEach(l => l.classList.remove('active'));
+        if (progressFill && progressText) {
+          progressFill.style.width = '100%';
+          progressText.textContent = 'Complete';
+        }
+        completeCard.style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function prevLesson() {
+      if (currentLesson > 0) {
+        currentLesson -= 1;
+        renderLesson();
+      }
+    }
+
+    function resetQuiz(btn) {
+      const wrap = btn.closest('.quiz');
+      const feedback = wrap.querySelector('.feedback');
+      wrap.querySelectorAll('.option-btn').forEach(b => b.disabled = false);
+      feedback.textContent = 'Choose an answer.';
+      feedback.className = 'feedback small';
+      const retryBtn = wrap.querySelector('.retry-btn');
+      if (retryBtn) retryBtn.remove();
+    }
+
+    function checkAnswer(btn) {
+      const wrap = btn.closest('.quiz');
+      const feedback = wrap.querySelector('.feedback');
+      wrap.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+      const oldRetry = wrap.querySelector('.retry-btn');
+      if (oldRetry) oldRetry.remove();
+      if (btn.dataset.correct === '1') {
+        feedback.textContent = 'Correct.';
+        feedback.className = 'feedback good';
+      } else {
+        feedback.textContent = 'Not quite. Review the lesson and try again.';
+        feedback.className = 'feedback bad';
+        const retryBtn = document.createElement('button');
+        retryBtn.className = 'nav-btn retry-btn';
+        retryBtn.style.marginTop = '12px';
+        retryBtn.textContent = 'Start quiz again';
+        retryBtn.onclick = function() { resetQuiz(retryBtn); };
+        feedback.insertAdjacentElement('afterend', retryBtn);
+      }
+    }
+
+    function restartCourse() {
+      currentLesson = 0;
+      document.querySelectorAll('.quiz').forEach(wrap => {
+        const feedback = wrap.querySelector('.feedback');
+        wrap.querySelectorAll('.option-btn').forEach(b => b.disabled = false);
+        if (feedback) {
+          feedback.textContent = 'Choose an answer.';
+          feedback.className = 'feedback small';
+        }
+        const retryBtn = wrap.querySelector('.retry-btn');
+        if (retryBtn) retryBtn.remove();
+      });
+      lessons.forEach(l => l.classList.remove('active'));
+      if (introPage) introPage.style.display = 'block';
+      if (squeezePage) squeezePage.style.display = 'block';
+      if (progressWrap) progressWrap.style.display = 'none';
+      completeCard.style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    restartCourse();
+  </script>
+
+</body></html>
