@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en" style="--bg: #0f2f6b; --accent: #2563eb; --accent-2: #2563eb;"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Manifestation-Mindset Bridge: Clearing Mental Fog for Crystal-Clear Intentions</title>
+  <style>
+    :root {
+      --bg: #0f2f6b;
+      --panel: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --border: #e2e8f0;
+      --accent: #2563eb;
+      --accent-2: #2563eb;
+      --ok: #166534;
+      --ok-bg: #dcfce7;
+      --bad: #991b1b;
+      --bad-bg: #fee2e2;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #0a2352 0%, #0f2f6b 100%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+    .wrap { width: min(900px, calc(100% - 28px)); margin: 28px auto 0; padding-bottom: 80px; }
+    .hero { background: var(--panel); border: 1px solid #dbe7ff; border-radius: 24px; padding: 28px; box-shadow: 0 10px 30px rgba(0,0,0,.18); }
+    .eyebrow { font-size: .85rem; color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+    .squeeze-page { display: block; }
+    .squeeze-card {
+      max-width: 760px;
+      margin: 150px auto 28px;
+      background: var(--panel);
+      border: 1px solid #dbe7ff;
+      border-radius: 24px;
+      padding: 34px 28px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.16);
+      text-align: center;
+    }
+    .squeeze-card h1,
+    .squeeze-card h2,
+    .squeeze-card p,
+    .squeeze-card div {
+      text-align: center;
+    }
+    .squeeze-card h2 {
+      font-size: clamp(1.2rem, 2.6vw, 1.55rem);
+      line-height: 1.45;
+      color: var(--muted);
+      font-weight: 600;
+      margin-bottom: 0;
+    }
+    .squeeze-embed-box {
+      margin-top: 24px;
+      min-height: 160px;
+      border: 2px dashed #bfdbfe;
+      border-radius: 18px;
+      background: #f8fbff;
+      padding: 18px;
+      text-align: center;
+      font: 500 15px/1.7 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      color: #64748b;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+    }
+    .squeeze-embed-box.is-empty::before {
+      content: attr(data-placeholder);
+      display: block;
+      color: #64748b;
+      white-space: pre-wrap;
+    }
+    .intro-page { display: block; margin-top: 18px; }
+    .intro-card { background: var(--panel); border: 1px solid #dbe7ff; border-radius: 24px; padding: 28px; box-shadow: 0 10px 30px rgba(0,0,0,.16); transition: transform .2s ease; }
+    .intro-card:hover { transform: translateY(-2px); }
+    .hero + .intro-card { margin-top: 40px; }
+    .intro-message { font-size:17px; line-height:1.7; max-width:680px; margin:0 auto; text-align:center; }
+    .intro-divider { width:60px; height:2px; background:rgba(0,0,0,.08); margin:12px auto 18px; border-radius:2px; }
+    .course-time { display:flex; align-items:center; justify-content:center; gap:6px; margin:20px 0 10px; color:#111827; }
+    .course-time-icon { font-size:18px; opacity:.8; }
+    .course-time-value { font-weight:600; font-size:14px; line-height:1; color:inherit; }
+    .course-time-label { font-weight:600; font-size:14px; opacity:.7; }
+    .intro-start-wrap { text-align:center; margin-top:22px; }
+    .hero .muted { opacity:.82; }
+    .nav-btn.primary { transition: all .2s ease; }
+    .nav-btn.primary:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(0,0,0,.15); }
+    h1, h2, h3, h4 { margin: 0 0 10px; line-height: 1.2; }
+    h1 { font-size: clamp(2rem, 4vw, 2.8rem); }
+    p, li { line-height: 1.6; }
+    .muted { color: var(--muted); }
+    .progress-wrap { margin-top: 16px; position: static; background: rgba(255,255,255,.92); backdrop-filter: blur(8px); border: 1px solid #dbe7ff; border-radius: 18px; padding: 14px; box-shadow: 0 10px 24px rgba(0,0,0,.12); }
+    .progress-bar { width: 100%; height: 12px; background: #dbeafe; border-radius: 999px; overflow: hidden; }
+    .progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--accent), #38bdf8); transition: width .25s ease; }
+    .progress-text { margin-top: 8px; font-size: .92rem; color: var(--muted); font-weight: 600; }
+    .lesson { display: none; margin-top: 18px; background: var(--panel); border: 1px solid #dbe7ff; border-radius: 24px; padding: 24px; box-shadow: 0 10px 30px rgba(0,0,0,.16); min-height: 420px; }
+    .lesson.active { display: block; }
+    .step { display: inline-block; padding: 6px 10px; border-radius: 999px; background: #dbeafe; color: #1d4ed8; font-weight: 700; font-size: .85rem; margin-bottom: 10px; }
+    .lesson-counter { float:right; color: var(--muted); font-size: .9rem; font-weight: 700; }
+    .summary { color: var(--muted); }
+    .module-image-wrap { margin-top: 18px; text-align: center; }
+    .module-image { width: 100%; max-width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 18px; display: block; margin: 0 auto; border: 1px solid var(--border); }
+    .box, .quiz { margin-top: 16px; border: 1px solid var(--border); border-radius: 18px; padding: 18px; background: #fff; }
+    .quiz .options { display: grid; gap: 10px; margin-top: 12px; }
+    .option-btn, .nav-btn, .cta-btn {
+      appearance: none; border: 0; border-radius: 12px; padding: 12px 16px; font: inherit; font-weight: 700; cursor: pointer; transition: transform .15s ease, opacity .15s ease, box-shadow .15s ease;
+    }
+    .option-btn { background: #eff6ff; color: #1e3a8a; text-align: left; border: 1px solid #bfdbfe; }
+    .nav-row { display: flex; justify-content: space-between; gap: 12px; margin-top: 22px; }
+    .nav-btn { background: transparent; color: #0f172a; border: 2px solid #0f2f6b; }
+    .nav-btn.primary, .cta-btn { background: linear-gradient(180deg, var(--accent), var(--accent-2)); color: white; border: 0; box-shadow: 0 10px 20px rgba(37,99,235,.22); }
+    .nav-btn:hover, .cta-btn:hover, .option-btn:hover { transform: translateY(-1px); }
+    .nav-btn:disabled { opacity: .5; cursor: not-allowed; }
+    .feedback { margin-top: 12px; border-radius: 12px; padding: 10px 12px; background: #f8fafc; border: 1px solid var(--border); }
+    .feedback.good { background: var(--ok-bg); color: var(--ok); border-color: #86efac; }
+    .feedback.bad { background: var(--bad-bg); color: var(--bad); border-color: #fca5a5; }
+    .complete { display: none; margin-top: 18px; background: var(--panel); border: 1px solid #dbe7ff; border-radius: 24px; padding: 28px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,.16); }
+    .small { font-size: .92rem; }
+    @media (max-width: 640px) {
+      .nav-row { flex-direction: column; }
+      .nav-btn { width: 100%; }
+    }
+  
+.cta-button a, .cta-button button { text-decoration:none !important; }
+</style>
+
+</head>
+<body data-course-file="18015d366b.html" data-has-squeeze="0" spellcheck="true" style="background: linear-gradient(rgb(10, 35, 82) 0%, rgb(15, 47, 107) 100%);">
+  <div class="wrap">
+    
+    
+
+    <section class="intro-page" id="introPage" style="display: block;">
+      <section class="hero">
+        <div class="eyebrow">Interactive mini-course</div>
+        <h1>The Manifestation-Mindset Bridge: Clearing Mental Fog for Crystal-Clear Intentions</h1>
+        <p class="muted">Master mental clarity as your foundation for effective manifestation.</p>
+      </section>
+
+      <section class="intro-card" id="introCard">
+        <div class="intro-divider"></div>
+        <p class="intro-message">Welcome! In this course, you'll build a clear understanding of The Manifestation-Mindset Bridge: Clearing Mental Fog for Crystal-Clear Intentions, and by the end you'll be in a strong position to apply what you learn with confidence.</p>
+        <div class="course-time">
+          <span class="course-time-icon">◷</span>
+          <span class="course-time-value">20</span>
+          <span class="course-time-label">minutes</span>
+        </div>
+        <div class="intro-start-wrap">
+          <button class="nav-btn primary" onclick="beginCourse()">Let's Get Started - Click Here To Begin</button>
+        </div>
+      </section>
+    </section>
+
+    
+    <div class="progress-wrap" id="progressWrap" style="display:none;">
+      <div class="progress-bar"><div class="progress-fill" id="progressFill" style="background: rgb(37, 99, 235);"></div></div>
+      <div class="progress-text" id="progressText">Module 1 of 5</div>
+    </div>
+
+    
+        <section class="lesson" data-index="0">
+          <div class="lesson-top">
+            <span class="step">Module 1</span>
+            <span class="lesson-counter">1 / 5</span>
+            <h2>Why Clarity is the Foundation of Manifestation</h2>
+            <p class="summary">Learn why mental clarity is essential before you attempt any manifestation technique.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/why-clarity-is-the-foundation-of-manifestation.webp" data-export-src="images/why-clarity-is-the-foundation-of-manifestation.webp" alt="Why Clarity is the Foundation of Manifestation" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Manifestation depends on specific, clear intentions.</li><li>Mental fog distorts or blocks your ability to set these intentions.</li><li>Lasting transformation starts with focusing your thoughts.</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 1</h3>
+            <p>Manifestation is often misunderstood as simply wishing for something intensely, but at its core, it’s about bringing clear intentions into your reality. The clearer you can picture your desired outcome, the easier it is for your mind to move toward it. Without clarity, even the best manifestation techniques will falter, as your brain can’t target what it can’t see.</p><p>Imagine trying to drive to a new destination without a map or address. You might move forward, but chances are you’ll wander aimlessly. Mental fog acts like smudges on your mental windshield, obscuring the direction you genuinely want to go and making your energy scattered.</p><p>A common mistake is skipping clarity work and diving straight into goal-setting or affirmations. Many people repeat vague wishes, then feel frustrated when nothing happens. The truth is, if your intention is fuzzy, your results will be too.</p><p>Start by recognizing clarity as your essential first step. Only then does manifestation have something concrete to work with.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>What is a major reason manifestation might not work for someone?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">They haven't clarified exactly what they want.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">They pick the wrong time of day.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">They use ineffective affirmation wording.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">They try too many manifestation techniques at once.</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Clear intentions are necessary for effective manifestation.</li><li>Mental fog makes it impossible to set precise goals.</li><li>Begin any manifestation process by seeking mental clarity.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()" disabled="">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Next Module</button>
+          </div>
+        </section>
+        <section class="lesson" data-index="1">
+          <div class="lesson-top">
+            <span class="step">Module 2</span>
+            <span class="lesson-counter">2 / 5</span>
+            <h2>Spotting and Understanding Your Mental Fog</h2>
+            <p class="summary">Identify the signs of brain fog and understand how it undermines your manifestation efforts.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/spotting-and-understanding-your-mental-fog.webp" data-export-src="images/spotting-and-understanding-your-mental-fog.webp" alt="Spotting and Understanding Your Mental Fog" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Brain fog can include indecision, forgetfulness, or feeling scattered.</li><li>It often hides beneath stress, information overload, or sleep issues.</li><li>Recognizing your own signs is the first step to breaking the cycle.</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 2</h3>
+            <p>Mental fog isn’t always obvious. Sometimes it appears as everyday distractions, second-guessing yourself, struggling to finish tasks, or just a persistent sense that your thoughts are muddled. When you try to manifest with this level of confusion, your intentions lack the power and specificity needed to create real results.</p><p>For example, if you find yourself flip-flopping between goals or unable to describe what you want in concrete terms, you may be experiencing brain fog. Stress, too much screen time, and poor sleep can worsen these symptoms. Many people dismiss mental fog as just being "busy" or “tired,” not realizing how much it impedes focus and vision.</p><p>One common misconception is that motivation alone will cut through your internal confusion. However, motivation without clarity leads to scattered effort and burnout. Recognizing and naming your mental fog signals allows you to pause and address them directly, instead of pushing forward ineffectively.</p><p>Begin tuning into your daily mental state. Notice when your thinking is sharp and when it’s hazy. This awareness is crucial for effective manifestation.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>Which of the following is a sign of mental fog affecting your manifestation results?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">You frequently change your mind about what you want.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">You visualize your goals with vivid detail.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">You always feel motivated and energetic.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">You easily achieve your desired outcomes.</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Brain fog can sabotage your ability to set clear intentions.</li><li>Look for symptoms like indecision, forgetfulness, or mental fatigue.</li><li>Understanding your personal signs of fog is key to overcoming it.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Next Module</button>
+          </div>
+        </section>
+        <section class="lesson" data-index="2">
+          <div class="lesson-top">
+            <span class="step">Module 3</span>
+            <span class="lesson-counter">3 / 5</span>
+            <h2>Simple Techniques for Clearing Mental Fog Fast</h2>
+            <p class="summary">Practice easy, proven methods to clear your mind before setting any goals or intentions.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/simple-techniques-for-clearing-mental-fog-fast.webp" data-export-src="images/simple-techniques-for-clearing-mental-fog-fast.webp" alt="Simple Techniques for Clearing Mental Fog Fast" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Short guided breathing resets scattered thoughts.</li><li>Journaling helps remove mental clutter.</li><li>Single-tasking eliminates overwhelm and sharpens intention.</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 3</h3>
+            <p>Before you dive into goal-setting or visualization, it’s crucial to clear the slate. Fast-acting techniques like intentional breathing can calm your thoughts and refresh your focus in minutes. Try this: sit comfortably, close your eyes, and slowly inhale for four counts, hold for four, exhale for four. Repeat a few times to reset your mental state.</p><p>Another powerful practice is quick journaling. Set a timer for five minutes and write out anything that’s on your mind – worries, hopes, to-do lists. This brain dump frees up mental resources that would otherwise clog your clarity.</p><p>It’s also important to limit multitasking. Focusing on one thing at a time (even if for just ten minutes) strengthens your brain’s ability to hold a single intention. Many people try to set goals while distracted by their phones or other tasks, making their efforts far less effective.</p><p>Apply at least one of these methods before any intention-setting practice. Notice the difference in your ability to pinpoint what you want and imagine it clearly.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>Which technique helps clear mental fog before setting intentions?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Multitasking on as many things as possible.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Mindlessly scrolling social media.</button>
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">A short guided breathing exercise.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Jumping into goal-setting without preparation.</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Intentional breathing quickly refreshes mental clarity.</li><li>Journaling helps organize scattered or stressful thoughts.</li><li>Single-task focus builds stronger, clearer intentions.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Next Module</button>
+          </div>
+        </section>
+        <section class="lesson" data-index="3">
+          <div class="lesson-top">
+            <span class="step">Module 4</span>
+            <span class="lesson-counter">4 / 5</span>
+            <h2>Crafting Crystal-Clear Intentions that Stick</h2>
+            <p class="summary">Learn to set highly specific intentions so your mind and manifestation practices are aligned.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/crafting-crystal-clear-intentions-that-stick.webp" data-export-src="images/crafting-crystal-clear-intentions-that-stick.webp" alt="Crafting Crystal-Clear Intentions that Stick" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Clear intentions are specific, visualizable, and emotionally resonant.</li><li>Vague wishes lead to vague results.</li><li>Link your intentions to a feeling and a clear mental picture.</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 4</h3>
+            <p>Once your mind is clear, it’s time to shape your intention in a way your brain—and the universe—can actually work with. The best intentions are precise: rather than saying “I want more money,” specify the amount, the reason, and the feeling you’re after. For example, “I intend to comfortably earn an extra $500 a month so I can feel secure and treat myself to experiences.”</p><p>Visualization strengthens this process. Take a minute to picture not just the outcome, but also how it will look, sound, and feel. The more senses you involve, the sharper the intention becomes in your mind. Emotional resonance matters; choose intentions that genuinely excite or inspire you, not just what you think you 'should' want.</p><p>A common mistake is setting intentions so broad or generic that they lose impact. “Be happier” is too fuzzy to activate your subconscious; “wake up feeling grateful and energized each morning” is both specific and repeatable.</p><p>From now on, write your intentions in clear, vivid sentences. Revisit them daily, refining for clarity as you go.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>Which of these is a crystal-clear intention suitable for manifestation?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">I want more success.</button>
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">I intend to gain three new coaching clients by July 1st to increase my income.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">I hope things improve soon.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">I’d like to feel better about work.</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Specific intentions are much more effective than vague ones.</li><li>Visualization and emotional connection make your intentions stick.</li><li>Refine your intentions regularly to keep them sharp.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Next Module</button>
+          </div>
+        </section>
+        <section class="lesson" data-index="4">
+          <div class="lesson-top">
+            <span class="step">Module 5</span>
+            <span class="lesson-counter">5 / 5</span>
+            <h2>Maintaining Clarity: Daily Habits for Ongoing Progress</h2>
+            <p class="summary">Discover daily practices to keep your mind clear and your intentions focused for sustained manifestation.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/maintaining-clarity-daily-habits-for-ongoing-progress.webp" data-export-src="images/maintaining-clarity-daily-habits-for-ongoing-progress.webp" alt="Maintaining Clarity: Daily Habits for Ongoing Progress" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Brief daily check-ins prevent mental clutter from building up.</li><li>Consistent morning or evening rituals anchor clarity.</li><li>Regular review and adjustment keeps intentions aligned with your evolving goals.</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 5</h3>
+            <p>Mental clarity isn’t a one-time event—it’s a habit. To keep your intentions fresh and actionable, schedule a quick daily check-in. Ask yourself: Is my mind clear today? Are my intentions still exciting and specific? Even just two minutes can make a meaningful difference.</p><p>Building simple rituals, like morning journaling or an evening review, anchors your clarity practice. For instance, every evening, jot down one thing you want to focus on tomorrow, or in the morning, take three deep breaths and recall your main intention for the day.</p><p>A common pitfall is to set intentions once and never revisit them. As your life changes, so should your clarity. By regularly reviewing and adjusting your intentions, you keep them relevant and reflective of what matters most.</p><p>Make these habits easy and enjoyable—no need for rigid rules. The more you integrate clarity into your daily flow, the easier manifestation becomes.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>What’s a helpful habit for maintaining clarity and supporting manifestation?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Setting intentions once and ignoring them.</button>
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">Reviewing and adjusting intentions daily.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Avoiding all forms of reflection.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Waiting for motivation to return naturally.</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Check in with your intentions daily to prevent mental fog.</li><li>Build easy rituals that reinforce mental clarity.</li><li>Regularly update your intentions to match your current goals.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Now Click Here To Complete This Course</button>
+          </div>
+        </section>
+
+    <section class="complete" id="completeCard" style="display: none;">
+      <h2>Course Complete</h2>
+      <p>Congratulations! You’ve learned how to clear mental fog and set powerful, crystal-clear intentions for manifestation. Keep practicing these tools for ongoing clarity and transformation.</p>
+      <p class="muted small">Use the button below to take the next step, or start over and run through the course again.</p>
+      <a class="cta-btn" style="text-decoration:none; margin-top: 18px; display:inline-block;" href="https://totalmindshift.com/free-trial/" target="_blank" rel="noopener noreferrer">FREE Mini Course - no card required</a>
+      <div class="nav-row" style="justify-content:center; margin-top: 18px;">
+        <button class="nav-btn" onclick="restartCourse()">Start Over</button>
+      </div>
+      
+      <hr style="margin: 24px 0; border:0; border-top:1px solid #d1d5db;">
+      <p class="muted small" style="text-align:center; margin-bottom: 12px;">Download the information in this course to keep and refer back to</p>
+      <div style="text-align:center;">
+        <a class="cta-btn pdf-download-btn" style="text-decoration:none; display:inline-block;" href="course.pdf" target="_blank" rel="noopener noreferrer">Download a PDF of This Course Here</a>
+      </div>
+    </section>
+  </div>
+
+  <script id="courseRuntimeScript">
+    let currentLesson = 0;
+    const lessons = [...document.querySelectorAll('.lesson')];
+    const progressFill = document.getElementById('progressFill');
+    const progressText = document.getElementById('progressText');
+    const progressWrap = document.getElementById('progressWrap');
+    const completeCard = document.getElementById('completeCard');
+    const introPage = document.getElementById('introPage');
+    const squeezePage = document.getElementById('squeezePage');
+
+    function beginCourse() {
+      if (introPage) introPage.style.display = 'none';
+      if (squeezePage) squeezePage.style.display = 'none';
+      if (progressWrap) progressWrap.style.display = 'block';
+      completeCard.style.display = 'none';
+      renderLesson();
+    }
+
+    function renderLesson() {
+      lessons.forEach((lesson, index) => lesson.classList.toggle('active', index === currentLesson));
+      if (progressFill && progressText) {
+        const pct = ((currentLesson + 1) / lessons.length) * 100;
+        progressFill.style.width = pct + '%';
+        progressText.textContent = 'Module ' + (currentLesson + 1) + ' of ' + lessons.length;
+      }
+      completeCard.style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function nextLesson() {
+      if (currentLesson < lessons.length - 1) {
+        currentLesson += 1;
+        renderLesson();
+      } else {
+        lessons.forEach(l => l.classList.remove('active'));
+        if (progressFill && progressText) {
+          progressFill.style.width = '100%';
+          progressText.textContent = 'Complete';
+        }
+        completeCard.style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function prevLesson() {
+      if (currentLesson > 0) {
+        currentLesson -= 1;
+        renderLesson();
+      }
+    }
+
+    function resetQuiz(btn) {
+      const wrap = btn.closest('.quiz');
+      const feedback = wrap.querySelector('.feedback');
+      wrap.querySelectorAll('.option-btn').forEach(b => b.disabled = false);
+      feedback.textContent = 'Choose an answer.';
+      feedback.className = 'feedback small';
+      const retryBtn = wrap.querySelector('.retry-btn');
+      if (retryBtn) retryBtn.remove();
+    }
+
+    function checkAnswer(btn) {
+      const wrap = btn.closest('.quiz');
+      const feedback = wrap.querySelector('.feedback');
+      wrap.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+      const oldRetry = wrap.querySelector('.retry-btn');
+      if (oldRetry) oldRetry.remove();
+      if (btn.dataset.correct === '1') {
+        feedback.textContent = 'Correct.';
+        feedback.className = 'feedback good';
+      } else {
+        feedback.textContent = 'Not quite. Review the lesson and try again.';
+        feedback.className = 'feedback bad';
+        const retryBtn = document.createElement('button');
+        retryBtn.className = 'nav-btn retry-btn';
+        retryBtn.style.marginTop = '12px';
+        retryBtn.textContent = 'Start quiz again';
+        retryBtn.onclick = function() { resetQuiz(retryBtn); };
+        feedback.insertAdjacentElement('afterend', retryBtn);
+      }
+    }
+
+    function restartCourse() {
+      currentLesson = 0;
+      document.querySelectorAll('.quiz').forEach(wrap => {
+        const feedback = wrap.querySelector('.feedback');
+        wrap.querySelectorAll('.option-btn').forEach(b => b.disabled = false);
+        if (feedback) {
+          feedback.textContent = 'Choose an answer.';
+          feedback.className = 'feedback small';
+        }
+        const retryBtn = wrap.querySelector('.retry-btn');
+        if (retryBtn) retryBtn.remove();
+      });
+      lessons.forEach(l => l.classList.remove('active'));
+      if (introPage) introPage.style.display = 'block';
+      if (squeezePage) squeezePage.style.display = 'block';
+      if (progressWrap) progressWrap.style.display = 'none';
+      completeCard.style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    restartCourse();
+  </script>
+
+</body></html>
