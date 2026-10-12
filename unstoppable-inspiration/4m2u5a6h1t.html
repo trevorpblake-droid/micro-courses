@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en" style="--bg: #8a194b; --accent: #8c1a4c; --accent-2: #8c1a4c;"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Commanding Your Creative Spark: Don’t Wait—Ignite</title>
+  <style>
+    :root {
+      --bg: #8a194b;
+      --panel: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --border: #e2e8f0;
+      --accent: #8c1a4c;
+      --accent-2: #8c1a4c;
+      --ok: #166534;
+      --ok-bg: #dcfce7;
+      --bad: #991b1b;
+      --bad-bg: #fee2e2;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #0a2352 0%, #8a194b 100%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+    .wrap { width: min(900px, calc(100% - 28px)); margin: 28px auto 0; padding-bottom: 80px; }
+    .hero { background: var(--panel); border: 1px solid #dbe7ff; border-radius: 24px; padding: 28px; box-shadow: 0 10px 30px rgba(0,0,0,.18); }
+    .eyebrow { font-size: .85rem; color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+    .squeeze-page { display: block; }
+    .squeeze-card {
+      max-width: 760px;
+      margin: 150px auto 28px;
+      background: var(--panel);
+      border: 1px solid #dbe7ff;
+      border-radius: 24px;
+      padding: 34px 28px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.16);
+      text-align: center;
+    }
+    .squeeze-card h1,
+    .squeeze-card h2,
+    .squeeze-card p,
+    .squeeze-card div {
+      text-align: center;
+    }
+    .squeeze-card h2 {
+      font-size: clamp(1.2rem, 2.6vw, 1.55rem);
+      line-height: 1.45;
+      color: var(--muted);
+      font-weight: 600;
+      margin-bottom: 0;
+    }
+    .squeeze-embed-box {
+      margin-top: 24px;
+      min-height: 160px;
+      border: 2px dashed #bfdbfe;
+      border-radius: 18px;
+      background: #f8fbff;
+      padding: 18px;
+      text-align: center;
+      font: 500 15px/1.7 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      color: #64748b;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+    }
+    .squeeze-embed-box.is-empty::before {
+      content: attr(data-placeholder);
+      display: block;
+      color: #64748b;
+      white-space: pre-wrap;
+    }
+    .intro-page { display: block; margin-top: 18px; }
+    .intro-card { background: var(--panel); border: 1px solid #dbe7ff; border-radius: 24px; padding: 28px; box-shadow: 0 10px 30px rgba(0,0,0,.16); transition: transform .2s ease; }
+    .intro-card:hover { transform: translateY(-2px); }
+    .hero + .intro-card { margin-top: 40px; }
+    .intro-message { font-size:17px; line-height:1.7; max-width:680px; margin:0 auto; text-align:center; }
+    .intro-divider { width:60px; height:2px; background:rgba(0,0,0,.08); margin:12px auto 18px; border-radius:2px; }
+    .course-time { display:flex; align-items:center; justify-content:center; gap:6px; margin:20px 0 10px; color:#111827; }
+    .course-time-icon { font-size:18px; opacity:.8; }
+    .course-time-value { font-weight:600; font-size:14px; line-height:1; color:inherit; }
+    .course-time-label { font-weight:600; font-size:14px; opacity:.7; }
+    .intro-start-wrap { text-align:center; margin-top:22px; }
+    .hero .muted { opacity:.82; }
+    .nav-btn.primary { transition: all .2s ease; }
+    .nav-btn.primary:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(0,0,0,.15); }
+    h1, h2, h3, h4 { margin: 0 0 10px; line-height: 1.2; }
+    h1 { font-size: clamp(2rem, 4vw, 2.8rem); }
+    p, li { line-height: 1.6; }
+    .muted { color: var(--muted); }
+    .progress-wrap { margin-top: 16px; position: static; background: rgba(255,255,255,.92); backdrop-filter: blur(8px); border: 1px solid #dbe7ff; border-radius: 18px; padding: 14px; box-shadow: 0 10px 24px rgba(0,0,0,.12); }
+    .progress-bar { width: 100%; height: 12px; background: #dbeafe; border-radius: 999px; overflow: hidden; }
+    .progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--accent), #38bdf8); transition: width .25s ease; }
+    .progress-text { margin-top: 8px; font-size: .92rem; color: var(--muted); font-weight: 600; }
+    .lesson { display: none; margin-top: 18px; background: var(--panel); border: 1px solid #dbe7ff; border-radius: 24px; padding: 24px; box-shadow: 0 10px 30px rgba(0,0,0,.16); min-height: 420px; }
+    .lesson.active { display: block; }
+    .step { display: inline-block; padding: 6px 10px; border-radius: 999px; background: #dbeafe; color: #1d4ed8; font-weight: 700; font-size: .85rem; margin-bottom: 10px; }
+    .lesson-counter { float:right; color: var(--muted); font-size: .9rem; font-weight: 700; }
+    .summary { color: var(--muted); }
+    .module-image-wrap { margin-top: 18px; text-align: center; }
+    .module-image { width: 100%; max-width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 18px; display: block; margin: 0 auto; border: 1px solid var(--border); }
+    .box, .quiz { margin-top: 16px; border: 1px solid var(--border); border-radius: 18px; padding: 18px; background: #fff; }
+    .quiz .options { display: grid; gap: 10px; margin-top: 12px; }
+    .option-btn, .nav-btn, .cta-btn {
+      appearance: none; border: 0; border-radius: 12px; padding: 12px 16px; font: inherit; font-weight: 700; cursor: pointer; transition: transform .15s ease, opacity .15s ease, box-shadow .15s ease;
+    }
+    .option-btn { background: #eff6ff; color: #1e3a8a; text-align: left; border: 1px solid #bfdbfe; }
+    .nav-row { display: flex; justify-content: space-between; gap: 12px; margin-top: 22px; }
+    .nav-btn { background: transparent; color: #0f172a; border: 2px solid #0f2f6b; }
+    .nav-btn.primary, .cta-btn { background: linear-gradient(180deg, var(--accent), var(--accent-2)); color: white; border: 0; box-shadow: 0 10px 20px rgba(37,99,235,.22); }
+    .nav-btn:hover, .cta-btn:hover, .option-btn:hover { transform: translateY(-1px); }
+    .nav-btn:disabled { opacity: .5; cursor: not-allowed; }
+    .feedback { margin-top: 12px; border-radius: 12px; padding: 10px 12px; background: #f8fafc; border: 1px solid var(--border); }
+    .feedback.good { background: var(--ok-bg); color: var(--ok); border-color: #86efac; }
+    .feedback.bad { background: var(--bad-bg); color: var(--bad); border-color: #fca5a5; }
+    .complete { display: none; margin-top: 18px; background: var(--panel); border: 1px solid #dbe7ff; border-radius: 24px; padding: 28px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,.16); }
+    .small { font-size: .92rem; }
+    @media (max-width: 640px) {
+      .nav-row { flex-direction: column; }
+      .nav-btn { width: 100%; }
+    }
+  
+.cta-button a, .cta-button button { text-decoration:none !important; }
+</style>
+
+</head>
+<body data-course-file="4m2u5a6h1t.html" data-has-squeeze="0" spellcheck="true" style="background: linear-gradient(rgb(10, 35, 82) 0%, rgb(138, 25, 75) 100%);">
+  <div class="wrap">
+    
+    
+
+    <section class="intro-page" id="introPage" style="display: none;">
+      <section class="hero">
+        <div class="eyebrow">Interactive mini-course</div>
+        <h1>Commanding Your Creative Spark: Don’t Wait—Ignite</h1>
+        <p class="muted">Unlock daily inspiration, live with purpose, and freely express your creativity on demand.</p>
+      </section>
+
+      <section class="intro-card" id="introCard">
+        <div class="intro-divider"></div>
+        <p class="intro-message">Welcome! In this course, you'll build a clear understanding of Commanding Your Creative Spark: Don’t Wait—Ignite, and by the end you'll be in a strong position to put a clear plan into action with confidence.</p>
+        <div class="course-time">
+          <span class="course-time-icon">◷</span>
+          <span class="course-time-value">24</span>
+          <span class="course-time-label">minutes</span>
+        </div>
+        <div class="intro-start-wrap">
+          <button class="nav-btn primary" onclick="beginCourse()">Let's Get Started - Click Here To Begin</button>
+        </div>
+      </section>
+    </section>
+
+    
+    <div class="progress-wrap" id="progressWrap" style="display: block;">
+      <div class="progress-bar"><div class="progress-fill" id="progressFill" style="background: rgb(140, 26, 76); width: 100%;"></div></div>
+      <div class="progress-text" id="progressText">Complete</div>
+    </div>
+
+    
+        <section class="lesson" data-index="0">
+          <div class="lesson-top">
+            <span class="step">Module 1</span>
+            <span class="lesson-counter">1 / 6</span>
+            <h2>Why Waiting for Inspiration Holds You Back</h2>
+            <p class="summary">This lesson exposes the dangers of passively waiting for creative motivation and sets the foundation for taking control.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/why-waiting-for-inspiration-holds-you-back.webp" data-export-src="images/why-waiting-for-inspiration-holds-you-back.webp" alt="Why Waiting for Inspiration Holds You Back" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Inspiration isn’t just luck—it can be generated.</li><li>Passive waiting often leads to frustration and creative blocks.</li><li>Your mind responds to action, not waiting.</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 1</h3>
+            <p>Many people believe that inspiration is a mysterious force that strikes when it wishes. This attitude leads to long stretches of inactivity and frustration, especially when nothing seems to spark that desired flow. The truth is, waiting for inspiration often keeps you stuck.</p><p>Instead, understand that inspiration can be summoned. The human brain is designed to make connections, but it needs prompts and movement to work best. When you take small actions, even when you don’t feel inspired, you actually signal your mind to start the creative process.</p><p>For example, a writer who only writes when 'inspired' may never finish their book, while a writer committed to a daily practice creates the space for inspiration to show up in the work. A common mistake is believing you need the spark before starting. In reality, the spark often appears only after you begin.</p><p>The next step is to rewire your thinking so you see creativity as active, not passive. In the next lesson, you’ll learn strategies to prime your mind for creativity—no waiting required.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>What is the main risk of passively waiting for inspiration?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">You might miss out on spontaneous ideas.</button>
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">You may become frustrated and remain creatively blocked.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">You will always feel energetic.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">You ensure high-quality output every time.</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Waiting for inspiration can keep you stalled.</li><li>Taking action invites creativity and new ideas.</li><li>Inspiration often arrives once you’ve started.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()" disabled="">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Next Module</button>
+          </div>
+        </section>
+        <section class="lesson" data-index="1">
+          <div class="lesson-top">
+            <span class="step">Module 2</span>
+            <span class="lesson-counter">2 / 6</span>
+            <h2>How to Prime Your Mind for Creative Flow</h2>
+            <p class="summary">Learn proven methods to prepare your mind and body to experience creative momentum at will.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/how-to-prime-your-mind-for-creative-flow.webp" data-export-src="images/how-to-prime-your-mind-for-creative-flow.webp" alt="How to Prime Your Mind for Creative Flow" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Creative rituals train your brain to shift into mode.</li><li>Physical movement and new environments spark new thoughts.</li><li>Recording stray ideas keeps your mental gates open.</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 2</h3>
+            <p>To command inspiration, you need to prime your mind, much like warming up before exercise. Creative rituals signal your brain that it's time to generate ideas. This could be as simple as lighting a candle, playing a favorite song, or writing a sentence in a notebook. Small, repeatable actions set the stage for flow.</p><p>Movement is another trigger. Taking a short walk or changing your physical environment can help break mental stagnation and stimulate fresh thinking. Many creators, from Einstein to modern artists, have used walking or environmental shifts to prompt their best ideas.</p><p>Lastly, keep a method for capturing fleeting ideas always at hand—a notebook, an app, or voice memo. The act of recording even minor inspiration tells your subconscious that you’re open and prepared for more.</p><p>A common mistake is ignoring the need for routine, expecting creativity to just appear. Instead, intentionally shape the conditions so your mind is ready. Next, you’ll discover how to connect these sparks of inspiration to a deeper sense of purpose.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>What is one effective way to prepare yourself for creative work?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Wait until you feel motivated.</button>
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">Repeat a personal creative ritual before you begin.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Ignore your surroundings.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Only work late at night regardless of preference.</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Creative rituals help prime your brain for inspiration.</li><li>Physical movement can break creative stagnation.</li><li>Recording ideas makes you receptive to more inspiration.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Next Module</button>
+          </div>
+        </section>
+        <section class="lesson" data-index="2">
+          <div class="lesson-top">
+            <span class="step">Module 3</span>
+            <span class="lesson-counter">3 / 6</span>
+            <h2>Aligning Inspiration with Your Deeper Purpose</h2>
+            <p class="summary">Discover how understanding your personal 'why' powers consistent creative energy and meaning.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/aligning-inspiration-with-your-deeper-purpose.webp" data-export-src="images/aligning-inspiration-with-your-deeper-purpose.webp" alt="Aligning Inspiration with Your Deeper Purpose" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Identify what truly motivates and excites you.</li><li>Use guiding questions to connect daily creativity to your core values.</li><li>Even small projects carry larger meaning when tied to your purpose.</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 3</h3>
+            <p>When you know why you’re creating, your inspiration gains focus and depth. Purpose is your personal fuel—it’s what keeps you going when initial excitement fades. Without clarity about what matters to you, creative work can feel empty or forced.</p><p>A practical first step is to ask: 'What impact do I want to have? What excites me most about this project?' Write down your answers. For example, an entrepreneur might be driven by the urge to help others succeed, while an artist could be motivated by the desire to spark conversation. Aligning each action with these sources of drive keeps your creative energy robust.</p><p>A common pitfall is chasing trends or mimicking others without checking if the work resonates with your values. This usually leads to burnout or feeling uninspired. Instead, re-anchor your creative practice by reflecting on your motivations regularly.</p><p>The next step is using simple tools and prompts to trigger inspiration instantly, which you’ll learn in the following lesson.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>What keeps creative energy flowing over the long term?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Waiting for a sudden idea.</button>
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">Aligning your work with your personal sense of purpose.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Copying successful people.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Only working when forced by deadlines.</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Knowing your purpose deepens your creative drive.</li><li>Asking 'why' gives meaning to daily inspiration.</li><li>Align your creative actions with what truly excites you.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Next Module</button>
+          </div>
+        </section>
+        <section class="lesson" data-index="3">
+          <div class="lesson-top">
+            <span class="step">Module 4</span>
+            <span class="lesson-counter">4 / 6</span>
+            <h2>On-Demand Inspiration: Practical Tools &amp; Prompts</h2>
+            <p class="summary">Get hands-on techniques and prompts for generating inspiration whenever you need it.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/on-demand-inspiration-practical-tools-prompts.webp" data-export-src="images/on-demand-inspiration-practical-tools-prompts.webp" alt="On-Demand Inspiration: Practical Tools &amp; Prompts" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Use 'what if' questions to jumpstart inventive ideas.</li><li>Mind-mapping connects unexpected concepts.</li><li>Random restrictions often lead to creative breakthroughs.</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 4</h3>
+            <p>You no longer need to sit idly, waiting for inspiration. Certain tools and prompts reliably trigger new ideas. One productive tactic is asking open-ended questions like, 'What if I started with the ending?' or 'What happens if I reverse my process?' These questions interrupt your usual thinking and ignite curiosity.</p><p>Mind-mapping is another powerful method. Start with a central idea and branch out associations rapidly. This technique reveals overlooked possibilities and surprising themes. For instance, an entrepreneur brainstorming a new product can mind-map customer needs, emotions, and unlikely solutions.</p><p>Introducing random constraints—like limiting yourself to five words in a headline or switching mediums for an hour—often disrupts creative ruts. These boundaries force you to problem-solve and look at the challenge from new angles.</p><p>A common mistake is relying on a single prompt or tool over and over, which eventually loses effectiveness. Keep your toolbox varied and experiment with new techniques. Up next, you’ll learn to recognize and clear creative roadblocks in the moment.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>Which method is NOT recommended for generating inspiration on demand?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Using mind-mapping.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Applying random creative constraints.</button>
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">Waiting passively for ideas to come.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Asking open-ended 'what if' questions.</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Asking open 'what if' questions helps generate fresh ideas.</li><li>Mind-mapping uncovers unexpected connections.</li><li>Creatively limiting yourself can drive breakthroughs.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Next Module</button>
+          </div>
+        </section>
+        <section class="lesson" data-index="4">
+          <div class="lesson-top">
+            <span class="step">Module 5</span>
+            <span class="lesson-counter">5 / 6</span>
+            <h2>Recognizing and Clearing Common Creative Blocks</h2>
+            <p class="summary">Learn to spot and overcome the top obstacles that stifle creative flow.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/recognizing-and-clearing-common-creative-blocks.webp" data-export-src="images/recognizing-and-clearing-common-creative-blocks.webp" alt="Recognizing and Clearing Common Creative Blocks" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Identify internal blocks like self-doubt and perfectionism.</li><li>Change state with movement or switching tasks.</li><li>Reframe setbacks as signals for growth or new perspective.</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 5</h3>
+            <p>Every creator faces blocks, but recognizing their true source is the first step to moving past them. The most common internal blocks are fear of failure, self-criticism, or the belief that your ideas aren’t good enough. By noticing these patterns, you can interrupt them before they take hold.</p><p>A rapid way to shift your mindset is through movement—stand up, stretch, or walk around. Physically changing your state can disrupt negative cycles. Alternatively, switch to a different, unrelated task for a few minutes to let your mind reset.</p><p>Reframing setbacks is essential. Instead of seeing a lack of progress as a failure, treat it as useful feedback. Perhaps it’s a signal to try a new approach or revisit your original purpose. Many creators mistakenly double down on methods that aren’t working, rather than stepping back and adjusting.</p><p>The key is to spot blocks early and use them as cues for positive action. In the final lesson, you’ll build habits for lifelong inspiration and creativity.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>What is one effective way to move past a creative block?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Push through by using the same strategy repeatedly.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Wait for days until the block disappears.</button>
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">Physically change your state or switch tasks briefly.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Give up on the project completely.</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Recognizing internal blocks is crucial to moving past them.</li><li>Use movement or task-switching to shift your mindset.</li><li>Treat setbacks as opportunities to adjust your approach.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Next Module</button>
+          </div>
+        </section>
+        <section class="lesson" data-index="5">
+          <div class="lesson-top">
+            <span class="step">Module 6</span>
+            <span class="lesson-counter">6 / 6</span>
+            <h2>Building Lifelong Habits for Daily Creative Spark</h2>
+            <p class="summary">Master the habits and routines that make on-demand inspiration part of your everyday life.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/building-lifelong-habits-for-daily-creative-spark.webp" data-export-src="images/building-lifelong-habits-for-daily-creative-spark.webp" alt="Building Lifelong Habits for Daily Creative Spark" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Set up a simple, consistent creative routine.</li><li>Document progress and celebrate small wins.</li><li>Join communities or find accountability partners.</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 6</h3>
+            <p>To maintain daily inspiration, you must treat creativity like a habit, not a rare event. Begin by setting up a consistent creative routine that fits your life, even if it’s just ten minutes a day. Over time, repetition wires your brain to expect and welcome inspiration during these blocks.</p><p>Track your progress in a visible way—a journal, calendar, or digital tracker. Recording both your successes and your stuck moments helps you spot trends and celebrate small victories. These regular reflections reinforce your commitment.</p><p>Getting support makes the journey easier. Sharing your goals in a creative community or with an accountability buddy keeps you engaged and counters feelings of isolation. A common trap is trying to go it alone and slipping back into inertia.</p><p>The next steps are to personalize these habits for your own interests and to keep tweaking your system as your goals evolve. With these foundations, you’ll find inspiration becomes a daily companion—not something you need to chase.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>What daily practice supports ongoing creative inspiration?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Waiting for the perfect mood.</button>
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">Building a consistent short routine and tracking your progress.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Working alone and never sharing your work.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Only creating when forced by deadlines.</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Routine makes inspiration accessible every day.</li><li>Documenting progress keeps you motivated.</li><li>Community and accountability help you stay creative long-term.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Now Click Here To Complete This Course</button>
+          </div>
+        </section>
+
+    <section class="complete" id="completeCard" style="display: block;">
+      <h2>Course Complete</h2>
+      <p>Congratulations! You’ve learned how to reliably spark inspiration and lead a more creative, purpose-driven life. Go forth and command your creative spark each day.</p>
+      <p class="muted small">Use the button below to take the next step, or start over and run through the course again.</p>
+      <a class="cta-btn" style="text-decoration:none; margin-top: 18px; display:inline-block;" href="https://totalmindshift.com/free-trial/" target="_blank" rel="noopener noreferrer">Access lifelong daily audios. Free 7 day trial, no credit card required</a>
+      <div class="nav-row" style="justify-content:center; margin-top: 18px;">
+        <button class="nav-btn" onclick="restartCourse()">Start Over</button>
+      </div>
+      
+      <hr style="margin: 24px 0; border:0; border-top:1px solid #d1d5db;">
+      <p class="muted small" style="text-align:center; margin-bottom: 12px;">Download the information in this course to keep and refer back to</p>
+      <div style="text-align:center;">
+        <a class="cta-btn pdf-download-btn" style="text-decoration:none; display:inline-block;" href="course.pdf" target="_blank" rel="noopener noreferrer">Download a PDF of This Course Here</a>
+      </div>
+    </section>
+  </div>
+
+  <script id="courseRuntimeScript">
+    let currentLesson = 0;
+    const lessons = [...document.querySelectorAll('.lesson')];
+    const progressFill = document.getElementById('progressFill');
+    const progressText = document.getElementById('progressText');
+    const progressWrap = document.getElementById('progressWrap');
+    const completeCard = document.getElementById('completeCard');
+    const introPage = document.getElementById('introPage');
+    const squeezePage = document.getElementById('squeezePage');
+
+    function beginCourse() {
+      if (introPage) introPage.style.display = 'none';
+      if (squeezePage) squeezePage.style.display = 'none';
+      if (progressWrap) progressWrap.style.display = 'block';
+      completeCard.style.display = 'none';
+      renderLesson();
+    }
+
+    function renderLesson() {
+      lessons.forEach((lesson, index) => lesson.classList.toggle('active', index === currentLesson));
+      if (progressFill && progressText) {
+        const pct = ((currentLesson + 1) / lessons.length) * 100;
+        progressFill.style.width = pct + '%';
+        progressText.textContent = 'Module ' + (currentLesson + 1) + ' of ' + lessons.length;
+      }
+      completeCard.style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function nextLesson() {
+      if (currentLesson < lessons.length - 1) {
+        currentLesson += 1;
+        renderLesson();
+      } else {
+        lessons.forEach(l => l.classList.remove('active'));
+        if (progressFill && progressText) {
+          progressFill.style.width = '100%';
+          progressText.textContent = 'Complete';
+        }
+        completeCard.style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function prevLesson() {
+      if (currentLesson > 0) {
+        currentLesson -= 1;
+        renderLesson();
+      }
+    }
+
+    function resetQuiz(btn) {
+      const wrap = btn.closest('.quiz');
+      const feedback = wrap.querySelector('.feedback');
+      wrap.querySelectorAll('.option-btn').forEach(b => b.disabled = false);
+      feedback.textContent = 'Choose an answer.';
+      feedback.className = 'feedback small';
+      const retryBtn = wrap.querySelector('.retry-btn');
+      if (retryBtn) retryBtn.remove();
+    }
+
+    function checkAnswer(btn) {
+      const wrap = btn.closest('.quiz');
+      const feedback = wrap.querySelector('.feedback');
+      wrap.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+      const oldRetry = wrap.querySelector('.retry-btn');
+      if (oldRetry) oldRetry.remove();
+      if (btn.dataset.correct === '1') {
+        feedback.textContent = 'Correct.';
+        feedback.className = 'feedback good';
+      } else {
+        feedback.textContent = 'Not quite. Review the lesson and try again.';
+        feedback.className = 'feedback bad';
+        const retryBtn = document.createElement('button');
+        retryBtn.className = 'nav-btn retry-btn';
+        retryBtn.style.marginTop = '12px';
+        retryBtn.textContent = 'Start quiz again';
+        retryBtn.onclick = function() { resetQuiz(retryBtn); };
+        feedback.insertAdjacentElement('afterend', retryBtn);
+      }
+    }
+
+    function restartCourse() {
+      currentLesson = 0;
+      document.querySelectorAll('.quiz').forEach(wrap => {
+        const feedback = wrap.querySelector('.feedback');
+        wrap.querySelectorAll('.option-btn').forEach(b => b.disabled = false);
+        if (feedback) {
+          feedback.textContent = 'Choose an answer.';
+          feedback.className = 'feedback small';
+        }
+        const retryBtn = wrap.querySelector('.retry-btn');
+        if (retryBtn) retryBtn.remove();
+      });
+      lessons.forEach(l => l.classList.remove('active'));
+      if (introPage) introPage.style.display = 'block';
+      if (squeezePage) squeezePage.style.display = 'block';
+      if (progressWrap) progressWrap.style.display = 'none';
+      completeCard.style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    restartCourse();
+  </script>
+
+</body></html>
