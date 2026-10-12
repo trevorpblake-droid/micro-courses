@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en" style="--bg: #0f2f6b; --accent: #2563eb; --accent-2: #2563eb;"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beginner’s Guide to Effective Breathwork</title>
+  <style>
+    :root {
+      --bg: #0f2f6b;
+      --panel: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --border: #e2e8f0;
+      --accent: #2563eb;
+      --accent-2: #2563eb;
+      --ok: #166534;
+      --ok-bg: #dcfce7;
+      --bad: #991b1b;
+      --bad-bg: #fee2e2;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #0a2352 0%, #0f2f6b 100%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+    .wrap { width: min(900px, calc(100% - 28px)); margin: 28px auto 0; padding-bottom: 80px; }
+    .hero { background: var(--panel); border: 1px solid #dbe7ff; border-radius: 24px; padding: 28px; box-shadow: 0 10px 30px rgba(0,0,0,.18); }
+    .eyebrow { font-size: .85rem; color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+    .squeeze-page { display: block; }
+    .squeeze-card {
+      max-width: 760px;
+      margin: 150px auto 28px;
+      background: var(--panel);
+      border: 1px solid #dbe7ff;
+      border-radius: 24px;
+      padding: 34px 28px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.16);
+      text-align: center;
+    }
+    .squeeze-card h1,
+    .squeeze-card h2,
+    .squeeze-card p,
+    .squeeze-card div {
+      text-align: center;
+    }
+    .squeeze-card h2 {
+      font-size: clamp(1.2rem, 2.6vw, 1.55rem);
+      line-height: 1.45;
+      color: var(--muted);
+      font-weight: 600;
+      margin-bottom: 0;
+    }
+    .squeeze-embed-box {
+      margin-top: 24px;
+      min-height: 160px;
+      border: 2px dashed #bfdbfe;
+      border-radius: 18px;
+      background: #f8fbff;
+      padding: 18px;
+      text-align: center;
+      font: 500 15px/1.7 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      color: #64748b;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+    }
+    .squeeze-embed-box.is-empty::before {
+      content: attr(data-placeholder);
+      display: block;
+      color: #64748b;
+      white-space: pre-wrap;
+    }
+    .intro-page { display: block; margin-top: 18px; }
+    .intro-card { background: var(--panel); border: 1px solid #dbe7ff; border-radius: 24px; padding: 28px; box-shadow: 0 10px 30px rgba(0,0,0,.16); transition: transform .2s ease; }
+    .intro-card:hover { transform: translateY(-2px); }
+    .hero + .intro-card { margin-top: 40px; }
+    .intro-message { font-size:17px; line-height:1.7; max-width:680px; margin:0 auto; text-align:center; }
+    .intro-divider { width:60px; height:2px; background:rgba(0,0,0,.08); margin:12px auto 18px; border-radius:2px; }
+    .course-time { display:flex; align-items:center; justify-content:center; gap:6px; margin:20px 0 10px; color:#111827; }
+    .course-time-icon { font-size:18px; opacity:.8; }
+    .course-time-value { font-weight:600; font-size:14px; line-height:1; color:inherit; }
+    .course-time-label { font-weight:600; font-size:14px; opacity:.7; }
+    .intro-start-wrap { text-align:center; margin-top:22px; }
+    .hero .muted { opacity:.82; }
+    .nav-btn.primary { transition: all .2s ease; }
+    .nav-btn.primary:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(0,0,0,.15); }
+    h1, h2, h3, h4 { margin: 0 0 10px; line-height: 1.2; }
+    h1 { font-size: clamp(2rem, 4vw, 2.8rem); }
+    p, li { line-height: 1.6; }
+    .muted { color: var(--muted); }
+    .progress-wrap { margin-top: 16px; position: static; background: rgba(255,255,255,.92); backdrop-filter: blur(8px); border: 1px solid #dbe7ff; border-radius: 18px; padding: 14px; box-shadow: 0 10px 24px rgba(0,0,0,.12); }
+    .progress-bar { width: 100%; height: 12px; background: #dbeafe; border-radius: 999px; overflow: hidden; }
+    .progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--accent), #38bdf8); transition: width .25s ease; }
+    .progress-text { margin-top: 8px; font-size: .92rem; color: var(--muted); font-weight: 600; }
+    .lesson { display: none; margin-top: 18px; background: var(--panel); border: 1px solid #dbe7ff; border-radius: 24px; padding: 24px; box-shadow: 0 10px 30px rgba(0,0,0,.16); min-height: 420px; }
+    .lesson.active { display: block; }
+    .step { display: inline-block; padding: 6px 10px; border-radius: 999px; background: #dbeafe; color: #1d4ed8; font-weight: 700; font-size: .85rem; margin-bottom: 10px; }
+    .lesson-counter { float:right; color: var(--muted); font-size: .9rem; font-weight: 700; }
+    .summary { color: var(--muted); }
+    .module-image-wrap { margin-top: 18px; text-align: center; }
+    .module-image { width: 100%; max-width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 18px; display: block; margin: 0 auto; border: 1px solid var(--border); }
+    .box, .quiz { margin-top: 16px; border: 1px solid var(--border); border-radius: 18px; padding: 18px; background: #fff; }
+    .quiz .options { display: grid; gap: 10px; margin-top: 12px; }
+    .option-btn, .nav-btn, .cta-btn {
+      appearance: none; border: 0; border-radius: 12px; padding: 12px 16px; font: inherit; font-weight: 700; cursor: pointer; transition: transform .15s ease, opacity .15s ease, box-shadow .15s ease;
+    }
+    .option-btn { background: #eff6ff; color: #1e3a8a; text-align: left; border: 1px solid #bfdbfe; }
+    .nav-row { display: flex; justify-content: space-between; gap: 12px; margin-top: 22px; }
+    .nav-btn { background: transparent; color: #0f172a; border: 2px solid #0f2f6b; }
+    .nav-btn.primary, .cta-btn { background: linear-gradient(180deg, var(--accent), var(--accent-2)); color: white; border: 0; box-shadow: 0 10px 20px rgba(37,99,235,.22); }
+    .nav-btn:hover, .cta-btn:hover, .option-btn:hover { transform: translateY(-1px); }
+    .nav-btn:disabled { opacity: .5; cursor: not-allowed; }
+    .feedback { margin-top: 12px; border-radius: 12px; padding: 10px 12px; background: #f8fafc; border: 1px solid var(--border); }
+    .feedback.good { background: var(--ok-bg); color: var(--ok); border-color: #86efac; }
+    .feedback.bad { background: var(--bad-bg); color: var(--bad); border-color: #fca5a5; }
+    .complete { display: none; margin-top: 18px; background: var(--panel); border: 1px solid #dbe7ff; border-radius: 24px; padding: 28px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,.16); }
+    .small { font-size: .92rem; }
+    @media (max-width: 640px) {
+      .nav-row { flex-direction: column; }
+      .nav-btn { width: 100%; }
+    }
+  
+.cta-button a, .cta-button button { text-decoration:none !important; }
+</style>
+
+</head>
+<body data-course-file="123e3v4d49.html" data-has-squeeze="0" spellcheck="true" style="background: linear-gradient(rgb(10, 35, 82) 0%, rgb(15, 47, 107) 100%);">
+  <div class="wrap">
+    
+    
+
+    <section class="intro-page" id="introPage" style="display: none;">
+      <section class="hero">
+        <div class="eyebrow">Interactive mini-course</div>
+        <h1>Beginner’s Guide to Effective Breathwork</h1>
+        <p class="muted">Unlock Greater Calm, Energy, and Focus Through Simple Breathing Techniques</p>
+      </section>
+
+      <section class="intro-card" id="introCard">
+        <div class="intro-divider"></div>
+        <p class="intro-message">Welcome! In this course, you'll build a clear understanding of Beginner’s Guide to Effective Breathwork, and by the end you'll be in a strong position to put a clear plan into action with confidence.</p>
+        <div class="course-time">
+          <span class="course-time-icon">◷</span>
+          <span class="course-time-value">33</span>
+          <span class="course-time-label">minutes</span>
+        </div>
+        <div class="intro-start-wrap">
+          <button class="nav-btn primary" onclick="beginCourse()">Let's Get Started - Click Here To Begin</button>
+        </div>
+      </section>
+    </section>
+
+    
+    <div class="progress-wrap" id="progressWrap" style="display: block;">
+      <div class="progress-bar"><div class="progress-fill" id="progressFill" style="background: rgb(37, 99, 235); width: 100%;"></div></div>
+      <div class="progress-text" id="progressText">Complete</div>
+    </div>
+
+    
+        <section class="lesson" data-index="0">
+          <div class="lesson-top">
+            <span class="step">Module 1</span>
+            <span class="lesson-counter">1 / 6</span>
+            <h2>Why Your Breathing Matters: The Science and Benefits</h2>
+            <p class="summary">Learn the science of breathwork and how intentional breathing can support physical and mental wellbeing.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/why-your-breathing-matters-the-science-and-benefits.webp" data-export-src="images/why-your-breathing-matters-the-science-and-benefits.webp" alt="Why Your Breathing Matters: The Science and Benefits" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Breathwork influences the nervous system and stress response</li><li>Intentional breathing improves focus, mood, and energy</li><li>Even beginners can gain benefits from simple techniques</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 1</h3>
+            <p>Breathing is something we all do without thinking, but how you breathe can make a real difference to your health. When you breathe deeply and slowly, you send signals to calm your nervous system—lowering heart rate and reducing stress hormones. In contrast, fast and shallow breathing can make anxiety and tension worse.</p><p>Scientific research shows that practicing purposeful breathwork activates the parasympathetic nervous system, which is responsible for rest and relaxation. This not only helps reduce stress but also improves your focus, boosts mood, and even supports your immune system. Athletes, therapists, and meditators use breathwork to sharpen concentration, manage pain, and enhance recovery.</p><p>A common mistake is thinking that deep breathing is only for yoga or meditation experts. In reality, anyone can learn foundational techniques and experience benefits within minutes. Another misunderstanding is that you need elaborate breathwork routines to feel a change—often, just a few conscious breaths are enough to shift your state.</p><p>Now that you know why breathwork matters, you’re ready to explore how breathing patterns affect you emotionally and physically. In the next lesson, you'll learn to become aware of your own breathing and notice the subtle ways it influences your daily experience.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>Which of the following statements is supported by current science about breathwork?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">Breathwork activates the relaxation response and can reduce stress.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Breathwork only benefits people who practice yoga regularly.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Fast, shallow breathing lowers anxiety.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">You need to practice breathwork for hours to see any benefits.</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>How you breathe affects your body and mind.</li><li>Slow, deep breathing promotes relaxation and balance.</li><li>Anyone can start benefiting from simple breathwork exercises.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()" disabled="">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Next Module</button>
+          </div>
+        </section>
+        <section class="lesson" data-index="1">
+          <div class="lesson-top">
+            <span class="step">Module 2</span>
+            <span class="lesson-counter">2 / 6</span>
+            <h2>Building Breath Awareness: The First Step</h2>
+            <p class="summary">Discover how to notice your natural breathing patterns and identify signs of shallow or stressed breathing.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/building-breath-awareness-the-first-step.webp" data-export-src="images/building-breath-awareness-the-first-step.webp" alt="Building Breath Awareness: The First Step" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Pay attention to where your breath naturally goes: chest, ribs, or belly</li><li>Observe your breath in different situations, like stress or relaxation</li><li>Journaling daily breathing observations can reveal helpful patterns</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 2</h3>
+            <p>Before you can change your breathing, it’s vital to understand how you currently breathe. Breath awareness is about observing the rhythm, depth, and location of your inhale and exhale in daily life. Are you mostly breathing into the chest, or do you feel your belly move with each breath? Do your breaths speed up when you’re rushed, or slow down when you’re at ease?</p><p>A simple exercise is to sit comfortably, place one hand on your chest and another on your belly, and notice which area rises more with each inhale. Do this for a minute while breathing normally. Repeat the exercise at different times—such as before a stressful meeting or after a workout—to see how your breath changes with your mood and activity.</p><p>A frequent mistake is rushing through this process and trying to “fix” your breath right away. Many people become self-critical if they notice their breathing isn’t smooth. Remember, awareness comes before change. Another misconception is thinking there’s a perfect way everyone should breathe all the time. Breath naturally shifts during activity, rest, or emotion.</p><p>In the next lesson, you’ll learn basic techniques to shift from shallow, stressed breathing to deeper, calmer patterns for real-time relief and focus.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>What is the main goal of breath awareness exercises?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">To notice your current breathing patterns without judgment.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">To immediately force yourself to breathe deeply.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">To count how many breaths you take in an hour.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">To compare your breathing to others'.</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Observe how and where you breathe without judgment.</li><li>Your breathing pattern changes throughout the day.</li><li>Awareness is the foundation for positive change.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Next Module</button>
+          </div>
+        </section>
+        <section class="lesson" data-index="2">
+          <div class="lesson-top">
+            <span class="step">Module 3</span>
+            <span class="lesson-counter">3 / 6</span>
+            <h2>Foundational Technique: Diaphragmatic Breathing</h2>
+            <p class="summary">Master belly breathing, a technique that calms your system and supports energy and focus.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/foundational-technique-diaphragmatic-breathing.webp" data-export-src="images/foundational-technique-diaphragmatic-breathing.webp" alt="Foundational Technique: Diaphragmatic Breathing" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Use the diaphragm to draw air deep into the lungs</li><li>Hand placement helps you feel correct movement</li><li>Practicing even 1–2 minutes brings noticeable calm</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 3</h3>
+            <p>Diaphragmatic breathing, or 'belly breathing,' is a core breathwork method in which you intentionally engage your diaphragm—a dome-shaped muscle beneath your lungs—to draw in air deeply and efficiently.</p><p>To try this technique, sit comfortably and relax your shoulders. Place one hand on your chest and the other on your belly. Slowly inhale through your nose so that your lower hand rises while your upper hand stays mostly still. Exhale gently through your mouth or nose, feeling your belly fall. Repeat this process for 5–10 slow breaths.</p><p>This technique stimulates the vagus nerve, which tells your body to relax. Many people use it to manage anxiety, prepare for sleep, improve digestion, and sharpen focus.</p><p>A common mistake is taking in too much air at once or tensing the shoulders. Another misconception is that your chest shouldn't move at all—some movement is natural, but most breath should originate from your belly area. If you feel dizzy, pause and return to normal breathing before trying again.</p><p>Try belly breathing for a minute whenever you need a quick reset. In the next lesson, you’ll learn faster-paced techniques to boost energy or prepare for activity.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>What is the main muscle you use in diaphragmatic (belly) breathing?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">Diaphragm</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Biceps</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Neck muscles</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Forearm muscles</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Diaphragmatic breathing uses the belly, not just the chest.</li><li>Hand placement can help you learn the movement.</li><li>Regular short practice brings calm and focus.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Next Module</button>
+          </div>
+        </section>
+        <section class="lesson" data-index="3">
+          <div class="lesson-top">
+            <span class="step">Module 4</span>
+            <span class="lesson-counter">4 / 6</span>
+            <h2>Applying Breathwork: Techniques for Calm, Energy, and Focus</h2>
+            <p class="summary">Practice several essential breathwork patterns tailored for relaxation, energy, or improving mind-body awareness.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/applying-breathwork-techniques-for-calm-energy-and-focus.webp" data-export-src="images/applying-breathwork-techniques-for-calm-energy-and-focus.webp" alt="Applying Breathwork: Techniques for Calm, Energy, and Focus" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>4-7-8 breathing slows the heart and settles nerves</li><li>Box breathing steadies emotions and sharpens attention</li><li>Stimulating breath primes energy before activity</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 4</h3>
+            <p>Now that you understand and can practice belly breathing, it’s time to use other proven breathwork patterns for specific goals. The first, '4-7-8 breathing,' is excellent for calming anxiety and supporting sleep. Inhale for 4 counts, hold for 7, then exhale slowly for 8. Repeat four times—this activates your relaxation response and slows mental chatter.</p><p>'Box breathing' is a favorite among athletes and public speakers for managing pre-performance nerves. Inhale for 4 counts, hold for 4, exhale for 4, and hold out for 4, forming a rhythmic, square pattern. This steadies emotions and anchors your attention.</p><p>If you need a quick boost, try 'stimulating breath,' often called bellows breathing. Inhale and exhale rapidly through the nose, keeping your breaths short and equal in length, for about 15 seconds. This can wake up your mind and body but should be used with caution—don’t perform it if you feel dizzy, and avoid it at bedtime.</p><p>A common pitfall is choosing the wrong technique for your goal—for example, using stimulating breath when you want to unwind before sleep. Another is forcing breathholds longer than is comfortable, which can cause stress instead of relaxation.</p><p>As you practice these techniques, pay attention to which methods best suit your needs throughout the day. Up next, you’ll discover how to build a simple, sustainable breathwork routine.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>Which breathwork practice is best for quickly calming nerves and promoting relaxation?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">4-7-8 breathing</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Stimulating breath</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Rapid mouth breathing</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Holding your breath as long as possible</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Choose techniques based on your goal—calm, focus, or energy.</li><li>4-7-8 breathing and box breathing enhance relaxation and concentration.</li><li>Stimulating breath increases alertness, but use carefully.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Next Module</button>
+          </div>
+        </section>
+        <section class="lesson" data-index="4">
+          <div class="lesson-top">
+            <span class="step">Module 5</span>
+            <span class="lesson-counter">5 / 6</span>
+            <h2>Making Breathwork a Habit: Designing Your Personal Routine</h2>
+            <p class="summary">Learn how to build breathwork into your daily life by creating a routine that fits your unique schedule and needs.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/making-breathwork-a-habit-designing-your-personal-routine.webp" data-export-src="images/making-breathwork-a-habit-designing-your-personal-routine.webp" alt="Making Breathwork a Habit: Designing Your Personal Routine" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Pair breathwork with existing habits, like waking up or bedtime</li><li>Start with short practices and build gradually</li><li>Track your progress and note benefits</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 5</h3>
+            <p>The best way to enjoy the lasting benefits of breathwork is to make it a consistent habit. Successful routines are simple, realistic, and tied to moments in your day that already exist. Consider starting your morning with a minute of belly breathing or winding down in the evening with 4-7-8 breathing. Some people find it helpful to practice box breathing before stressful meetings or after work to reset.</p><p>Consistency is more important than quantity—just a few dedicated minutes each day can lead to noticeable improvements in mood, stress levels, and overall wellbeing. Set scheduled reminders on your phone or leave cues like a sticky note on your mirror.</p><p>Beginners often try to do too much at once and lose motivation. It’s better to focus on one or two techniques, gradually adding new patterns as the basics feel natural. Another misconception is believing breathwork is “all or nothing.” Even missing a day isn’t a setback.</p><p>Keep a simple journal or app diary to log your breathing exercises and note how you felt before and after. This not only motivates you but also helps you see gradual progress. In the next (and final) lesson, you'll learn how to evaluate your progress and deepen your practice for long-term benefits.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>What’s the recommended way to start a breathwork habit as a beginner?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">Practice for a few minutes daily and attach it to an existing habit.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Try every technique for an hour each day immediately.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Avoid tracking progress, since results are random.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Only do breathwork when extremely stressed.</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Attach breathwork to existing routines for consistency.</li><li>Focus on small steps and regularity over length.</li><li>Monitor your progress to stay motivated.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Next Module</button>
+          </div>
+        </section>
+        <section class="lesson" data-index="5">
+          <div class="lesson-top">
+            <span class="step">Module 6</span>
+            <span class="lesson-counter">6 / 6</span>
+            <h2>Troubleshooting &amp; Next Steps: Refining Your Breathwork Practice</h2>
+            <p class="summary">Master common challenges and learn how to safely progress as you make breathwork a lasting part of your life.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/troubleshooting-next-steps-refining-your-breathwork-practice.webp" data-export-src="images/troubleshooting-next-steps-refining-your-breathwork-practice.webp" alt="Troubleshooting &amp; Next Steps: Refining Your Breathwork Practice" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Recognize and address discomfort, dizziness, or frustration</li><li>Adapt techniques when dealing with illness, anxiety, or fatigue</li><li>Explore advanced breathwork or group classes as next steps</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 6</h3>
+            <p>As you deepen your practice, you may encounter occasional discomfort, such as lightheadedness, frustration, or difficulty focusing. These are common and usually resolve as your skills grow. If you feel dizzy, pause the practice, breathe normally, and try again later with shorter sessions.</p><p>If you’re dealing with illnesses like asthma or respiratory issues, consult a healthcare provider before diving into repetitive or intense breathwork techniques. For those with anxiety or trauma history, breathwork can sometimes trigger uneasy feelings—if this happens, simplify the techniques or reduce practice length, focusing on gentle belly breathing.</p><p>It’s easy to become discouraged if you don’t feel instant results. Breathwork is a gradual journey that offers cumulative benefits—be patient with yourself and celebrate any positive shifts, however small.</p><p>When you’re ready for more, consider exploring guided audio recordings, participating in live online breathwork groups, or working with qualified breath coaches. These options can keep your practice fresh and deepen your understanding.</p><p>Next, continue exploring, tracking progress, and expanding your toolkit as you become more confident. Breathwork, when tuned to you, is a powerful lifelong tool for calm and energy.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>If you feel dizzy or uncomfortable during breathwork, what should you do?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">Pause, breathe normally, and try shorter sessions later.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Keep going no matter what.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Switch immediately to rapid breathing.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Ignore discomfort and increase intensity.</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Discomfort is normal—pause and adjust as needed.</li><li>Customizing breathwork ensures safety and better results.</li><li>Grow through mindful progress and community support.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Now Click Here To Complete This Course</button>
+          </div>
+        </section>
+
+    <section class="complete" id="completeCard" style="display: block;">
+      <h2>Course Complete</h2>
+      <p>Congratulations on completing this breathwork course! You’re now ready to put these practical techniques into everyday life.</p>
+      <p class="muted small">Use the button below to take the next step, or start over and run through the course again.</p>
+      <a class="cta-btn" style="text-decoration:none; margin-top: 18px; display:inline-block;" href="breathefree.totalmindshift.com" target="_blank" rel="noopener noreferrer">FREE Breathwork app, no credit card required</a>
+      <div class="nav-row" style="justify-content:center; margin-top: 18px;">
+        <button class="nav-btn" onclick="restartCourse()">Start Over</button>
+      </div>
+      
+      <hr style="margin: 24px 0; border:0; border-top:1px solid #d1d5db;">
+      <p class="muted small" style="text-align:center; margin-bottom: 12px;">Download the information in this course to keep and refer back to</p>
+      <div style="text-align:center;">
+        <a class="cta-btn pdf-download-btn" style="text-decoration:none; display:inline-block;" href="course.pdf" target="_blank" rel="noopener noreferrer">Download a PDF of This Course Here</a>
+      </div>
+    </section>
+  </div>
+
+  <script id="courseRuntimeScript">
+    let currentLesson = 0;
+    const lessons = [...document.querySelectorAll('.lesson')];
+    const progressFill = document.getElementById('progressFill');
+    const progressText = document.getElementById('progressText');
+    const progressWrap = document.getElementById('progressWrap');
+    const completeCard = document.getElementById('completeCard');
+    const introPage = document.getElementById('introPage');
+    const squeezePage = document.getElementById('squeezePage');
+
+    function beginCourse() {
+      if (introPage) introPage.style.display = 'none';
+      if (squeezePage) squeezePage.style.display = 'none';
+      if (progressWrap) progressWrap.style.display = 'block';
+      completeCard.style.display = 'none';
+      renderLesson();
+    }
+
+    function renderLesson() {
+      lessons.forEach((lesson, index) => lesson.classList.toggle('active', index === currentLesson));
+      if (progressFill && progressText) {
+        const pct = ((currentLesson + 1) / lessons.length) * 100;
+        progressFill.style.width = pct + '%';
+        progressText.textContent = 'Module ' + (currentLesson + 1) + ' of ' + lessons.length;
+      }
+      completeCard.style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function nextLesson() {
+      if (currentLesson < lessons.length - 1) {
+        currentLesson += 1;
+        renderLesson();
+      } else {
+        lessons.forEach(l => l.classList.remove('active'));
+        if (progressFill && progressText) {
+          progressFill.style.width = '100%';
+          progressText.textContent = 'Complete';
+        }
+        completeCard.style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function prevLesson() {
+      if (currentLesson > 0) {
+        currentLesson -= 1;
+        renderLesson();
+      }
+    }
+
+    function resetQuiz(btn) {
+      const wrap = btn.closest('.quiz');
+      const feedback = wrap.querySelector('.feedback');
+      wrap.querySelectorAll('.option-btn').forEach(b => b.disabled = false);
+      feedback.textContent = 'Choose an answer.';
+      feedback.className = 'feedback small';
+      const retryBtn = wrap.querySelector('.retry-btn');
+      if (retryBtn) retryBtn.remove();
+    }
+
+    function checkAnswer(btn) {
+      const wrap = btn.closest('.quiz');
+      const feedback = wrap.querySelector('.feedback');
+      wrap.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+      const oldRetry = wrap.querySelector('.retry-btn');
+      if (oldRetry) oldRetry.remove();
+      if (btn.dataset.correct === '1') {
+        feedback.textContent = 'Correct.';
+        feedback.className = 'feedback good';
+      } else {
+        feedback.textContent = 'Not quite. Review the lesson and try again.';
+        feedback.className = 'feedback bad';
+        const retryBtn = document.createElement('button');
+        retryBtn.className = 'nav-btn retry-btn';
+        retryBtn.style.marginTop = '12px';
+        retryBtn.textContent = 'Start quiz again';
+        retryBtn.onclick = function() { resetQuiz(retryBtn); };
+        feedback.insertAdjacentElement('afterend', retryBtn);
+      }
+    }
+
+    function restartCourse() {
+      currentLesson = 0;
+      document.querySelectorAll('.quiz').forEach(wrap => {
+        const feedback = wrap.querySelector('.feedback');
+        wrap.querySelectorAll('.option-btn').forEach(b => b.disabled = false);
+        if (feedback) {
+          feedback.textContent = 'Choose an answer.';
+          feedback.className = 'feedback small';
+        }
+        const retryBtn = wrap.querySelector('.retry-btn');
+        if (retryBtn) retryBtn.remove();
+      });
+      lessons.forEach(l => l.classList.remove('active'));
+      if (introPage) introPage.style.display = 'block';
+      if (squeezePage) squeezePage.style.display = 'block';
+      if (progressWrap) progressWrap.style.display = 'none';
+      completeCard.style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    restartCourse();
+  </script>
+
+</body></html>
