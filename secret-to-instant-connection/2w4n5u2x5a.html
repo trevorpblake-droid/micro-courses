@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en" style="--bg: #8e1a4d; --accent: #600e32; --accent-2: #600e32;"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Make People Feel Truly Seen and Heard in Under 60 Seconds</title>
+  <style>
+    :root {
+      --bg: #8e1a4d;
+      --panel: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --border: #e2e8f0;
+      --accent: #600e32;
+      --accent-2: #600e32;
+      --ok: #166534;
+      --ok-bg: #dcfce7;
+      --bad: #991b1b;
+      --bad-bg: #fee2e2;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #0a2352 0%, #8e1a4d 100%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+    .wrap { width: min(900px, calc(100% - 28px)); margin: 28px auto 0; padding-bottom: 80px; }
+    .hero { background: var(--panel); border: 1px solid #dbe7ff; border-radius: 24px; padding: 28px; box-shadow: 0 10px 30px rgba(0,0,0,.18); }
+    .eyebrow { font-size: .85rem; color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+    .squeeze-page { display: block; }
+    .squeeze-card {
+      max-width: 760px;
+      margin: 150px auto 28px;
+      background: var(--panel);
+      border: 1px solid #dbe7ff;
+      border-radius: 24px;
+      padding: 34px 28px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.16);
+      text-align: center;
+    }
+    .squeeze-card h1,
+    .squeeze-card h2,
+    .squeeze-card p,
+    .squeeze-card div {
+      text-align: center;
+    }
+    .squeeze-card h2 {
+      font-size: clamp(1.2rem, 2.6vw, 1.55rem);
+      line-height: 1.45;
+      color: var(--muted);
+      font-weight: 600;
+      margin-bottom: 0;
+    }
+    .squeeze-embed-box {
+      margin-top: 24px;
+      min-height: 160px;
+      border: 2px dashed #bfdbfe;
+      border-radius: 18px;
+      background: #f8fbff;
+      padding: 18px;
+      text-align: center;
+      font: 500 15px/1.7 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      color: #64748b;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+    }
+    .squeeze-embed-box.is-empty::before {
+      content: attr(data-placeholder);
+      display: block;
+      color: #64748b;
+      white-space: pre-wrap;
+    }
+    .intro-page { display: block; margin-top: 18px; }
+    .intro-card { background: var(--panel); border: 1px solid #dbe7ff; border-radius: 24px; padding: 28px; box-shadow: 0 10px 30px rgba(0,0,0,.16); transition: transform .2s ease; }
+    .intro-card:hover { transform: translateY(-2px); }
+    .hero + .intro-card { margin-top: 40px; }
+    .intro-message { font-size:17px; line-height:1.7; max-width:680px; margin:0 auto; text-align:center; }
+    .intro-divider { width:60px; height:2px; background:rgba(0,0,0,.08); margin:12px auto 18px; border-radius:2px; }
+    .course-time { display:flex; align-items:center; justify-content:center; gap:6px; margin:20px 0 10px; color:#111827; }
+    .course-time-icon { font-size:18px; opacity:.8; }
+    .course-time-value { font-weight:600; font-size:14px; line-height:1; color:inherit; }
+    .course-time-label { font-weight:600; font-size:14px; opacity:.7; }
+    .intro-start-wrap { text-align:center; margin-top:22px; }
+    .hero .muted { opacity:.82; }
+    .nav-btn.primary { transition: all .2s ease; }
+    .nav-btn.primary:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(0,0,0,.15); }
+    h1, h2, h3, h4 { margin: 0 0 10px; line-height: 1.2; }
+    h1 { font-size: clamp(2rem, 4vw, 2.8rem); }
+    p, li { line-height: 1.6; }
+    .muted { color: var(--muted); }
+    .progress-wrap { margin-top: 16px; position: static; background: rgba(255,255,255,.92); backdrop-filter: blur(8px); border: 1px solid #dbe7ff; border-radius: 18px; padding: 14px; box-shadow: 0 10px 24px rgba(0,0,0,.12); }
+    .progress-bar { width: 100%; height: 12px; background: #dbeafe; border-radius: 999px; overflow: hidden; }
+    .progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--accent), #38bdf8); transition: width .25s ease; }
+    .progress-text { margin-top: 8px; font-size: .92rem; color: var(--muted); font-weight: 600; }
+    .lesson { display: none; margin-top: 18px; background: var(--panel); border: 1px solid #dbe7ff; border-radius: 24px; padding: 24px; box-shadow: 0 10px 30px rgba(0,0,0,.16); min-height: 420px; }
+    .lesson.active { display: block; }
+    .step { display: inline-block; padding: 6px 10px; border-radius: 999px; background: #dbeafe; color: #1d4ed8; font-weight: 700; font-size: .85rem; margin-bottom: 10px; }
+    .lesson-counter { float:right; color: var(--muted); font-size: .9rem; font-weight: 700; }
+    .summary { color: var(--muted); }
+    .module-image-wrap { margin-top: 18px; text-align: center; }
+    .module-image { width: 100%; max-width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 18px; display: block; margin: 0 auto; border: 1px solid var(--border); }
+    .box, .quiz { margin-top: 16px; border: 1px solid var(--border); border-radius: 18px; padding: 18px; background: #fff; }
+    .quiz .options { display: grid; gap: 10px; margin-top: 12px; }
+    .option-btn, .nav-btn, .cta-btn {
+      appearance: none; border: 0; border-radius: 12px; padding: 12px 16px; font: inherit; font-weight: 700; cursor: pointer; transition: transform .15s ease, opacity .15s ease, box-shadow .15s ease;
+    }
+    .option-btn { background: #eff6ff; color: #1e3a8a; text-align: left; border: 1px solid #bfdbfe; }
+    .nav-row { display: flex; justify-content: space-between; gap: 12px; margin-top: 22px; }
+    .nav-btn { background: transparent; color: #0f172a; border: 2px solid #0f2f6b; }
+    .nav-btn.primary, .cta-btn { background: linear-gradient(180deg, var(--accent), var(--accent-2)); color: white; border: 0; box-shadow: 0 10px 20px rgba(37,99,235,.22); }
+    .nav-btn:hover, .cta-btn:hover, .option-btn:hover { transform: translateY(-1px); }
+    .nav-btn:disabled { opacity: .5; cursor: not-allowed; }
+    .feedback { margin-top: 12px; border-radius: 12px; padding: 10px 12px; background: #f8fafc; border: 1px solid var(--border); }
+    .feedback.good { background: var(--ok-bg); color: var(--ok); border-color: #86efac; }
+    .feedback.bad { background: var(--bad-bg); color: var(--bad); border-color: #fca5a5; }
+    .complete { display: none; margin-top: 18px; background: var(--panel); border: 1px solid #dbe7ff; border-radius: 24px; padding: 28px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,.16); }
+    .small { font-size: .92rem; }
+    @media (max-width: 640px) {
+      .nav-row { flex-direction: column; }
+      .nav-btn { width: 100%; }
+    }
+  
+.cta-button a, .cta-button button { text-decoration:none !important; }
+</style>
+
+</head>
+<body data-course-file="2w4n5u2x5a.html" data-has-squeeze="0" spellcheck="true" style="background: linear-gradient(rgb(10, 35, 82) 0%, rgb(142, 26, 77) 100%);">
+  <div class="wrap">
+    
+    
+
+    <section class="intro-page" id="introPage" style="display: block;">
+      <section class="hero">
+        <div class="eyebrow">Interactive mini-course</div>
+        <h1>How to Make People Feel Truly Seen and Heard in Under 60 Seconds</h1>
+        <p class="muted">Move Beyond 'Waiting to Speak' and Build Real Connection Instantly</p>
+      </section>
+
+      <section class="intro-card" id="introCard">
+        <div class="intro-divider"></div>
+        <p class="intro-message">Welcome! In this course, you'll build a clear understanding of How to Make People Feel Truly Seen and Heard in Under 60 Seconds, and by the end you'll be in a strong position to put a clear plan into action with confidence.</p>
+        <div class="course-time">
+          <span class="course-time-icon">◷</span>
+          <span class="course-time-value">24</span>
+          <span class="course-time-label">minutes</span>
+        </div>
+        <div class="intro-start-wrap">
+          <button class="nav-btn primary" onclick="beginCourse()">Let's Get Started - Click Here To Begin</button>
+        </div>
+      </section>
+    </section>
+
+    
+    <div class="progress-wrap" id="progressWrap" style="display:none;">
+      <div class="progress-bar"><div class="progress-fill" id="progressFill" style="background: rgb(96, 14, 50);"></div></div>
+      <div class="progress-text" id="progressText">Module 1 of 6</div>
+    </div>
+
+    
+        <section class="lesson" data-index="0">
+          <div class="lesson-top">
+            <span class="step">Module 1</span>
+            <span class="lesson-counter">1 / 6</span>
+            <h2>Recognizing the Problem: Are You Just Waiting to Speak?</h2>
+            <p class="summary">Learn to identify the habit of 'waiting to speak' and why it blocks real connection.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/recognizing-the-problem-are-you-just-waiting-to-speak.webp" data-export-src="images/recognizing-the-problem-are-you-just-waiting-to-speak.webp" alt="Recognizing the Problem: Are You Just Waiting to Speak?" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Understand what 'waiting to speak' looks and feels like</li><li>See why this habit keeps you from hearing others</li><li>Start noticing your own conversational patterns</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 1</h3>
+            <p>Many conversations break down because we’re not truly listening—we’re just waiting for our turn to talk. This common habit creeps in when we feel eager to share our perspective or respond quickly. It feels like listening, but your mind is more focused on what you’ll say next than on what’s being said.</p><p>For example, you might nod along as someone talks about their day, but inside you’re planning how to relate it to your own experience. This can leave the other person feeling overlooked, even if you care.</p><p>A common mistake is assuming that being quiet is the same as listening. Real listening is active: it means focusing your full attention on the speaker instead of rehearsing your response.</p><p>To move forward, start paying attention to your own thoughts in conversations. Notice when you drift toward planning your reply, and gently bring your focus back to the other person. This awareness is your first step toward breaking the habit.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>What is a sign that you might be 'waiting to speak' instead of really listening?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">You're planning what to say next while the other person talks.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">You make direct eye contact.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">You ask clarifying questions as they speak.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">You take notes on what they say.</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>True listening means focusing on the speaker, not your reply.</li><li>Recognize when you're just waiting to speak.</li><li>Awareness is the first step to change.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()" disabled="">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Next Module</button>
+          </div>
+        </section>
+        <section class="lesson" data-index="1">
+          <div class="lesson-top">
+            <span class="step">Module 2</span>
+            <span class="lesson-counter">2 / 6</span>
+            <h2>Active Listening: Your Toolkit for Instant Connection</h2>
+            <p class="summary">Master the basics of active listening so others feel valued in seconds.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/active-listening-your-toolkit-for-instant-connection.webp" data-export-src="images/active-listening-your-toolkit-for-instant-connection.webp" alt="Active Listening: Your Toolkit for Instant Connection" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Use simple body language to show attention</li><li>Reflect back key words or feelings</li><li>Avoid the urge to interrupt, even with helpful intentions</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 2</h3>
+            <p>Active listening is more than just being silent; it’s a conscious effort to truly understand the other person. You can signal this understanding quickly through purposeful cues. Nod periodically, maintain warm eye contact, and match your body posture—these small actions make someone feel heard within moments.</p><p>For example, if someone shares that they’re stressed about work, saying, “That sounds overwhelming,” or even repeating a key word like “stressed,” lets them know you’re truly paying attention.</p><p>A common misconception is that active listening is only about paraphrasing back what’s said. In reality, it’s a mix: showing you’re engaged both physically and verbally, and avoiding non-verbal signals of impatience or distraction. Interrupting—even to offer advice or reassurance—can break the flow and make someone feel dismissed.</p><p>Your next step is to practice reflecting back one feeling or detail during a conversation. It may feel awkward at first, but it quickly becomes natural and helps others feel instantly acknowledged.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>What is one effective way to show active listening?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">Repeat a key word or feeling you heard</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Think about your own experiences</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Give advice right away</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Make less eye contact to avoid distraction</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Active listening uses words and body language to show real attention.</li><li>Reflect back key feelings or words.</li><li>Avoid interrupting or jumping in too soon.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Next Module</button>
+          </div>
+        </section>
+        <section class="lesson" data-index="2">
+          <div class="lesson-top">
+            <span class="step">Module 3</span>
+            <span class="lesson-counter">3 / 6</span>
+            <h2>Rapport in Less Than a Minute: The Mirroring Technique</h2>
+            <p class="summary">Learn how to use mirroring to quickly build trust and connection in any conversation.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/rapport-in-less-than-a-minute-the-mirroring-technique.webp" data-export-src="images/rapport-in-less-than-a-minute-the-mirroring-technique.webp" alt="Rapport in Less Than a Minute: The Mirroring Technique" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Subtly match body language to foster rapport</li><li>Use similar tone and pace of speech</li><li>Keep mirroring natural, not exaggerated</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 3</h3>
+            <p>Mirroring is a proven way to establish rapport almost instantly. This means gently aligning your body language, tone of voice, or pace of speech with the person you’re speaking to. It creates a sense of alignment—people feel more comfortable when they sense you’re attuned to them.</p><p>For example, if someone speaks softly and calmly, softening your voice and relaxing your posture makes them feel at ease. If they’re excited and animated, bringing some energy into your responses helps you connect more deeply.</p><p>A common mistake is to mirror too obviously or forcefully. Overdoing it can seem insincere or even mocking. The goal is to create subtle harmony—not copycat their every move.</p><p>As you move forward, practice observing one aspect of someone’s communication—such as their tempo or gestures—and gently echo it. With practice, mirroring becomes an automatic, unconscious way to signal closeness and understanding.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>What is the best way to use the mirroring technique effectively?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">Subtly align your body language and speech with the other person</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Copy every gesture and word exactly</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Maintain a completely neutral posture and tone</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Only mirror when you agree with the speaker</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Mirroring builds instant rapport through subtle alignment.</li><li>Match body language, tone, or pace in a natural way.</li><li>Avoid overdoing it—aim for subtlety.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Next Module</button>
+          </div>
+        </section>
+        <section class="lesson" data-index="3">
+          <div class="lesson-top">
+            <span class="step">Module 4</span>
+            <span class="lesson-counter">4 / 6</span>
+            <h2>Listening for Feelings, Not Just Facts</h2>
+            <p class="summary">Uncover how to tune into emotions beneath the words to make people feel truly understood.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/listening-for-feelings-not-just-facts.webp" data-export-src="images/listening-for-feelings-not-just-facts.webp" alt="Listening for Feelings, Not Just Facts" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Focus on the feeling behind someone’s message</li><li>Validate emotions with simple statements</li><li>Avoid dismissing or minimizing feelings</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 4</h3>
+            <p>Great listeners don’t just hear facts—they sense and acknowledge the emotions beneath the surface. When someone shares something important, noticing their feelings (like frustration, worry, or excitement) tells them you understand what really matters to them.</p><p>Suppose a coworker says, “I was left out of the project meeting.” You might reply, “Sounds like you felt excluded,” even if they never used that exact word. This validates their feelings, making them feel truly seen and heard.</p><p>A common pitfall is to quickly reassure or explain away the emotion: “I’m sure it wasn’t personal.” While well-meant, it often makes people feel dismissed. Instead, a simple acknowledgment goes a long way.</p><p>Try listening specifically for feelings in your next conversation—then reflect it back with a phrase like, “That must have been tough,” or “You seem excited.” This habit builds trust and depth in relationships, often in less than a minute.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>Which response best demonstrates listening for feelings?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">It sounds like you felt frustrated by what happened.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">You should just move on.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">That happened to me once too.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">I'm sure it wasn’t a big deal.</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Pay attention to feelings, not just words.</li><li>Validate emotions to deepen connection.</li><li>Don’t rush to reassure; acknowledge first.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Next Module</button>
+          </div>
+        </section>
+        <section class="lesson" data-index="4">
+          <div class="lesson-top">
+            <span class="step">Module 5</span>
+            <span class="lesson-counter">5 / 6</span>
+            <h2>Handling Distractions and Staying Present</h2>
+            <p class="summary">Discover strategies to stay focused and resist common distractions during conversations.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/handling-distractions-and-staying-present.webp" data-export-src="images/handling-distractions-and-staying-present.webp" alt="Handling Distractions and Staying Present" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Notice and name distractions as they occur</li><li>Use short 'reset' techniques to bring your attention back</li><li>Prioritize the speaker, even if briefly</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 5</h3>
+            <p>Even with the best intentions, life is full of distractions: buzzing phones, busy thoughts, or people passing by. Being truly present doesn’t mean you’ll never get distracted—it means noticing when you are and choosing to refocus.</p><p>One practical way is to quietly acknowledge a distraction, like thinking, “That’s my phone buzzing, but I’ll check it later.” Then intentionally return your attention to the person speaking. If you lose the thread, ask a clarifying question to re-engage: “Can you say that last part again?”</p><p>A mistake is pretending to listen while your mind is elsewhere—people can sense when you’re distracted. Another is trying to power through distractions without any strategy, leading to frustration for both parties.</p><p>Your action step: Next time you catch your attention wandering, take a breath, make eye contact, and mentally recommit to listening, even if only for 30 more seconds. These micro-adjustments make a big difference in feeling present together.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>What should you do when you notice yourself getting distracted in a conversation?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">Acknowledge the distraction and then refocus on the speaker</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Ignore the distraction and pretend to listen</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Apologize and end the conversation quickly</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Immediately check your phone or respond to the distraction</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Distractions happen; the key is to notice and reset.</li><li>Refocus with small, deliberate steps.</li><li>Showing present attention matters more than perfect focus.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Next Module</button>
+          </div>
+        </section>
+        <section class="lesson" data-index="5">
+          <div class="lesson-top">
+            <span class="step">Module 6</span>
+            <span class="lesson-counter">6 / 6</span>
+            <h2>From Moment to Habit: Making Deep Listening Your Default</h2>
+            <p class="summary">Develop routines and mindsets to turn deep listening into an everyday automatic habit.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/from-moment-to-habit-making-deep-listening-your-default.webp" data-export-src="images/from-moment-to-habit-making-deep-listening-your-default.webp" alt="From Moment to Habit: Making Deep Listening Your Default" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Set daily intentions to listen fully to at least one person</li><li>Reflect on conversations to reinforce growth</li><li>Celebrate small wins to stay motivated</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 6</h3>
+            <p>True connection is built through consistent, small acts of real listening—not just grand gestures. Making it a habit means setting simple intentions each day, such as: “Today I’ll make my partner or colleague feel truly seen in our conversation.”</p><p>After conversations, take a moment to reflect: Did I listen more than I spoke? Did the person light up or share more with me? These reflections help strengthen your commitment and show your real progress.</p><p>A common misunderstanding is expecting to become a perfect listener overnight. Instead, focus on small improvements and celebrate successes, like noticing a friend relax when you reflected their feelings.</p><p>Moving forward, jot down a daily note about how you practiced deep listening and what changed as a result. Over time, these micro-habits build trust, deepen bonds, and help you make people feel seen and heard—without thinking about it.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>What is an effective way to make deep listening a regular habit?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">Set a daily goal to truly listen to at least one person</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Rely on natural instincts alone</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Only use deep listening for important conversations</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Wait for others to ask for your attention</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Set daily intentions for better listening.</li><li>Reflect and build on small progress.</li><li>Habit is formed by practice and celebrating wins.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Now Click Here To Complete This Course</button>
+          </div>
+        </section>
+
+    <section class="complete" id="completeCard" style="display: none;">
+      <h2>Course Complete</h2>
+      <p>Congratulations! You're now equipped to make others feel truly seen and heard in any conversation. Start creating instant rapport and trust today.</p>
+      <p class="muted small">Use the button below to take the next step, or start over and run through the course again.</p>
+      <a class="cta-btn" style="text-decoration:none; margin-top: 18px; display:inline-block;" href="https://totalmindshift.com/free-trial/" target="_blank" rel="noopener noreferrer">Access lifelong daily audios. Free 7 day trial, no credit card required</a>
+      <div class="nav-row" style="justify-content:center; margin-top: 18px;">
+        <button class="nav-btn" onclick="restartCourse()">Start Over</button>
+      </div>
+      
+      <hr style="margin: 24px 0; border:0; border-top:1px solid #d1d5db;">
+      <p class="muted small" style="text-align:center; margin-bottom: 12px;">Download the information in this course to keep and refer back to</p>
+      <div style="text-align:center;">
+        <a class="cta-btn pdf-download-btn" style="text-decoration:none; display:inline-block;" href="course.pdf" target="_blank" rel="noopener noreferrer">Download a PDF of This Course Here</a>
+      </div>
+    </section>
+  </div>
+
+  <script id="courseRuntimeScript">
+    let currentLesson = 0;
+    const lessons = [...document.querySelectorAll('.lesson')];
+    const progressFill = document.getElementById('progressFill');
+    const progressText = document.getElementById('progressText');
+    const progressWrap = document.getElementById('progressWrap');
+    const completeCard = document.getElementById('completeCard');
+    const introPage = document.getElementById('introPage');
+    const squeezePage = document.getElementById('squeezePage');
+
+    function beginCourse() {
+      if (introPage) introPage.style.display = 'none';
+      if (squeezePage) squeezePage.style.display = 'none';
+      if (progressWrap) progressWrap.style.display = 'block';
+      completeCard.style.display = 'none';
+      renderLesson();
+    }
+
+    function renderLesson() {
+      lessons.forEach((lesson, index) => lesson.classList.toggle('active', index === currentLesson));
+      if (progressFill && progressText) {
+        const pct = ((currentLesson + 1) / lessons.length) * 100;
+        progressFill.style.width = pct + '%';
+        progressText.textContent = 'Module ' + (currentLesson + 1) + ' of ' + lessons.length;
+      }
+      completeCard.style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function nextLesson() {
+      if (currentLesson < lessons.length - 1) {
+        currentLesson += 1;
+        renderLesson();
+      } else {
+        lessons.forEach(l => l.classList.remove('active'));
+        if (progressFill && progressText) {
+          progressFill.style.width = '100%';
+          progressText.textContent = 'Complete';
+        }
+        completeCard.style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function prevLesson() {
+      if (currentLesson > 0) {
+        currentLesson -= 1;
+        renderLesson();
+      }
+    }
+
+    function resetQuiz(btn) {
+      const wrap = btn.closest('.quiz');
+      const feedback = wrap.querySelector('.feedback');
+      wrap.querySelectorAll('.option-btn').forEach(b => b.disabled = false);
+      feedback.textContent = 'Choose an answer.';
+      feedback.className = 'feedback small';
+      const retryBtn = wrap.querySelector('.retry-btn');
+      if (retryBtn) retryBtn.remove();
+    }
+
+    function checkAnswer(btn) {
+      const wrap = btn.closest('.quiz');
+      const feedback = wrap.querySelector('.feedback');
+      wrap.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+      const oldRetry = wrap.querySelector('.retry-btn');
+      if (oldRetry) oldRetry.remove();
+      if (btn.dataset.correct === '1') {
+        feedback.textContent = 'Correct.';
+        feedback.className = 'feedback good';
+      } else {
+        feedback.textContent = 'Not quite. Review the lesson and try again.';
+        feedback.className = 'feedback bad';
+        const retryBtn = document.createElement('button');
+        retryBtn.className = 'nav-btn retry-btn';
+        retryBtn.style.marginTop = '12px';
+        retryBtn.textContent = 'Start quiz again';
+        retryBtn.onclick = function() { resetQuiz(retryBtn); };
+        feedback.insertAdjacentElement('afterend', retryBtn);
+      }
+    }
+
+    function restartCourse() {
+      currentLesson = 0;
+      document.querySelectorAll('.quiz').forEach(wrap => {
+        const feedback = wrap.querySelector('.feedback');
+        wrap.querySelectorAll('.option-btn').forEach(b => b.disabled = false);
+        if (feedback) {
+          feedback.textContent = 'Choose an answer.';
+          feedback.className = 'feedback small';
+        }
+        const retryBtn = wrap.querySelector('.retry-btn');
+        if (retryBtn) retryBtn.remove();
+      });
+      lessons.forEach(l => l.classList.remove('active'));
+      if (introPage) introPage.style.display = 'block';
+      if (squeezePage) squeezePage.style.display = 'block';
+      if (progressWrap) progressWrap.style.display = 'none';
+      completeCard.style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    restartCourse();
+  </script>
+
+</body></html>
