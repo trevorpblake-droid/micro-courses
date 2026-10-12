@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en" style="--bg: #0f2f6b; --accent: #2563eb; --accent-2: #2563eb;"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Fearless Pivot: Reinventing Yourself at Any Age</title>
+  <style>
+    :root {
+      --bg: #0f2f6b;
+      --panel: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --border: #e2e8f0;
+      --accent: #2563eb;
+      --accent-2: #2563eb;
+      --ok: #166534;
+      --ok-bg: #dcfce7;
+      --bad: #991b1b;
+      --bad-bg: #fee2e2;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #0a2352 0%, #0f2f6b 100%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+    .wrap { width: min(900px, calc(100% - 28px)); margin: 28px auto 0; padding-bottom: 80px; }
+    .hero { background: var(--panel); border: 1px solid #dbe7ff; border-radius: 24px; padding: 28px; box-shadow: 0 10px 30px rgba(0,0,0,.18); }
+    .eyebrow { font-size: .85rem; color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+    .squeeze-page { display: block; }
+    .squeeze-card {
+      max-width: 760px;
+      margin: 150px auto 28px;
+      background: var(--panel);
+      border: 1px solid #dbe7ff;
+      border-radius: 24px;
+      padding: 34px 28px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.16);
+      text-align: center;
+    }
+    .squeeze-card h1,
+    .squeeze-card h2,
+    .squeeze-card p,
+    .squeeze-card div {
+      text-align: center;
+    }
+    .squeeze-card h2 {
+      font-size: clamp(1.2rem, 2.6vw, 1.55rem);
+      line-height: 1.45;
+      color: var(--muted);
+      font-weight: 600;
+      margin-bottom: 0;
+    }
+    .squeeze-embed-box {
+      margin-top: 24px;
+      min-height: 160px;
+      border: 2px dashed #bfdbfe;
+      border-radius: 18px;
+      background: #f8fbff;
+      padding: 18px;
+      text-align: center;
+      font: 500 15px/1.7 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      color: #64748b;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+    }
+    .squeeze-embed-box.is-empty::before {
+      content: attr(data-placeholder);
+      display: block;
+      color: #64748b;
+      white-space: pre-wrap;
+    }
+    .intro-page { display: block; margin-top: 18px; }
+    .intro-card { background: var(--panel); border: 1px solid #dbe7ff; border-radius: 24px; padding: 28px; box-shadow: 0 10px 30px rgba(0,0,0,.16); transition: transform .2s ease; }
+    .intro-card:hover { transform: translateY(-2px); }
+    .hero + .intro-card { margin-top: 40px; }
+    .intro-message { font-size:17px; line-height:1.7; max-width:680px; margin:0 auto; text-align:center; }
+    .intro-divider { width:60px; height:2px; background:rgba(0,0,0,.08); margin:12px auto 18px; border-radius:2px; }
+    .course-time { display:flex; align-items:center; justify-content:center; gap:6px; margin:20px 0 10px; color:#111827; }
+    .course-time-icon { font-size:18px; opacity:.8; }
+    .course-time-value { font-weight:600; font-size:14px; line-height:1; color:inherit; }
+    .course-time-label { font-weight:600; font-size:14px; opacity:.7; }
+    .intro-start-wrap { text-align:center; margin-top:22px; }
+    .hero .muted { opacity:.82; }
+    .nav-btn.primary { transition: all .2s ease; }
+    .nav-btn.primary:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(0,0,0,.15); }
+    h1, h2, h3, h4 { margin: 0 0 10px; line-height: 1.2; }
+    h1 { font-size: clamp(2rem, 4vw, 2.8rem); }
+    p, li { line-height: 1.6; }
+    .muted { color: var(--muted); }
+    .progress-wrap { margin-top: 16px; position: static; background: rgba(255,255,255,.92); backdrop-filter: blur(8px); border: 1px solid #dbe7ff; border-radius: 18px; padding: 14px; box-shadow: 0 10px 24px rgba(0,0,0,.12); }
+    .progress-bar { width: 100%; height: 12px; background: #dbeafe; border-radius: 999px; overflow: hidden; }
+    .progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--accent), #38bdf8); transition: width .25s ease; }
+    .progress-text { margin-top: 8px; font-size: .92rem; color: var(--muted); font-weight: 600; }
+    .lesson { display: none; margin-top: 18px; background: var(--panel); border: 1px solid #dbe7ff; border-radius: 24px; padding: 24px; box-shadow: 0 10px 30px rgba(0,0,0,.16); min-height: 420px; }
+    .lesson.active { display: block; }
+    .step { display: inline-block; padding: 6px 10px; border-radius: 999px; background: #dbeafe; color: #1d4ed8; font-weight: 700; font-size: .85rem; margin-bottom: 10px; }
+    .lesson-counter { float:right; color: var(--muted); font-size: .9rem; font-weight: 700; }
+    .summary { color: var(--muted); }
+    .module-image-wrap { margin-top: 18px; text-align: center; }
+    .module-image { width: 100%; max-width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 18px; display: block; margin: 0 auto; border: 1px solid var(--border); }
+    .box, .quiz { margin-top: 16px; border: 1px solid var(--border); border-radius: 18px; padding: 18px; background: #fff; }
+    .quiz .options { display: grid; gap: 10px; margin-top: 12px; }
+    .option-btn, .nav-btn, .cta-btn {
+      appearance: none; border: 0; border-radius: 12px; padding: 12px 16px; font: inherit; font-weight: 700; cursor: pointer; transition: transform .15s ease, opacity .15s ease, box-shadow .15s ease;
+    }
+    .option-btn { background: #eff6ff; color: #1e3a8a; text-align: left; border: 1px solid #bfdbfe; }
+    .nav-row { display: flex; justify-content: space-between; gap: 12px; margin-top: 22px; }
+    .nav-btn { background: transparent; color: #0f172a; border: 2px solid #0f2f6b; }
+    .nav-btn.primary, .cta-btn { background: linear-gradient(180deg, var(--accent), var(--accent-2)); color: white; border: 0; box-shadow: 0 10px 20px rgba(37,99,235,.22); }
+    .nav-btn:hover, .cta-btn:hover, .option-btn:hover { transform: translateY(-1px); }
+    .nav-btn:disabled { opacity: .5; cursor: not-allowed; }
+    .feedback { margin-top: 12px; border-radius: 12px; padding: 10px 12px; background: #f8fafc; border: 1px solid var(--border); }
+    .feedback.good { background: var(--ok-bg); color: var(--ok); border-color: #86efac; }
+    .feedback.bad { background: var(--bad-bg); color: var(--bad); border-color: #fca5a5; }
+    .complete { display: none; margin-top: 18px; background: var(--panel); border: 1px solid #dbe7ff; border-radius: 24px; padding: 28px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,.16); }
+    .small { font-size: .92rem; }
+    @media (max-width: 640px) {
+      .nav-row { flex-direction: column; }
+      .nav-btn { width: 100%; }
+    }
+  
+.cta-button a, .cta-button button { text-decoration:none !important; }
+</style>
+
+</head>
+<body data-course-file="1w4s1i5y6q.html" data-has-squeeze="0" spellcheck="true" style="background: linear-gradient(rgb(10, 35, 82) 0%, rgb(15, 47, 107) 100%);">
+  <div class="wrap">
+    
+    
+
+    <section class="intro-page" id="introPage" style="display: block;">
+      <section class="hero">
+        <div class="eyebrow">Interactive mini-course</div>
+        <h1>The Fearless Pivot: Reinventing Yourself at Any Age</h1>
+        <p class="muted">How to Boldly Embrace Change and Start Your Next Chapter—No Matter When</p>
+      </section>
+
+      <section class="intro-card" id="introCard">
+        <div class="intro-divider"></div>
+        <p class="intro-message">Welcome! In this course, you'll build a clear understanding of The Fearless Pivot: Reinventing Yourself at Any Age, and by the end you'll be in a strong position to apply what you learn with confidence.</p>
+        <div class="course-time">
+          <span class="course-time-icon">◷</span>
+          <span class="course-time-value">20</span>
+          <span class="course-time-label">minutes</span>
+        </div>
+        <div class="intro-start-wrap">
+          <button class="nav-btn primary" onclick="beginCourse()">Let's Get Started - Click Here To Begin</button>
+        </div>
+      </section>
+    </section>
+
+    
+    <div class="progress-wrap" id="progressWrap" style="display:none;">
+      <div class="progress-bar"><div class="progress-fill" id="progressFill" style="background: rgb(37, 99, 235);"></div></div>
+      <div class="progress-text" id="progressText">Module 1 of 5</div>
+    </div>
+
+    
+        <section class="lesson" data-index="0">
+          <div class="lesson-top">
+            <span class="step">Module 1</span>
+            <span class="lesson-counter">1 / 5</span>
+            <h2>Breaking the Myth of 'Too Late'</h2>
+            <p class="summary">This lesson helps you challenge and replace beliefs that limit your potential due to age.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/breaking-the-myth-of-too-late.webp" data-export-src="images/breaking-the-myth-of-too-late.webp" alt="Breaking the Myth of 'Too Late'" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Identify the common myths about age and reinvention.</li><li>Learn how beliefs shape your sense of possibility.</li><li>See real stories of late bloomers who changed the narrative.</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 1</h3>
+            <p>Many people think there’s an unspoken expiration date on dreaming big or starting anew, but this simply isn’t true. Our culture may glorify youth and early achievement, but countless stories prove that growth and change are ageless. Holding onto the belief that it’s 'too late' can quietly erode your motivation and block you from opportunities that genuinely excite you.</p><p>Consider Colonel Sanders, who franchised Kentucky Fried Chicken at age 62, or Julia Child, who published her first cookbook in her late forties. These late-in-life pivots are more common than headlines suggest. The real obstacle is not your age, but the story you tell yourself about what’s possible.</p><p>A common mistake is to compare your starting point to the peak of someone else's career, leading to self-doubt. Instead, focus on taking one meaningful step toward what excites you, not on finishing a marathon in a day.</p><p>As you move forward, start noticing whenever you think, "I’m too old for this." Ask: is this fact, or just a story I've absorbed? Turning attention to what’s truly possible begins here.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>Which of the following is a common mistake that prevents people from reinventing themselves later in life?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">Comparing their first steps to others' peak achievements</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Setting small, achievable goals</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Seeking inspiration from late bloomers</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Challenging limiting beliefs</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Myths about age can limit your sense of what's possible.</li><li>Beliefs are not facts; stories of late bloomers show alternatives.</li><li>Begin by questioning self-limiting thoughts when they appear.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()" disabled="">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Next Module</button>
+          </div>
+        </section>
+        <section class="lesson" data-index="1">
+          <div class="lesson-top">
+            <span class="step">Module 2</span>
+            <span class="lesson-counter">2 / 5</span>
+            <h2>Finding Your Next Chapter’s Inspiration</h2>
+            <p class="summary">This lesson guides you in uncovering personal sources of excitement and meaning for your pivot.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/finding-your-next-chapter-s-inspiration.webp" data-export-src="images/finding-your-next-chapter-s-inspiration.webp" alt="Finding Your Next Chapter’s Inspiration" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Reflect on what excites you and feels meaningful now.</li><li>Use simple exercises to rediscover forgotten interests.</li><li>Learn from others’ pivots for perspective and ideas.</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 2</h3>
+            <p>Identifying what deeply excites you is a foundation for any satisfying pivot. Inspiration doesn't have to come from huge passions—it might show up as curiosity about a new topic, a nagging wish you never acted on, or an old hobby you’d like to explore again. Life transitions are a chance to lighten old routines and reconnect with yourself in a new way.</p><p>Try making a list of activities, topics, or causes you've been interested in—even decades ago. Next, ask yourself which still spark some curiosity today. For example, someone who enjoyed volunteering in their community may find renewed meaning in local projects after retirement. Inspiration can also come from hearing how others made their leap; exploring interviews or podcasts of people who’ve reinvented themselves often provides helpful sparks.</p><p>A common pitfall is thinking your next chapter must be as grand as a career overhaul. In reality, inspiration often begins with small experiments—taking a class, joining a group, or volunteering your skills somewhere new.</p><p>This week, pick one old or new interest and spend an hour exploring it. Let inspiration arise from action, not just thought.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>What is an effective first step in finding inspiration for your next chapter?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Waiting for a grand, life-changing idea</button>
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">Exploring an old or new interest for an hour</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Focusing only on past dissatisfaction</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Ignoring lessons from others' reinventions</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Inspiration can be found in both old interests and new curiosities.</li><li>Learning from others' pivots provides perspective.</li><li>Start with small steps or experiments, not overwhelming changes.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Next Module</button>
+          </div>
+        </section>
+        <section class="lesson" data-index="2">
+          <div class="lesson-top">
+            <span class="step">Module 3</span>
+            <span class="lesson-counter">3 / 5</span>
+            <h2>Redefining Success on Your Own Terms</h2>
+            <p class="summary">This lesson helps you create a new, personal definition of success that suits your current chapter.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/redefining-success-on-your-own-terms.webp" data-export-src="images/redefining-success-on-your-own-terms.webp" alt="Redefining Success on Your Own Terms" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Let go of outdated or external definitions of achievement.</li><li>Identify what truly matters to you now.</li><li>Set meaningful goals aligned with your values, not old standards.</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 3</h3>
+            <p>As you embark on a new direction, reflecting on what 'success' means to you is crucial. Many cling to past professional benchmarks, social status, or financial targets, even when these no longer feel relevant or satisfying. Reinvention is an opportunity to design a definition of success based on your current values, priorities, and stage of life.</p><p>A practical approach is to write your own 'success statement' for this chapter. Maybe it’s about making a difference in your community, or simply enjoying more time with family. For example, a mid-career professional might shift from seeking promotions to focusing on creative fulfillment or mentoring others.</p><p>A common misconception is believing your old definition of success is the only valid one. This can lead to taking steps that look productive but feel empty. On the other hand, being honest about what actually matters to you now ensures that each new step moves you toward genuine satisfaction.</p><p>Review your current goals: Are they yours, or leftovers from another time? Adjust your targets to be truly meaningful in your current life.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>What is the main benefit of redefining 'success' for your current stage of life?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">It ensures your goals remain competitive in your field</button>
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">It aligns your actions with what's truly meaningful to you</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">It guarantees instant results</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">It prevents others from questioning your decisions</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Redefining success is crucial when starting something new.</li><li>Your personal values and priorities should shape your goals.</li><li>Release outdated metrics and create a success statement that fits this chapter.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Next Module</button>
+          </div>
+        </section>
+        <section class="lesson" data-index="3">
+          <div class="lesson-top">
+            <span class="step">Module 4</span>
+            <span class="lesson-counter">4 / 5</span>
+            <h2>Taking the First Brave Steps</h2>
+            <p class="summary">This lesson teaches you how to start taking small, realistic actions toward your new direction.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/taking-the-first-brave-steps.webp" data-export-src="images/taking-the-first-brave-steps.webp" alt="Taking the First Brave Steps" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Translate inspiration and goals into simple, concrete actions.</li><li>Use the principle of 'small wins' to build confidence.</li><li>Prepare for early doubts or moments of discomfort.</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 4</h3>
+            <p>Once you have a spark of inspiration and a new sense of what success means to you, the next step is action. The biggest breakthroughs often start with small, deliberate moves—what psychologists call 'small wins.' These are manageable steps that create momentum, build confidence, and clarify what you truly want as you go.</p><p>For instance, if you dream of starting a non-profit, your first step could be reaching out to someone in that field for an informational chat, or attending a relevant event. These simple actions break inertia and generate clarity for your next move. Early efforts may feel awkward, but they're essential for making your pivot real.</p><p>A common mistake is overplanning or seeking perfection before beginning. Waiting for absolute certainty delays progress. Instead, embrace uncertainty as part of the process, and allow yourself to adjust as you learn.</p><p>Write down three tiny actions you can take this week toward your new direction. Expect discomfort, but remember—even hesitant steps count as progress.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>What is the main advantage of starting with small, concrete actions when reinventing yourself?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">They guarantee overnight success</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">They allow you to avoid discomfort</button>
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">They create momentum and help clarify your direction</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">They eliminate all potential risks</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Taking action, even small, builds momentum and confidence.</li><li>‘Small wins’ help clarify your direction in real life.</li><li>Perfectionism and overplanning can stall your progress—action reveals the next step.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Next Module</button>
+          </div>
+        </section>
+        <section class="lesson" data-index="4">
+          <div class="lesson-top">
+            <span class="step">Module 5</span>
+            <span class="lesson-counter">5 / 5</span>
+            <h2>Staying Flexible: Navigating Challenges and Next Steps</h2>
+            <p class="summary">This lesson equips you to adapt, learn from setbacks, and keep growing with confidence during your reinvention.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/staying-flexible-navigating-challenges-and-next-steps.webp" data-export-src="images/staying-flexible-navigating-challenges-and-next-steps.webp" alt="Staying Flexible: Navigating Challenges and Next Steps" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Anticipate and normalize moments of doubt or setbacks.</li><li>Learn to adjust your course without losing momentum.</li><li>Keep building your skills, network, and self-belief over time.</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 5</h3>
+            <p>No reinvention journey is without its ups and downs. You might hit patches where progress stalls, old doubts surface, or outside circumstances change your plans. These challenges are a normal part of growth, not a sign you should give up. The key to lasting change is flexibility—your willingness to learn, course-correct, and keep moving forward.</p><p>Suppose you try a new volunteer role but find it isn’t what you expected. Rather than see this as failure, treat it as valuable feedback. Adapt by seeking roles that better match your interests or strengths. Staying connected with others who are also making big pivots can help normalize the uncertainties and boost resilience.</p><p>A frequent misconception is that successful reinvention means a smooth, straight path. In reality, looping back to reassess, replan, or try something new is a strength, not a setback. Celebrate each adjustment as progress in learning.</p><p>Regularly ask yourself: What’s working? What’s not? What would I try differently next month? This mindset keeps your pivot alive, rewarding, and uniquely yours.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>What is a productive way to handle setbacks during your reinvention journey?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">See them as permanent roadblocks</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Ignore them and continue without reflection</button>
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">Use them as feedback to adapt your approach</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Immediately abandon your new direction</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Setbacks and changing plans are a normal part of reinvention.</li><li>Adaptability and ongoing learning keep progress steady.</li><li>View each challenge as feedback, not failure, and adjust as needed.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Now Click Here To Complete This Course</button>
+          </div>
+        </section>
+
+    <section class="complete" id="completeCard" style="display: none;">
+      <h2>Course Complete</h2>
+      <p>Congratulations on completing 'The Fearless Pivot'! You now have the tools and inspiration to boldly pursue your next chapter, no matter your age.</p>
+      <p class="muted small">Use the button below to take the next step, or start over and run through the course again.</p>
+      <a class="cta-btn" style="text-decoration:none; margin-top: 18px; display:inline-block;" href="https://totalmindshift.com/free-trial/" target="_blank" rel="noopener noreferrer">FREE Mini Course - no card required</a>
+      <div class="nav-row" style="justify-content:center; margin-top: 18px;">
+        <button class="nav-btn" onclick="restartCourse()">Start Over</button>
+      </div>
+      
+      <hr style="margin: 24px 0; border:0; border-top:1px solid #d1d5db;">
+      <p class="muted small" style="text-align:center; margin-bottom: 12px;">Download the information in this course to keep and refer back to</p>
+      <div style="text-align:center;">
+        <a class="cta-btn pdf-download-btn" style="text-decoration:none; display:inline-block;" href="course.pdf" target="_blank" rel="noopener noreferrer">Download a PDF of This Course Here</a>
+      </div>
+    </section>
+  </div>
+
+  <script id="courseRuntimeScript">
+    let currentLesson = 0;
+    const lessons = [...document.querySelectorAll('.lesson')];
+    const progressFill = document.getElementById('progressFill');
+    const progressText = document.getElementById('progressText');
+    const progressWrap = document.getElementById('progressWrap');
+    const completeCard = document.getElementById('completeCard');
+    const introPage = document.getElementById('introPage');
+    const squeezePage = document.getElementById('squeezePage');
+
+    function beginCourse() {
+      if (introPage) introPage.style.display = 'none';
+      if (squeezePage) squeezePage.style.display = 'none';
+      if (progressWrap) progressWrap.style.display = 'block';
+      completeCard.style.display = 'none';
+      renderLesson();
+    }
+
+    function renderLesson() {
+      lessons.forEach((lesson, index) => lesson.classList.toggle('active', index === currentLesson));
+      if (progressFill && progressText) {
+        const pct = ((currentLesson + 1) / lessons.length) * 100;
+        progressFill.style.width = pct + '%';
+        progressText.textContent = 'Module ' + (currentLesson + 1) + ' of ' + lessons.length;
+      }
+      completeCard.style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function nextLesson() {
+      if (currentLesson < lessons.length - 1) {
+        currentLesson += 1;
+        renderLesson();
+      } else {
+        lessons.forEach(l => l.classList.remove('active'));
+        if (progressFill && progressText) {
+          progressFill.style.width = '100%';
+          progressText.textContent = 'Complete';
+        }
+        completeCard.style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function prevLesson() {
+      if (currentLesson > 0) {
+        currentLesson -= 1;
+        renderLesson();
+      }
+    }
+
+    function resetQuiz(btn) {
+      const wrap = btn.closest('.quiz');
+      const feedback = wrap.querySelector('.feedback');
+      wrap.querySelectorAll('.option-btn').forEach(b => b.disabled = false);
+      feedback.textContent = 'Choose an answer.';
+      feedback.className = 'feedback small';
+      const retryBtn = wrap.querySelector('.retry-btn');
+      if (retryBtn) retryBtn.remove();
+    }
+
+    function checkAnswer(btn) {
+      const wrap = btn.closest('.quiz');
+      const feedback = wrap.querySelector('.feedback');
+      wrap.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+      const oldRetry = wrap.querySelector('.retry-btn');
+      if (oldRetry) oldRetry.remove();
+      if (btn.dataset.correct === '1') {
+        feedback.textContent = 'Correct.';
+        feedback.className = 'feedback good';
+      } else {
+        feedback.textContent = 'Not quite. Review the lesson and try again.';
+        feedback.className = 'feedback bad';
+        const retryBtn = document.createElement('button');
+        retryBtn.className = 'nav-btn retry-btn';
+        retryBtn.style.marginTop = '12px';
+        retryBtn.textContent = 'Start quiz again';
+        retryBtn.onclick = function() { resetQuiz(retryBtn); };
+        feedback.insertAdjacentElement('afterend', retryBtn);
+      }
+    }
+
+    function restartCourse() {
+      currentLesson = 0;
+      document.querySelectorAll('.quiz').forEach(wrap => {
+        const feedback = wrap.querySelector('.feedback');
+        wrap.querySelectorAll('.option-btn').forEach(b => b.disabled = false);
+        if (feedback) {
+          feedback.textContent = 'Choose an answer.';
+          feedback.className = 'feedback small';
+        }
+        const retryBtn = wrap.querySelector('.retry-btn');
+        if (retryBtn) retryBtn.remove();
+      });
+      lessons.forEach(l => l.classList.remove('active'));
+      if (introPage) introPage.style.display = 'block';
+      if (squeezePage) squeezePage.style.display = 'block';
+      if (progressWrap) progressWrap.style.display = 'none';
+      completeCard.style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    restartCourse();
+  </script>
+
+</body></html>
