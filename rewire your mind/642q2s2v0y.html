@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en" style="--bg: #8e1a4d; --accent: #600e32; --accent-2: #600e32;"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>An Introduction to Neuroplasticity: Rewire Your Mind for Success</title>
+  <style>
+    :root {
+      --bg: #8e1a4d;
+      --panel: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --border: #e2e8f0;
+      --accent: #600e32;
+      --accent-2: #600e32;
+      --ok: #166534;
+      --ok-bg: #dcfce7;
+      --bad: #991b1b;
+      --bad-bg: #fee2e2;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #0a2352 0%, #8e1a4d 100%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+    .wrap { width: min(900px, calc(100% - 28px)); margin: 28px auto 0; padding-bottom: 80px; }
+    .hero { background: var(--panel); border: 1px solid #dbe7ff; border-radius: 24px; padding: 28px; box-shadow: 0 10px 30px rgba(0,0,0,.18); }
+    .eyebrow { font-size: .85rem; color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+    .squeeze-page { display: block; }
+    .squeeze-card {
+      max-width: 760px;
+      margin: 150px auto 28px;
+      background: var(--panel);
+      border: 1px solid #dbe7ff;
+      border-radius: 24px;
+      padding: 34px 28px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.16);
+      text-align: center;
+    }
+    .squeeze-card h1,
+    .squeeze-card h2,
+    .squeeze-card p,
+    .squeeze-card div {
+      text-align: center;
+    }
+    .squeeze-card h2 {
+      font-size: clamp(1.2rem, 2.6vw, 1.55rem);
+      line-height: 1.45;
+      color: var(--muted);
+      font-weight: 600;
+      margin-bottom: 0;
+    }
+    .squeeze-embed-box {
+      margin-top: 24px;
+      min-height: 160px;
+      border: 2px dashed #bfdbfe;
+      border-radius: 18px;
+      background: #f8fbff;
+      padding: 18px;
+      text-align: center;
+      font: 500 15px/1.7 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      color: #64748b;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+    }
+    .squeeze-embed-box.is-empty::before {
+      content: attr(data-placeholder);
+      display: block;
+      color: #64748b;
+      white-space: pre-wrap;
+    }
+    .intro-page { display: block; margin-top: 18px; }
+    .intro-card { background: var(--panel); border: 1px solid #dbe7ff; border-radius: 24px; padding: 28px; box-shadow: 0 10px 30px rgba(0,0,0,.16); transition: transform .2s ease; }
+    .intro-card:hover { transform: translateY(-2px); }
+    .hero + .intro-card { margin-top: 40px; }
+    .intro-message { font-size:17px; line-height:1.7; max-width:680px; margin:0 auto; text-align:center; }
+    .intro-divider { width:60px; height:2px; background:rgba(0,0,0,.08); margin:12px auto 18px; border-radius:2px; }
+    .course-time { display:flex; align-items:center; justify-content:center; gap:6px; margin:20px 0 10px; color:#111827; }
+    .course-time-icon { font-size:18px; opacity:.8; }
+    .course-time-value { font-weight:600; font-size:14px; line-height:1; color:inherit; }
+    .course-time-label { font-weight:600; font-size:14px; opacity:.7; }
+    .intro-start-wrap { text-align:center; margin-top:22px; }
+    .hero .muted { opacity:.82; }
+    .nav-btn.primary { transition: all .2s ease; }
+    .nav-btn.primary:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(0,0,0,.15); }
+    h1, h2, h3, h4 { margin: 0 0 10px; line-height: 1.2; }
+    h1 { font-size: clamp(2rem, 4vw, 2.8rem); }
+    p, li { line-height: 1.6; }
+    .muted { color: var(--muted); }
+    .progress-wrap { margin-top: 16px; position: static; background: rgba(255,255,255,.92); backdrop-filter: blur(8px); border: 1px solid #dbe7ff; border-radius: 18px; padding: 14px; box-shadow: 0 10px 24px rgba(0,0,0,.12); }
+    .progress-bar { width: 100%; height: 12px; background: #dbeafe; border-radius: 999px; overflow: hidden; }
+    .progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--accent), #38bdf8); transition: width .25s ease; }
+    .progress-text { margin-top: 8px; font-size: .92rem; color: var(--muted); font-weight: 600; }
+    .lesson { display: none; margin-top: 18px; background: var(--panel); border: 1px solid #dbe7ff; border-radius: 24px; padding: 24px; box-shadow: 0 10px 30px rgba(0,0,0,.16); min-height: 420px; }
+    .lesson.active { display: block; }
+    .step { display: inline-block; padding: 6px 10px; border-radius: 999px; background: #dbeafe; color: #1d4ed8; font-weight: 700; font-size: .85rem; margin-bottom: 10px; }
+    .lesson-counter { float:right; color: var(--muted); font-size: .9rem; font-weight: 700; }
+    .summary { color: var(--muted); }
+    .module-image-wrap { margin-top: 18px; text-align: center; }
+    .module-image { width: 100%; max-width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 18px; display: block; margin: 0 auto; border: 1px solid var(--border); }
+    .box, .quiz { margin-top: 16px; border: 1px solid var(--border); border-radius: 18px; padding: 18px; background: #fff; }
+    .quiz .options { display: grid; gap: 10px; margin-top: 12px; }
+    .option-btn, .nav-btn, .cta-btn {
+      appearance: none; border: 0; border-radius: 12px; padding: 12px 16px; font: inherit; font-weight: 700; cursor: pointer; transition: transform .15s ease, opacity .15s ease, box-shadow .15s ease;
+    }
+    .option-btn { background: #eff6ff; color: #1e3a8a; text-align: left; border: 1px solid #bfdbfe; }
+    .nav-row { display: flex; justify-content: space-between; gap: 12px; margin-top: 22px; }
+    .nav-btn { background: transparent; color: #0f172a; border: 2px solid #0f2f6b; }
+    .nav-btn.primary, .cta-btn { background: linear-gradient(180deg, var(--accent), var(--accent-2)); color: white; border: 0; box-shadow: 0 10px 20px rgba(37,99,235,.22); }
+    .nav-btn:hover, .cta-btn:hover, .option-btn:hover { transform: translateY(-1px); }
+    .nav-btn:disabled { opacity: .5; cursor: not-allowed; }
+    .feedback { margin-top: 12px; border-radius: 12px; padding: 10px 12px; background: #f8fafc; border: 1px solid var(--border); }
+    .feedback.good { background: var(--ok-bg); color: var(--ok); border-color: #86efac; }
+    .feedback.bad { background: var(--bad-bg); color: var(--bad); border-color: #fca5a5; }
+    .complete { display: none; margin-top: 18px; background: var(--panel); border: 1px solid #dbe7ff; border-radius: 24px; padding: 28px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,.16); }
+    .small { font-size: .92rem; }
+    @media (max-width: 640px) {
+      .nav-row { flex-direction: column; }
+      .nav-btn { width: 100%; }
+    }
+  
+.cta-button a, .cta-button button { text-decoration:none !important; }
+</style>
+
+</head>
+<body data-course-file="642q2s2v0y.html" data-has-squeeze="0" spellcheck="true" style="background: linear-gradient(rgb(10, 35, 82) 0%, rgb(142, 26, 77) 100%);">
+  <div class="wrap">
+    
+    
+
+    <section class="intro-page" id="introPage" style="display: none;">
+      <section class="hero">
+        <div class="eyebrow">Interactive mini-course</div>
+        <h1>An Introduction to Neuroplasticity: Rewire Your Mind for Success</h1>
+        <p class="muted">Understand your brain’s ability to change – and use it to build a more positive mindset.</p>
+      </section>
+
+      <section class="intro-card" id="introCard">
+        <div class="intro-divider"></div>
+        <p class="intro-message">Welcome! In this course, you'll build a clear understanding of An Introduction to Neuroplasticity: Rewire Your Mind for Success, and by the end you'll be in a strong position to put a clear plan into action with confidence.</p>
+        <div class="course-time">
+          <span class="course-time-icon">◷</span>
+          <span class="course-time-value">24</span>
+          <span class="course-time-label">minutes</span>
+        </div>
+        <div class="intro-start-wrap">
+          <button class="nav-btn primary" onclick="beginCourse()">Let's Get Started - Click Here To Begin</button>
+        </div>
+      </section>
+    </section>
+
+    
+    <div class="progress-wrap" id="progressWrap" style="display: block;">
+      <div class="progress-bar"><div class="progress-fill" id="progressFill" style="background: rgb(96, 14, 50); width: 100%;"></div></div>
+      <div class="progress-text" id="progressText">Complete</div>
+    </div>
+
+    
+        <section class="lesson" data-index="0">
+          <div class="lesson-top">
+            <span class="step">Module 1</span>
+            <span class="lesson-counter">1 / 6</span>
+            <h2>What Is Neuroplasticity? Discover Your Brain’s Hidden Power</h2>
+            <p class="summary">Learn how neuroplasticity works and why your brain’s ability to change matters for your happiness and success.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/what-is-neuroplasticity-discover-your-brain-s-hidden-power.webp" data-export-src="images/what-is-neuroplasticity-discover-your-brain-s-hidden-power.webp" alt="What Is Neuroplasticity? Discover Your Brain’s Hidden Power" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Neuroplasticity means your brain can form new connections throughout life.</li><li>Your thoughts and actions help shape these brain pathways every day.</li><li>Change is possible at any age – you are not stuck with old habits.</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 1</h3>
+            <p>Neuroplasticity is your brain’s natural ability to adapt and change, even as an adult. For years, scientists believed our brains stopped growing after childhood, but research has proven this isn’t true. Every experience, thought, and action shapes your brain, creating and strengthening new connections while weakening old ones.</p><p>For example, when you repeatedly practice gratitude, your brain gradually forms stronger neural pathways related to positive thinking. On the other hand, repeatedly focusing on worries can reinforce negative circuits.</p><p>A common misconception is that people can’t change deeply ingrained thought patterns or habits. In reality, neuroplasticity means anyone can “rewire” their mindset, given time and consistent practice.</p><p>To start harnessing neuroplasticity, you simply need to become more aware of your habitual thoughts and choose small, positive actions each day. In this course, you’ll learn how easy exercises can make a real difference in your mood, focus, and overall outlook.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>Which statement best describes neuroplasticity?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">The brain’s ability to physically change and form new connections.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">A method for making people smarter overnight.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Only something that happens in childhood.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">A type of exercise for the body.</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Your brain can change at any age.</li><li>Positive habits strengthen helpful neural pathways.</li><li>Small daily actions can gradually rewire your mindset.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()" disabled="">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Next Module</button>
+          </div>
+        </section>
+        <section class="lesson" data-index="1">
+          <div class="lesson-top">
+            <span class="step">Module 2</span>
+            <span class="lesson-counter">2 / 6</span>
+            <h2>Spotting Negative Patterns: Awareness as the First Step</h2>
+            <p class="summary">Identify your recurring negative thoughts so you can begin to consciously change them.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/spotting-negative-patterns-awareness-as-the-first-step.webp" data-export-src="images/spotting-negative-patterns-awareness-as-the-first-step.webp" alt="Spotting Negative Patterns: Awareness as the First Step" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Journaling can help track common thought patterns.</li><li>Awareness reduces the automatic power of negativity.</li><li>Noticing thoughts is different from judging yourself.</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 2</h3>
+            <p>Before you can rewire your mindset, you need to know what needs to change. Many negative thought patterns run on autopilot—thoughts like 'I’m not good enough' or 'Things never work out for me.' These automatic thoughts carve deep channels in your brain over time.</p><p>A simple way to start noticing them is by keeping a small journal or using a notes app on your phone. Whenever you catch yourself thinking negatively (even about small things), jot it down. Over a week, patterns will emerge, revealing which thoughts appear most often.</p><p>It’s important to remember: awareness is about observation, not self-criticism. Don’t blame yourself for negative thoughts; instead, get curious about them. This shift in attitude makes it easier to notice these patterns without feeling defeated.</p><p>Once familiar with your automatic thoughts, you’ll be better prepared to use the daily exercises in the next lessons to challenge and reshape those patterns effectively.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>What is the main benefit of tracking your negative thoughts?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">It helps you punish yourself for thinking badly.</button>
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">It lets you identify patterns you can begin to change.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">It quickly eliminates all negative thoughts forever.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">It shows you shouldn’t try to think positively.</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Recognize your most frequent negative thoughts.</li><li>Use a journal to track recurring patterns.</li><li>Awareness helps break old mental habits.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Next Module</button>
+          </div>
+        </section>
+        <section class="lesson" data-index="2">
+          <div class="lesson-top">
+            <span class="step">Module 3</span>
+            <span class="lesson-counter">3 / 6</span>
+            <h2>Daily Reframing: Turn Negative Thoughts into Positive Ones</h2>
+            <p class="summary">Use a simple daily exercise to interrupt negative thinking and replace it with positive alternatives.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/daily-reframing-turn-negative-thoughts-into-positive-ones.webp" data-export-src="images/daily-reframing-turn-negative-thoughts-into-positive-ones.webp" alt="Daily Reframing: Turn Negative Thoughts into Positive Ones" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Reframing means challenging and changing the story you tell yourself.</li><li>State your negative thought, then try replacing it with a helpful one.</li><li>Consistency is key—even small wins add up over time.</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 3</h3>
+            <p>One powerful neuroplasticity exercise is reframing negative thoughts as soon as you notice them. Once you’re aware of a negative pattern, pause and ask yourself: 'Is there a more helpful or optimistic way to look at this?'</p><p>For example, if you think, 'I always mess up,' pause and reframe: 'Sometimes I make mistakes, but I’m learning and improving.' This small action starts to create new mental pathways focused on growth instead of self-criticism.</p><p>A common pitfall is trying to 'fake' positive thinking by denying real challenges altogether. Instead, acknowledge your feelings and then choose a realistic, encouraging perspective.</p><p>Practicing this even just once or twice a day is a great start. Over time, these new ways of thinking feel more natural—the old negative tracks slowly weaken as your brain strengthens new, supportive ones.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>What’s the best way to reframe a negative thought?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Ignore it and hope it goes away.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Deny your feelings and pretend everything is fine.</button>
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">Acknowledge the thought, then replace it with a realistic, positive alternative.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Keep repeating the negative thought until it changes.</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Reframing interrupts automatic negativity.</li><li>Realistic, positive replacements support growth.</li><li>Small daily reframes gradually change your mindset.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Next Module</button>
+          </div>
+        </section>
+        <section class="lesson" data-index="3">
+          <div class="lesson-top">
+            <span class="step">Module 4</span>
+            <span class="lesson-counter">4 / 6</span>
+            <h2>Start Your Day Right: The 2-Minute Morning Mindset Exercise</h2>
+            <p class="summary">Establish a daily habit that primes your brain for positivity and action from the moment you wake up.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/start-your-day-right-the-2-minute-morning-mindset-exercise.webp" data-export-src="images/start-your-day-right-the-2-minute-morning-mindset-exercise.webp" alt="Start Your Day Right: The 2-Minute Morning Mindset Exercise" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Morning routines can set your brain’s tone for the day.</li><li>A 2-minute exercise increases focus and optimism.</li><li>Small commitments are easier to keep than big plans.</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 4</h3>
+            <p>Your first thoughts in the morning often shape your attitude and actions for hours. With neuroplasticity in mind, a simple 2-minute exercise can get your brain off to a positive start each day.</p><p>Right after you wake up, spend two minutes writing (or speaking aloud) three things: 1) Something you’re grateful for, 2) One personal strength or achievement, and 3) One intention for how you want to feel or act today (such as ‘focused,’ ‘kind,’ or ‘courageous’).</p><p>The most common mistake is setting an unrealistic goal like meditating for 30 minutes right away, leading to skipped days and discouragement. The 2-minute morning mindset practice is designed for consistency and results.</p><p>Try this first thing tomorrow. Keep your entries short—what matters is not perfect answers, but regular practice. Over several weeks, you’ll notice your mindset naturally shifts as your brain strengthens its positive circuits.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>Which of the following best describes the 2-minute morning mindset exercise?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">Listing things you’re grateful for, personal strengths, and an intention for the day.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Running for two minutes every morning.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Checking social media first thing after waking up.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Ignoring your thoughts to avoid negativity.</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Morning exercises create lasting positivity.</li><li>Only two minutes can make a difference.</li><li>Consistency builds stronger brain pathways.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Next Module</button>
+          </div>
+        </section>
+        <section class="lesson" data-index="4">
+          <div class="lesson-top">
+            <span class="step">Module 5</span>
+            <span class="lesson-counter">5 / 6</span>
+            <h2>Practice Makes Pathways: How to Build Lasting Change</h2>
+            <p class="summary">Understand how repetition and small wins help your brain solidify new ways of thinking.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/practice-makes-pathways-how-to-build-lasting-change.webp" data-export-src="images/practice-makes-pathways-how-to-build-lasting-change.webp" alt="Practice Makes Pathways: How to Build Lasting Change" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Neural pathways strengthen with frequent practice.</li><li>Persistence matters more than perfection or big leaps.</li><li>Tracking progress boosts motivation and reveals your growth.</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 5</h3>
+            <p>Changing your mindset is not about instant transformation but about steady, daily progress. Just like strengthening muscles, neural pathways grow firmer the more you activate them—with each repetition, your brain gets better at choosing the new thought or habit over the old one.</p><p>For example, if you reframe a negative thought each time it appears, over weeks and months, this will become your new default response. Even if you slip up on some days, don't be discouraged. What counts is that you return to the practice.</p><p>Many people give up too soon because they expect dramatic change in a week. In reality, even small, regular shifts add up and become “automatic” as your brain rewires itself. Tracking your mood and habits with a checklist or journal is a practical way to see how far you’ve come.</p><p>Stay patient, celebrate your small victories, and remember: you are building a new mental pathway every single day you practice.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>How can you make new thought patterns stick?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">By practicing them regularly, even when it feels awkward.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">By waiting for change to happen on its own.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">By only focusing on big, dramatic breakthroughs.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">By criticizing yourself for not being perfect.</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Regular repetition makes new thoughts automatic.</li><li>Small, steady steps matter more than dramatic changes.</li><li>Tracking your wins helps keep you motivated.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Next Module</button>
+          </div>
+        </section>
+        <section class="lesson" data-index="5">
+          <div class="lesson-top">
+            <span class="step">Module 6</span>
+            <span class="lesson-counter">6 / 6</span>
+            <h2>Keep Growing: Next Steps for Lifelong Mindset Mastery</h2>
+            <p class="summary">Apply what you’ve learned to continue growing and exploring more positive, successful thinking every day.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/keep-growing-next-steps-for-lifelong-mindset-mastery.webp" data-export-src="images/keep-growing-next-steps-for-lifelong-mindset-mastery.webp" alt="Keep Growing: Next Steps for Lifelong Mindset Mastery" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Explore new brain-healthy habits to supplement your practice.</li><li>Use reminders, audio guides, or community support for motivation.</li><li>Mindset mastery is a lifelong journey—keep experimenting and learning.</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 6</h3>
+            <p>Neuroplasticity is a lifelong gift. Now that you know the fundamentals, explore other brain-supporting habits, like regular physical activity, mindfulness meditation, and connecting with positive people. All these actions strengthen your mental flexibility.</p><p>You might find it helpful to use audio guides, daily reminders, or join a community to keep yourself motivated and accountable. These provide gentle nudges and fresh ideas as you continue building your success mindset.</p><p>A mistake many beginners make is believing that once they’ve improved, their work is done. In truth, maintaining and expanding a positive mindset takes ongoing curiosity and effort—just like maintaining physical health. Try new exercises or adapt routines to fit your changing life and goals.</p><p>Make small adjustments, learn from your experiences, and celebrate the progress you see. Every step forward is real change. Keep your mind open to new possibilities and enjoy the journey.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>What’s one effective way to maintain and build on your positive mindset?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">Continue practicing daily and try new mental exercises.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Stop focusing on your mindset once you feel better.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Rely only on willpower and avoid any help.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">Expect results without further effort.</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Neuroplasticity is ongoing—keep practicing and exploring.</li><li>Supportive habits and tools make growth easier.</li><li>Celebrating progress keeps you enthusiastic and engaged.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Now Click Here To Complete This Course</button>
+          </div>
+        </section>
+
+    <section class="complete" id="completeCard" style="display: block;">
+      <h2>Course Complete</h2>
+      <p>Well done! You now know how to harness neuroplasticity and daily mental exercises to create a brighter, more successful mindset. Keep practicing and enjoy your journey of growth.</p>
+      <p class="muted small">Use the button below to take the next step, or start over and run through the course again.</p>
+      <a class="cta-btn" style="text-decoration:none; margin-top: 18px; display:inline-block;" href="https://totalmindshift.com/free-trial/" target="_blank" rel="noopener noreferrer">Access lifelong daily audios. Free 7 day trial, no credit card required</a>
+      <div class="nav-row" style="justify-content:center; margin-top: 18px;">
+        <button class="nav-btn" onclick="restartCourse()">Start Over</button>
+      </div>
+      
+      <hr style="margin: 24px 0; border:0; border-top:1px solid #d1d5db;">
+      <p class="muted small" style="text-align:center; margin-bottom: 12px;">Download the information in this course to keep and refer back to</p>
+      <div style="text-align:center;">
+        <a class="cta-btn pdf-download-btn" style="text-decoration:none; display:inline-block;" href="course.pdf" target="_blank" rel="noopener noreferrer">Download a PDF of This Course Here</a>
+      </div>
+    </section>
+  </div>
+
+  <script id="courseRuntimeScript">
+    let currentLesson = 0;
+    const lessons = [...document.querySelectorAll('.lesson')];
+    const progressFill = document.getElementById('progressFill');
+    const progressText = document.getElementById('progressText');
+    const progressWrap = document.getElementById('progressWrap');
+    const completeCard = document.getElementById('completeCard');
+    const introPage = document.getElementById('introPage');
+    const squeezePage = document.getElementById('squeezePage');
+
+    function beginCourse() {
+      if (introPage) introPage.style.display = 'none';
+      if (squeezePage) squeezePage.style.display = 'none';
+      if (progressWrap) progressWrap.style.display = 'block';
+      completeCard.style.display = 'none';
+      renderLesson();
+    }
+
+    function renderLesson() {
+      lessons.forEach((lesson, index) => lesson.classList.toggle('active', index === currentLesson));
+      if (progressFill && progressText) {
+        const pct = ((currentLesson + 1) / lessons.length) * 100;
+        progressFill.style.width = pct + '%';
+        progressText.textContent = 'Module ' + (currentLesson + 1) + ' of ' + lessons.length;
+      }
+      completeCard.style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function nextLesson() {
+      if (currentLesson < lessons.length - 1) {
+        currentLesson += 1;
+        renderLesson();
+      } else {
+        lessons.forEach(l => l.classList.remove('active'));
+        if (progressFill && progressText) {
+          progressFill.style.width = '100%';
+          progressText.textContent = 'Complete';
+        }
+        completeCard.style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function prevLesson() {
+      if (currentLesson > 0) {
+        currentLesson -= 1;
+        renderLesson();
+      }
+    }
+
+    function resetQuiz(btn) {
+      const wrap = btn.closest('.quiz');
+      const feedback = wrap.querySelector('.feedback');
+      wrap.querySelectorAll('.option-btn').forEach(b => b.disabled = false);
+      feedback.textContent = 'Choose an answer.';
+      feedback.className = 'feedback small';
+      const retryBtn = wrap.querySelector('.retry-btn');
+      if (retryBtn) retryBtn.remove();
+    }
+
+    function checkAnswer(btn) {
+      const wrap = btn.closest('.quiz');
+      const feedback = wrap.querySelector('.feedback');
+      wrap.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+      const oldRetry = wrap.querySelector('.retry-btn');
+      if (oldRetry) oldRetry.remove();
+      if (btn.dataset.correct === '1') {
+        feedback.textContent = 'Correct.';
+        feedback.className = 'feedback good';
+      } else {
+        feedback.textContent = 'Not quite. Review the lesson and try again.';
+        feedback.className = 'feedback bad';
+        const retryBtn = document.createElement('button');
+        retryBtn.className = 'nav-btn retry-btn';
+        retryBtn.style.marginTop = '12px';
+        retryBtn.textContent = 'Start quiz again';
+        retryBtn.onclick = function() { resetQuiz(retryBtn); };
+        feedback.insertAdjacentElement('afterend', retryBtn);
+      }
+    }
+
+    function restartCourse() {
+      currentLesson = 0;
+      document.querySelectorAll('.quiz').forEach(wrap => {
+        const feedback = wrap.querySelector('.feedback');
+        wrap.querySelectorAll('.option-btn').forEach(b => b.disabled = false);
+        if (feedback) {
+          feedback.textContent = 'Choose an answer.';
+          feedback.className = 'feedback small';
+        }
+        const retryBtn = wrap.querySelector('.retry-btn');
+        if (retryBtn) retryBtn.remove();
+      });
+      lessons.forEach(l => l.classList.remove('active'));
+      if (introPage) introPage.style.display = 'block';
+      if (squeezePage) squeezePage.style.display = 'block';
+      if (progressWrap) progressWrap.style.display = 'none';
+      completeCard.style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    restartCourse();
+  </script>
+
+</body></html>
