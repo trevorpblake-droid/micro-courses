@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en" style="--bg: #88194a; --accent: #88194a; --accent-2: #88194a;"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>10 Powerful Phrases That Make Manipulation Harder</title>
+  <style>
+    :root {
+      --bg: #88194a;
+      --panel: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --border: #e2e8f0;
+      --accent: #88194a;
+      --accent-2: #88194a;
+      --ok: #166534;
+      --ok-bg: #dcfce7;
+      --bad: #991b1b;
+      --bad-bg: #fee2e2;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #0a2352 0%, #88194a 100%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+    .wrap { width: min(900px, calc(100% - 28px)); margin: 28px auto 0; padding-bottom: 80px; }
+    .hero { background: var(--panel); border: 1px solid #dbe7ff; border-radius: 24px; padding: 28px; box-shadow: 0 10px 30px rgba(0,0,0,.18); }
+    .eyebrow { font-size: .85rem; color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+    .squeeze-page { display: block; }
+    .squeeze-card {
+      max-width: 760px;
+      margin: 150px auto 28px;
+      background: var(--panel);
+      border: 1px solid #dbe7ff;
+      border-radius: 24px;
+      padding: 34px 28px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.16);
+      text-align: center;
+    }
+    .squeeze-card h1,
+    .squeeze-card h2,
+    .squeeze-card p,
+    .squeeze-card div {
+      text-align: center;
+    }
+    .squeeze-card h2 {
+      font-size: clamp(1.2rem, 2.6vw, 1.55rem);
+      line-height: 1.45;
+      color: var(--muted);
+      font-weight: 600;
+      margin-bottom: 0;
+    }
+    .squeeze-embed-box {
+      margin-top: 24px;
+      min-height: 160px;
+      border: 2px dashed #bfdbfe;
+      border-radius: 18px;
+      background: #f8fbff;
+      padding: 18px;
+      text-align: center;
+      font: 500 15px/1.7 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      color: #64748b;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+    }
+    .squeeze-embed-box.is-empty::before {
+      content: attr(data-placeholder);
+      display: block;
+      color: #64748b;
+      white-space: pre-wrap;
+    }
+    .intro-page { display: block; margin-top: 18px; }
+    .intro-card { background: var(--panel); border: 1px solid #dbe7ff; border-radius: 24px; padding: 28px; box-shadow: 0 10px 30px rgba(0,0,0,.16); transition: transform .2s ease; }
+    .intro-card:hover { transform: translateY(-2px); }
+    .hero + .intro-card { margin-top: 40px; }
+    .intro-message { font-size:17px; line-height:1.7; max-width:680px; margin:0 auto; text-align:center; }
+    .intro-divider { width:60px; height:2px; background:rgba(0,0,0,.08); margin:12px auto 18px; border-radius:2px; }
+    .course-time { display:flex; align-items:center; justify-content:center; gap:6px; margin:20px 0 10px; color:#111827; }
+    .course-time-icon { font-size:18px; opacity:.8; }
+    .course-time-value { font-weight:600; font-size:14px; line-height:1; color:inherit; }
+    .course-time-label { font-weight:600; font-size:14px; opacity:.7; }
+    .intro-start-wrap { text-align:center; margin-top:22px; }
+    .hero .muted { opacity:.82; }
+    .nav-btn.primary { transition: all .2s ease; }
+    .nav-btn.primary:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(0,0,0,.15); }
+    h1, h2, h3, h4 { margin: 0 0 10px; line-height: 1.2; }
+    h1 { font-size: clamp(2rem, 4vw, 2.8rem); }
+    p, li { line-height: 1.6; }
+    .muted { color: var(--muted); }
+    .progress-wrap { margin-top: 16px; position: static; background: rgba(255,255,255,.92); backdrop-filter: blur(8px); border: 1px solid #dbe7ff; border-radius: 18px; padding: 14px; box-shadow: 0 10px 24px rgba(0,0,0,.12); }
+    .progress-bar { width: 100%; height: 12px; background: #dbeafe; border-radius: 999px; overflow: hidden; }
+    .progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--accent), #38bdf8); transition: width .25s ease; }
+    .progress-text { margin-top: 8px; font-size: .92rem; color: var(--muted); font-weight: 600; }
+    .lesson { display: none; margin-top: 18px; background: var(--panel); border: 1px solid #dbe7ff; border-radius: 24px; padding: 24px; box-shadow: 0 10px 30px rgba(0,0,0,.16); min-height: 420px; }
+    .lesson.active { display: block; }
+    .step { display: inline-block; padding: 6px 10px; border-radius: 999px; background: #dbeafe; color: #1d4ed8; font-weight: 700; font-size: .85rem; margin-bottom: 10px; }
+    .lesson-counter { float:right; color: var(--muted); font-size: .9rem; font-weight: 700; }
+    .summary { color: var(--muted); }
+    .module-image-wrap { margin-top: 18px; text-align: center; }
+    .module-image { width: 100%; max-width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 18px; display: block; margin: 0 auto; border: 1px solid var(--border); }
+    .box, .quiz { margin-top: 16px; border: 1px solid var(--border); border-radius: 18px; padding: 18px; background: #fff; }
+    .quiz .options { display: grid; gap: 10px; margin-top: 12px; }
+    .option-btn, .nav-btn, .cta-btn {
+      appearance: none; border: 0; border-radius: 12px; padding: 12px 16px; font: inherit; font-weight: 700; cursor: pointer; transition: transform .15s ease, opacity .15s ease, box-shadow .15s ease;
+    }
+    .option-btn { background: #eff6ff; color: #1e3a8a; text-align: left; border: 1px solid #bfdbfe; }
+    .nav-row { display: flex; justify-content: space-between; gap: 12px; margin-top: 22px; }
+    .nav-btn { background: transparent; color: #0f172a; border: 2px solid #0f2f6b; }
+    .nav-btn.primary, .cta-btn { background: linear-gradient(180deg, var(--accent), var(--accent-2)); color: white; border: 0; box-shadow: 0 10px 20px rgba(37,99,235,.22); }
+    .nav-btn:hover, .cta-btn:hover, .option-btn:hover { transform: translateY(-1px); }
+    .nav-btn:disabled { opacity: .5; cursor: not-allowed; }
+    .feedback { margin-top: 12px; border-radius: 12px; padding: 10px 12px; background: #f8fafc; border: 1px solid var(--border); }
+    .feedback.good { background: var(--ok-bg); color: var(--ok); border-color: #86efac; }
+    .feedback.bad { background: var(--bad-bg); color: var(--bad); border-color: #fca5a5; }
+    .complete { display: none; margin-top: 18px; background: var(--panel); border: 1px solid #dbe7ff; border-radius: 24px; padding: 28px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,.16); }
+    .small { font-size: .92rem; }
+    @media (max-width: 640px) {
+      .nav-row { flex-direction: column; }
+      .nav-btn { width: 100%; }
+    }
+  
+.cta-button a, .cta-button button { text-decoration:none !important; }
+</style>
+
+</head>
+<body data-course-file="701w295a6b.html" data-has-squeeze="0" spellcheck="true" style="background: linear-gradient(rgb(10, 35, 82) 0%, rgb(136, 25, 74) 100%);">
+  <div class="wrap">
+    
+    
+
+    <section class="intro-page" id="introPage" style="display: none;">
+      <section class="hero">
+        <div class="eyebrow">Interactive mini-course</div>
+        <h1>10 Powerful Phrases That Make Manipulation Harder</h1>
+        <p class="muted">Memorize These Statements to Prevent Being Manipulated or Controlled</p>
+      </section>
+
+      <section class="intro-card" id="introCard">
+        <div class="intro-divider"></div>
+        <p class="intro-message">Welcome! In this course, you'll build a clear understanding of 10 Powerful Phrases That Make Manipulation Harder, and by the end you'll be in a strong position to put a clear plan into action with confidence.</p>
+        <div class="course-time">
+          <span class="course-time-icon">◷</span>
+          <span class="course-time-value">40</span>
+          <span class="course-time-label">minutes</span>
+        </div>
+        <div class="intro-start-wrap">
+          <button class="nav-btn primary" onclick="beginCourse()">Let's Get Started - Click Here To Begin</button>
+        </div>
+      </section>
+    </section>
+
+    
+    <div class="progress-wrap" id="progressWrap" style="display: block;">
+      <div class="progress-bar"><div class="progress-fill" id="progressFill" style="background: rgb(136, 25, 74); width: 100%;"></div></div>
+      <div class="progress-text" id="progressText">Complete</div>
+    </div>
+
+    
+        <section class="lesson" data-index="0">
+          <div class="lesson-top">
+            <span class="step">Module 1</span>
+            <span class="lesson-counter">1 / 10</span>
+            <h2>"That's not what I said. Please don't change my words."</h2>
+            <p class="summary">Gain the confidence to correct others who twist your words to their advantage.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/that-s-not-what-i-said.-please-don-t-change-my-words..webp" data-export-src="images/that-s-not-what-i-said.-please-don-t-change-my-words..webp" alt="&quot;That's not what I said. Please don't change my words.&quot;" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Clarifies your actual message</li><li>Interrupts manipulative tactics early</li><li>Prevents escalation of misunderstandings</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 1</h3>
+            <p>Manipulators often twist what you say in order to paint you as unreasonable or to gain the upper hand. The phrase "That's not what I said. Please don't change my words." is a respectful but firm way to draw a line and correct the record. Using this phrase signals you’re paying close attention and value accuracy.</p><p>For example, if you say you’d prefer to wait before making a decision and someone responds, “So you don’t care about how I feel?”, you can reply with this phrase to bring the conversation back to the truth.</p><p>A common mistake is letting it slide out of politeness, hoping the truth will be obvious, but manipulators rely on you not speaking up. Instead, practice using this phrase calmly, without anger, simply to reset the conversation.</p><p>Next, notice how people react when you use it. Consistency is key—repeat the phrase as needed to reinforce your boundaries.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>Why is it effective to say, "That's not what I said. Please don't change my words" when dealing with manipulation?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">It keeps the conversation focused on what you actually said.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">It shows you are willing to apologize.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">It makes the manipulator feel guilty.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">It avoids confrontation by staying quiet.</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Say this to correct misrepresentation.</li><li>Firmly clarify your own words.</li><li>Don’t allow twisted versions of your statements to become the ‘truth’.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()" disabled="">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Next Module</button>
+          </div>
+        </section>
+        <section class="lesson" data-index="1">
+          <div class="lesson-top">
+            <span class="step">Module 2</span>
+            <span class="lesson-counter">2 / 10</span>
+            <h2>"You being upset doesn't automatically make me wrong."</h2>
+            <p class="summary">Learn how to resist emotional manipulation that equates your disagreement with being the bad person.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/you-being-upset-doesn-t-automatically-make-me-wrong..webp" data-export-src="images/you-being-upset-doesn-t-automatically-make-me-wrong..webp" alt="&quot;You being upset doesn't automatically make me wrong.&quot;" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Separates their feelings from your actions</li><li>Defuses guilt as a weapon</li><li>Maintains your personal boundaries</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 2</h3>
+            <p>Manipulators often try to make you feel responsible for their emotions, especially anger or sadness. By saying, "You being upset doesn't automatically make me wrong," you clarify that emotions don't determine right and wrong.</p><p>Imagine saying no to a favor, and the other person becomes upset, hoping you’ll cave in. Use this phrase to remind them—and yourself—that standing your ground isn’t wrong just because it disappoints someone.</p><p>A common misconception is that if someone is upset, you must have done something bad. This isn't true. It's okay for people to feel upset, but that doesn't obligate you to change your decision if you believe it's right for you.</p><p>After using this phrase, stay calm and repeat it if necessary. Focus on the issue, not their emotional reaction.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>What does the phrase "You being upset doesn't automatically make me wrong" accomplish in a manipulative situation?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">It makes the other person more upset.</button>
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">It acknowledges their emotions but keeps your boundaries clear.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">It escalates the disagreement.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">It admits you were wrong.</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>You're not responsible for others’ emotions.</li><li>Say this when someone is using feelings to control you.</li><li>Stay focused on your values and choices.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Next Module</button>
+          </div>
+        </section>
+        <section class="lesson" data-index="2">
+          <div class="lesson-top">
+            <span class="step">Module 3</span>
+            <span class="lesson-counter">3 / 10</span>
+            <h2>"I'm not making a decision while I'm being pressured."</h2>
+            <p class="summary">Discover how to pause decisions when facing coercion or urgency tactics.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/i-m-not-making-a-decision-while-i-m-being-pressured..webp" data-export-src="images/i-m-not-making-a-decision-while-i-m-being-pressured..webp" alt="&quot;I'm not making a decision while I'm being pressured.&quot;" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Reduces the manipulator’s control</li><li>Gives you time to think</li><li>Interrupts high-pressure strategies</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 3</h3>
+            <p>Manipulators will often try to push you into quick decisions, applying pressure or creating a false sense of urgency. The phrase, "I'm not making a decision while I'm being pressured," helps you regain space and clarity.</p><p>For example, if someone insists you say yes immediately—"If you don’t decide now, you’ll regret it"—use this phrase to step back. It firmly establishes that you won’t be rushed or bullied.</p><p>A mistake people sometimes make is agreeing just to relieve the discomfort. But pressured decisions usually benefit the manipulator, not you. Trust that it’s reasonable to take your time.</p><p>Next time you sense pressure, practice saying this phrase out loud. If the pressure increases, repeat your boundary and don’t engage until you’re ready.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>When should you use the phrase, "I'm not making a decision while I'm being pressured"?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">When you agree and want to proceed quickly.</button>
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">When you are being rushed and feel uncomfortable.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">When you want to make a surprise for someone.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">When you’re confident about your choice.</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Pause decisions when you feel forced.</li><li>Pressure is a manipulation tool.</li><li>This phrase buys you time and clarity.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Next Module</button>
+          </div>
+        </section>
+        <section class="lesson" data-index="3">
+          <div class="lesson-top">
+            <span class="step">Module 4</span>
+            <span class="lesson-counter">4 / 10</span>
+            <h2>"We remember that differently, and I'm not going to argue about my experience."</h2>
+            <p class="summary">Build resilience against gaslighting and revisionist conversations.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/we-remember-that-differently-and-i-m-not-going-to-argue-about-my-experience..webp" data-export-src="images/we-remember-that-differently-and-i-m-not-going-to-argue-about-my-experience..webp" alt="&quot;We remember that differently, and I'm not going to argue about my experience.&quot;" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Validates your own perspective</li><li>Prevents endless debates</li><li>Counters gaslighting strategies</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 4</h3>
+            <p>One subtle form of manipulation is gaslighting—making you question your own memory or experience. Saying, "We remember that differently, and I'm not going to argue about my experience," calmly asserts your reality without becoming defensive or trying to win the argument.</p><p>For instance, if someone insists an agreement was different than you recall, use this phrase instead of getting stuck in a back-and-forth. It stops the cycle and anchors your confidence.</p><p>A common mistake is believing you must prove yourself or win the argument to be justified. In fact, some differences can’t be resolved, and engaging only frustrates you more.</p><p>After using this phrase, disengage politely if needed. You’ve made your point and do not need to defend your memory further.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>What is the main benefit of saying, "We remember that differently, and I'm not going to argue about my experience"?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">It gives in to the other person’s version.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">It shows you are willing to fight about the past.</button>
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">It respectfully asserts your own reality and prevents gaslighting.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">It keeps you stuck in the argument.</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Trust your own experience.</li><li>Avoid endless arguments about memory.</li><li>Gaslighting loses power when you set this boundary.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Next Module</button>
+          </div>
+        </section>
+        <section class="lesson" data-index="4">
+          <div class="lesson-top">
+            <span class="step">Module 5</span>
+            <span class="lesson-counter">5 / 10</span>
+            <h2>"Guilt isn't going to change my answer."</h2>
+            <p class="summary">Figure out how to stay steady when manipulators apply guilt as a tactic.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/guilt-isn-t-going-to-change-my-answer..webp" data-export-src="images/guilt-isn-t-going-to-change-my-answer..webp" alt="&quot;Guilt isn't going to change my answer.&quot;" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Neutralizes guilt-based manipulation</li><li>Keeps your decisions clear</li><li>Empowers you to stay calm</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 5</h3>
+            <p>Manipulators frequently use guilt to sway your decisions—reminding you of past favors, emphasizing their sacrifices, or suggesting you’re selfish if you say no. The phrase, "Guilt isn't going to change my answer," calmly acknowledges and defuses these attempts without hostility.</p><p>Suppose someone says, "After all I’ve done for you, you can’t do this one thing for me?" Use this statement to make it clear your answer stands, regardless of guilt trips.</p><p>A common misconception is that refusing to feel guilty makes you unkind or cold. Remember, genuine relationships don’t rely on guilt as a motivator. Practice responding in a neutral voice to avoid getting drawn into emotional debates.</p><p>After using this phrase, redirect the conversation to your original point or pause if necessary. This maintains your boundary and reduces the manipulator’s power.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>When someone tries to guilt you into compliance, what's the key reason for using this phrase?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">To stop arguments before they start.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">To normalize manipulation.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">To show you don’t have feelings.</button>
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">To reinforce that your answer is based on your decision, not guilt.</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Recognize when guilt is used to control.</li><li>Gently but firmly resist guilt trips.</li><li>Clear decisions create stronger boundaries.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Next Module</button>
+          </div>
+        </section>
+        <section class="lesson" data-index="5">
+          <div class="lesson-top">
+            <span class="step">Module 6</span>
+            <span class="lesson-counter">6 / 10</span>
+            <h2>"I already answered you. Repeating the question won't change my decision."</h2>
+            <p class="summary">Handle repeated badgering and recognize persistence as manipulation.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/i-already-answered-you.-repeating-the-question-won-t-change-my-decision..webp" data-export-src="images/i-already-answered-you.-repeating-the-question-won-t-change-my-decision..webp" alt="&quot;I already answered you. Repeating the question won't change my decision.&quot;" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Identifies manipulative persistence</li><li>Reduces pressure to change your answer</li><li>Saves energy by ending repeated requests</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 6</h3>
+            <p>Manipulators often try to wear you down by asking the same question repeatedly, hoping you’ll eventually say yes. Saying, "I already answered you. Repeating the question won't change my decision," lets them know your boundary is firm and the tactic won’t work.</p><p>For example, if you’ve declined a request and they keep rephrasing it—"Are you sure? Can’t you reconsider?"—this phrase draws the line and stops the cycle.</p><p>A mistake is believing you must justify or explain your answer every time. In reality, repetition is a manipulation tactic to break your resolve, not an honest conversation.</p><p>Practice this phrase with a calm voice and neutral body language. If the person persists, end the conversation or change the subject to reinforce your decision.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>What does repeating your answer accomplish?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">It encourages the manipulator to keep going.</button>
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">It strengthens your boundary and shows persistence won't work.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">It shows you’re unsure.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">It confuses the other person.</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Recognize repeated questions as manipulation.</li><li>Clearly state your answer won’t change.</li><li>Sticking to your decision reduces pressure.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Next Module</button>
+          </div>
+        </section>
+        <section class="lesson" data-index="6">
+          <div class="lesson-top">
+            <span class="step">Module 7</span>
+            <span class="lesson-counter">7 / 10</span>
+            <h2>"You don't get to hurt me and then decide how I'm allowed to react."</h2>
+            <p class="summary">Stand strong when someone tries to control your response to their behavior.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/you-don-t-get-to-hurt-me-and-then-decide-how-i-m-allowed-to-react..webp" data-export-src="images/you-don-t-get-to-hurt-me-and-then-decide-how-i-m-allowed-to-react..webp" alt="&quot;You don't get to hurt me and then decide how I'm allowed to react.&quot;" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Asserts your right to respond authentically</li><li>Rejects control over your feelings</li><li>Halts blame-shifting tactics</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 7</h3>
+            <p>Manipulators may try to downplay their actions while dictating that you shouldn’t be upset or angry about them. By saying, "You don't get to hurt me and then decide how I'm allowed to react," you establish that your feelings are valid and deserve to be acknowledged.</p><p>If someone criticizes you and then says, "Don't be so sensitive," use this phrase to reject the attempt to control your emotional response. It makes clear that you won’t accept blame for simply reacting to being mistreated.</p><p>A mistake people sometimes make is suppressing their emotions to maintain peace, which can lead to resentment and further manipulation. Remember, you are allowed to feel and express your reactions.</p><p>Next, practice expressing your reactions calmly and assertively. If challenged, repeat the phrase to remind them your feelings are legitimate.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>Why is it important to use this phrase when someone minimizes your reaction?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">To suppress your own emotions.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">To accept blame easily.</button>
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">To remind them you have a right to your own emotions and reactions.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">To win the argument.</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>You control your own reactions.</li><li>Invalidation is a control tactic.</li><li>Expressing authentic feelings builds resilience.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Next Module</button>
+          </div>
+        </section>
+        <section class="lesson" data-index="7">
+          <div class="lesson-top">
+            <span class="step">Module 8</span>
+            <span class="lesson-counter">8 / 10</span>
+            <h2>"If saying no changes how you treat me, that tells me something important."</h2>
+            <p class="summary">Recognize manipulative punishment or withdrawal as a red flag.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/if-saying-no-changes-how-you-treat-me-that-tells-me-something-important..webp" data-export-src="images/if-saying-no-changes-how-you-treat-me-that-tells-me-something-important..webp" alt="&quot;If saying no changes how you treat me, that tells me something important.&quot;" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Identifies conditional relationships</li><li>Highlights unhealthy patterns</li><li>Promotes honest assessment of connections</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 8</h3>
+            <p>Manipulators may change their behavior toward you—such as giving you the silent treatment or acting cold—after you say no to their requests. By saying, "If saying no changes how you treat me, that tells me something important," you draw attention to this pattern and make it clear you’re aware of the manipulation.</p><p>For instance, if a friend gets distant every time you decline a favor, this phrase opens the door for honest conversation and self-reflection. It communicates that you notice and won’t ignore mistreatment.</p><p>A mistake is rationalizing or ignoring these shifts to keep the relationship running smoothly. But noticing these patterns is vital for healthy boundaries.</p><p>After using this phrase, observe future behavior and consider discussing or reevaluating the relationship if the pattern continues.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>What does it mean if someone treats you poorly after you say no?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">They always treat everyone that way.</button>
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">It's a sign of emotional manipulation.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">They didn't notice your answer.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">It's a sign of true friendship.</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Notice when no leads to punishment.</li><li>Name unhealthy relationship dynamics.</li><li>Awareness helps guide next steps.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Next Module</button>
+          </div>
+        </section>
+        <section class="lesson" data-index="8">
+          <div class="lesson-top">
+            <span class="step">Module 9</span>
+            <span class="lesson-counter">9 / 10</span>
+            <h2>"I'm going to think about this before I respond."</h2>
+            <p class="summary">Give yourself permission to pause and reflect before answering requests or pressure.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/i-m-going-to-think-about-this-before-i-respond..webp" data-export-src="images/i-m-going-to-think-about-this-before-i-respond..webp" alt="&quot;I'm going to think about this before I respond.&quot;" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Creates time for thoughtful responses</li><li>Reduces impulsive agreements</li><li>Empowers you to prioritize your needs</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 9</h3>
+            <p>It’s easy to feel pressured into giving an immediate answer, especially when you want to please others or avoid conflict. Saying, "I'm going to think about this before I respond," gives you space to evaluate the situation and decide what's truly best for you.</p><p>For example, if someone asks you to take on extra work or do a favor, don't rush to say yes or no. Use this phrase to buy yourself time without feeling guilty.</p><p>A misconception is that you appear indecisive or rude by not answering right away, but in reality, thoughtful responses are a sign of maturity and self-respect.</p><p>Next time you’re asked for something significant, practice saying this phrase, and use the time to check in with your feelings and priorities.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>Why should you use this phrase before agreeing to a request?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">To avoid responsibility.</button>
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">To give yourself space to make a decision without pressure.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">To annoy the other person.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">To seem unhelpful.</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>You have the right to time for decisions.</li><li>A pause reduces manipulation effectiveness.</li><li>Make choices aligned with your values.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Next Module</button>
+          </div>
+        </section>
+        <section class="lesson" data-index="9">
+          <div class="lesson-top">
+            <span class="step">Module 10</span>
+            <span class="lesson-counter">10 / 10</span>
+            <h2>"This conversation is going in circles, so I'm ending it here."</h2>
+            <p class="summary">Master the art of ending unproductive or manipulative dialogues.</p>
+          </div>
+
+          
+          <div class="module-image-wrap">
+            <img class="module-image" src="images/this-conversation-is-going-in-circles-so-i-m-ending-it-here..webp" data-export-src="images/this-conversation-is-going-in-circles-so-i-m-ending-it-here..webp" alt="&quot;This conversation is going in circles, so I'm ending it here.&quot;" data-editor-resizable="1">
+          </div>
+
+          <div class="box">
+            <h3>What you'll learn</h3>
+            <ul><li>Breaks the cycle of non-resolution</li><li>Prevents emotional exhaustion</li><li>Shows you control the engagement</li></ul>
+          </div>
+
+          <div class="box">
+            <h3>Module 10</h3>
+            <p>Manipulators often keep conversations going with no resolution, repeating arguments or shifting topics, hoping you’ll eventually give in. The phrase, "This conversation is going in circles, so I'm ending it here," gracefully signals that you recognize the pattern and are choosing to disengage.</p><p>Suppose someone keeps rehashing the same complaint or disagreement, hoping you'll change your answer. Use this phrase to close the loop and conserve your energy.</p><p>A mistake is feeling forced to continue endlessly for the sake of harmony. But you're allowed to end conversations when they become repetitive and unproductive.</p><p>After using this phrase, physically step away, change the subject, or otherwise disengage. This reinforces your boundary and prioritizes your wellbeing.</p>
+          </div>
+
+          
+          <div class="quiz">
+            <h4>Quick Check</h4>
+            <p>What is the main effect of ending a circular conversation?</p>
+            <div class="options">
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">It encourages more arguments.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">It takes away your power.</button>
+              
+                <button class="option-btn" data-correct="1" onclick="checkAnswer(this)">It protects your wellbeing and time.</button>
+              
+                <button class="option-btn" data-correct="0" onclick="checkAnswer(this)">It means you lose the debate.</button>
+              
+            </div>
+            <div class="feedback small">Choose an answer.</div>
+          </div>
+
+          
+          <div class="box recap">
+            <h3>Recap</h3>
+            <ul><li>Recognize endless arguments as manipulation.</li><li>Disengaging is healthy self-care.</li><li>Protect your time and emotional energy.</li></ul>
+          </div>
+
+          <div class="nav-row">
+            <button class="nav-btn" onclick="prevLesson()">Previous</button>
+            <button class="nav-btn primary" onclick="nextLesson()">Now Click Here To Complete This Course</button>
+          </div>
+        </section>
+
+    <section class="complete" id="completeCard" style="display: block;">
+      <h2>Course Complete</h2>
+      <p>Congratulations! You're now well-equipped to spot and stop manipulation in your life. Practice these phrases and reclaim your personal power.</p>
+      <p class="muted small">Use the button below to take the next step, or start over and run through the course again.</p>
+      <a class="cta-btn" style="text-decoration:none; margin-top: 18px; display:inline-block;" href="https://totalmindshift.com/free-trial/" target="_blank" rel="noopener noreferrer">Access lifelong daily audios. Free 7 day trial, no credit card required</a>
+      <div class="nav-row" style="justify-content:center; margin-top: 18px;">
+        <button class="nav-btn" onclick="restartCourse()">Start Over</button>
+      </div>
+      
+      <hr style="margin: 24px 0; border:0; border-top:1px solid #d1d5db;">
+      <p class="muted small" style="text-align:center; margin-bottom: 12px;">Download the information in this course to keep and refer back to</p>
+      <div style="text-align:center;">
+        <a class="cta-btn pdf-download-btn" style="text-decoration:none; display:inline-block;" href="course.pdf" target="_blank" rel="noopener noreferrer">Download a PDF of This Course Here</a>
+      </div>
+    </section>
+  </div>
+
+  <script id="courseRuntimeScript">
+    let currentLesson = 0;
+    const lessons = [...document.querySelectorAll('.lesson')];
+    const progressFill = document.getElementById('progressFill');
+    const progressText = document.getElementById('progressText');
+    const progressWrap = document.getElementById('progressWrap');
+    const completeCard = document.getElementById('completeCard');
+    const introPage = document.getElementById('introPage');
+    const squeezePage = document.getElementById('squeezePage');
+
+    function beginCourse() {
+      if (introPage) introPage.style.display = 'none';
+      if (squeezePage) squeezePage.style.display = 'none';
+      if (progressWrap) progressWrap.style.display = 'block';
+      completeCard.style.display = 'none';
+      renderLesson();
+    }
+
+    function renderLesson() {
+      lessons.forEach((lesson, index) => lesson.classList.toggle('active', index === currentLesson));
+      if (progressFill && progressText) {
+        const pct = ((currentLesson + 1) / lessons.length) * 100;
+        progressFill.style.width = pct + '%';
+        progressText.textContent = 'Module ' + (currentLesson + 1) + ' of ' + lessons.length;
+      }
+      completeCard.style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function nextLesson() {
+      if (currentLesson < lessons.length - 1) {
+        currentLesson += 1;
+        renderLesson();
+      } else {
+        lessons.forEach(l => l.classList.remove('active'));
+        if (progressFill && progressText) {
+          progressFill.style.width = '100%';
+          progressText.textContent = 'Complete';
+        }
+        completeCard.style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function prevLesson() {
+      if (currentLesson > 0) {
+        currentLesson -= 1;
+        renderLesson();
+      }
+    }
+
+    function resetQuiz(btn) {
+      const wrap = btn.closest('.quiz');
+      const feedback = wrap.querySelector('.feedback');
+      wrap.querySelectorAll('.option-btn').forEach(b => b.disabled = false);
+      feedback.textContent = 'Choose an answer.';
+      feedback.className = 'feedback small';
+      const retryBtn = wrap.querySelector('.retry-btn');
+      if (retryBtn) retryBtn.remove();
+    }
+
+    function checkAnswer(btn) {
+      const wrap = btn.closest('.quiz');
+      const feedback = wrap.querySelector('.feedback');
+      wrap.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+      const oldRetry = wrap.querySelector('.retry-btn');
+      if (oldRetry) oldRetry.remove();
+      if (btn.dataset.correct === '1') {
+        feedback.textContent = 'Correct.';
+        feedback.className = 'feedback good';
+      } else {
+        feedback.textContent = 'Not quite. Review the lesson and try again.';
+        feedback.className = 'feedback bad';
+        const retryBtn = document.createElement('button');
+        retryBtn.className = 'nav-btn retry-btn';
+        retryBtn.style.marginTop = '12px';
+        retryBtn.textContent = 'Start quiz again';
+        retryBtn.onclick = function() { resetQuiz(retryBtn); };
+        feedback.insertAdjacentElement('afterend', retryBtn);
+      }
+    }
+
+    function restartCourse() {
+      currentLesson = 0;
+      document.querySelectorAll('.quiz').forEach(wrap => {
+        const feedback = wrap.querySelector('.feedback');
+        wrap.querySelectorAll('.option-btn').forEach(b => b.disabled = false);
+        if (feedback) {
+          feedback.textContent = 'Choose an answer.';
+          feedback.className = 'feedback small';
+        }
+        const retryBtn = wrap.querySelector('.retry-btn');
+        if (retryBtn) retryBtn.remove();
+      });
+      lessons.forEach(l => l.classList.remove('active'));
+      if (introPage) introPage.style.display = 'block';
+      if (squeezePage) squeezePage.style.display = 'block';
+      if (progressWrap) progressWrap.style.display = 'none';
+      completeCard.style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    restartCourse();
+  </script>
+
+</body></html>
